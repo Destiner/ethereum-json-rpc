@@ -14,6 +14,11 @@ import '@fontsource/inter';
 
 <style>
 :root {
+  --color-bg-primary: #fff;
+  --color-bg-secondary: #f8f8f8;
+  --color-text-primary: #04111d;
+  --color-text-secondary: #384248;
+  --color-accent: #2181e2;
   --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
     segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
     sans-serif;
@@ -25,6 +30,8 @@ import '@fontsource/inter';
 }
 
 body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
 }
 
