@@ -15,6 +15,8 @@ import '@fontsource/inter';
   --color-border-primary: #e5e5e5;
   --color-border-secondary: #ccc;
   --color-accent: #2181e2;
+  --color-accent-dark: #1d73c9;
+  --color-error: #ff4d45;
   --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
     segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
     sans-serif;
