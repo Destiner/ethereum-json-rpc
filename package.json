@@ -1,5 +1,5 @@
 {
-  "name": "starter-app",
+  "name": "eth-api",
   "version": "1.0.0",
   "description": "Starter Vue app",
   "author": "Timur Badretdinov <destinerx@gmail.com>",
@@ -10,7 +10,7 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Destiner/starter-app.git"
+    "url": "git://github.com/Destiner/eth-api.git"
   },
   "scripts": {
     "build": "vite build",
