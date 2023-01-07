@@ -8,9 +8,13 @@
   </div>
 </template>
 
+<script lang="ts">
+import '@fontsource/inter';
+</script>
+
 <style>
 :root {
-  --font-sans: -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
+  --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
     segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
     sans-serif;
   --font-serif: 'Iowan Old Style', 'Apple Garamond', 'Baskerville',
