@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import '@fontsource/inter';
+import '@fontsource/inter/variable.css';
 </script>
 
 <style>
