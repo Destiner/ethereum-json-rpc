@@ -113,7 +113,7 @@ main {
 
 .method {
   display: flex;
-  gap: 16px;
+  gap: 32px;
   flex: 3;
   flex-direction: column;
   padding: 30px;
@@ -123,7 +123,7 @@ main {
 
 .method-header {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   flex-direction: column;
 }
 
