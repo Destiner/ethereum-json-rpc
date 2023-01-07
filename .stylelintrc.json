@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-vue",
+    "stylelint-config-property-sort-order-smacss"
+  ],
+  "rules": {
+    "string-quotes": "single",
+    "media-feature-name-allowed-list": ["min-width", "prefers-color-scheme"],
+    "declaration-colon-newline-after": null,
+    "value-list-comma-newline-after": null
+  }
+}

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [ 16.x, 18.x ]
+
+    steps:
+    - name: Use Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Clean install
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Type checking
+      run: npm run typecheck
+
+    - name: Build
+      run: npm run build
