@@ -24,6 +24,7 @@ import '@fontsource/inter';
 }
 
 body {
+  margin: 0;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
