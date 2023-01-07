@@ -22,6 +22,7 @@
     "typecheck": "npx tsc --noEmit && npx vue-tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/inter": "^4.5.14",
     "vue": "3.2.45",
     "vue-router": "4.1.6"
   },
