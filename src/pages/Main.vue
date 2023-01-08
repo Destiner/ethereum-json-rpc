@@ -119,6 +119,7 @@ main {
   flex: 1;
   flex-direction: column;
   padding: 15px 20px 10px;
+  overflow-x: auto;
 }
 
 .methods-filter {
@@ -138,6 +139,7 @@ main {
   display: flex;
   gap: 2px;
   flex-direction: column;
+  overflow-x: auto;
 }
 
 .method-item {
