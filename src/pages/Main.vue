@@ -57,7 +57,7 @@
               <input
                 v-model="inputs[index]"
                 class="method-param-value"
-                :class="{ invalid: !isValid[index] }"
+                :class="{ invalid: !isParamValid[index] }"
               />
             </div>
           </div>
@@ -74,6 +74,7 @@
         <div>
           <button
             class="execution-request-body"
+            :disabled="!isValid"
             @click="execute"
           >
             Execute
@@ -121,7 +122,10 @@ function selectMethod(method: Method): void {
 
 const inputs = ref<string[]>([]);
 
-const isValid = computed(() => validate(selectedMethod.value, inputs.value));
+const isParamValid = computed(() =>
+  validate(selectedMethod.value, inputs.value),
+);
+const isValid = computed(() => isParamValid.value.every((isValid) => isValid));
 
 const request = computed(() => {
   const request = {
@@ -420,5 +424,11 @@ main {
 
 .execution-request-body:hover {
   background: var(--color-accent-tertiary);
+}
+
+.execution-request-body:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 </style>
