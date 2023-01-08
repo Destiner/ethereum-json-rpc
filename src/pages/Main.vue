@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div>Eth API</div>
+    <div>Ethereum JSON RPC</div>
   </header>
   <main>
     <nav class="methods">
@@ -164,8 +164,9 @@ header {
   display: flex;
   align-items: center;
   height: 64px;
-  padding: 0 16px;
+  padding: 0 24px;
   border-bottom: 1px solid var(--color-border-primary);
+  font-weight: bold;
 }
 
 main {
