@@ -7,6 +7,19 @@
       :rows="10"
     />
     <div
+      class="control"
+      @click="copy"
+    >
+      <IconClipboard
+        v-if="ready"
+        class="icon"
+      />
+      <IconSuccess
+        v-else
+        class="icon"
+      />
+    </div>
+    <div
       v-if="isLoading"
       class="loading"
     >
@@ -16,12 +29,28 @@
 </template>
 
 <script setup lang="ts">
-import LoadingIndicator from './LoadingIndicator.vue';
+import { useTimeout } from '@vueuse/core';
+import { onMounted } from 'vue';
 
-defineProps<{
+import LoadingIndicator from './LoadingIndicator.vue';
+import IconClipboard from './icon/Clipboard.vue';
+import IconSuccess from './icon/Success.vue';
+
+const props = defineProps<{
   value: string;
   isLoading: boolean;
 }>();
+
+onMounted(() => {
+  stop();
+});
+
+const { ready, start, stop } = useTimeout(2000, { controls: true });
+
+function copy(): void {
+  navigator.clipboard.writeText(props.value);
+  start();
+}
 </script>
 
 <style scoped>
@@ -34,6 +63,7 @@ defineProps<{
 
 textarea {
   width: 100%;
+  margin: 0;
   padding: 8px;
   overflow-y: scroll;
   border: 1px solid var(--color-border-primary);
@@ -44,6 +74,22 @@ textarea {
   font-family: var(--font-mono);
   font-size: 12px;
   resize: none;
+}
+
+.control {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-secondary);
 }
 
 .loading {
