@@ -113,6 +113,7 @@ const selectedMethod = ref<Method>(METHOD_LIST[0]);
 
 function selectMethod(method: Method): void {
   selectedMethod.value = method;
+  isShown.value = false;
   resetParamInputs();
 }
 
@@ -140,13 +141,15 @@ async function execute(): Promise<void> {
     selectedMethod.value.id,
     inputs.value,
   );
+  isShown.value = true;
   isLoading.value = false;
 }
 
+const isShown = ref(false);
 const isLoading = ref(false);
 const result = ref('');
 const response = computed(() => {
-  return isLoading.value
+  return isLoading.value || !isShown.value
     ? ''
     : JSON.stringify(
         {
