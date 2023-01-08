@@ -53,7 +53,7 @@
                 *
               </div>
             </div>
-            <div>
+            <div v-if="param.type !== 'tuple'">
               <input class="method-param-value" />
             </div>
           </div>

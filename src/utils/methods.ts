@@ -1,10 +1,19 @@
-type ParamType = 'address' | 'int' | 'block';
+type ParamType = 'address' | 'hash' | 'int' | 'block';
 
-interface Param {
+interface SimpleParam {
   type: ParamType;
   name: string;
   isRequired: boolean;
 }
+
+interface TupleParam {
+  type: 'tuple';
+  name: string;
+  isRequired: boolean;
+  params: Param[];
+}
+
+type Param = SimpleParam | TupleParam;
 
 type MethodType = 'standard';
 
