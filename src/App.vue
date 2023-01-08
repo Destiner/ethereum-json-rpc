@@ -11,7 +11,7 @@ import '@fontsource/inter/variable.css';
   --color-bg-primary: #fff;
   --color-bg-secondary: #f8f8f8;
   --color-text-primary: #04111d;
-  --color-text-secondary: #384248;
+  --color-text-secondary: #3f4b52;
   --color-border-primary: #e5e5e5;
   --color-border-secondary: #b3b3b3;
   --color-accent: #2181e2;
