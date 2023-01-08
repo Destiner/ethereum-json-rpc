@@ -128,6 +128,8 @@ main {
   border: 1px solid var(--color-border-primary);
   border-radius: 4px;
   outline: none;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-size: 14px;
 }
 
@@ -259,6 +261,8 @@ main {
   border: 1px solid var(--color-border-primary);
   border-radius: 4px;
   outline: none;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-size: 14px;
   text-align: right;
 }
