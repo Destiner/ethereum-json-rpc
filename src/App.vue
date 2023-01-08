@@ -13,7 +13,7 @@ import '@fontsource/inter/variable.css';
   --color-text-primary: #04111d;
   --color-text-secondary: #384248;
   --color-border-primary: #e5e5e5;
-  --color-border-secondary: #ccc;
+  --color-border-secondary: #b3b3b3;
   --color-accent: #2181e2;
   --color-accent-light: #dfebf7;
   --color-accent-dark: #1d73c9;
