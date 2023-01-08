@@ -465,16 +465,6 @@ const LIST: Method[] = [
         name: 'topic3',
         isRequired: false,
       },
-      {
-        type: 'int',
-        name: 'value',
-        isRequired: false,
-      },
-      {
-        type: 'bytes',
-        name: 'data',
-        isRequired: false,
-      },
     ],
     formatter: (params): unknown[] => {
       const fromBlock = params[0];
@@ -484,16 +474,7 @@ const LIST: Method[] = [
       const topic1 = params[4];
       const topic2 = params[5];
       const topic3 = params[6];
-      const value = params[7];
-      const data = params[8];
-      return [
-        fromBlock,
-        toBlock,
-        contract,
-        [topic0, topic1, topic2, topic3],
-        value,
-        data,
-      ];
+      return [fromBlock, toBlock, contract, [topic0, topic1, topic2, topic3]];
     },
   },
 ];
