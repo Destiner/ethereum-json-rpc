@@ -54,7 +54,10 @@
               </div>
             </div>
             <div v-if="param.type !== 'tuple'">
-              <input class="method-param-value" />
+              <input
+                v-model="inputs[index]"
+                class="method-param-value"
+              />
             </div>
           </div>
         </div>
@@ -64,23 +67,37 @@
       <div class="execution-request">
         <div class="execution-request-label">Request</div>
         <div>
-          <button class="execution-request-body">Execute</button>
+          <button
+            class="execution-request-body"
+            @click="execute"
+          >
+            Execute
+          </button>
         </div>
       </div>
       <div class="execution-response">
         <div class="execution-response-label">Response</div>
-        <div class="execution-response-body">
-          { "jsonrpc":"2.0", "result":"0x44", "id":1 }
-        </div>
+        <textarea
+          v-model="response"
+          readonly
+          spellcheck="false"
+          :rows="10"
+          class="execution-response-body"
+        />
       </div>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { providers } from 'ethers';
+import { computed, onMounted, ref } from 'vue';
 
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
+
+onMounted(() => {
+  resetParamInputs();
+});
 
 const methodQuery = ref('');
 
@@ -94,9 +111,36 @@ const selectedMethod = ref<Method>(METHOD_LIST[0]);
 
 function selectMethod(method: Method): void {
   selectedMethod.value = method;
+  resetParamInputs();
+}
+
+const inputs = ref<string[]>([]);
+
+function resetParamInputs(): void {
+  inputs.value = [];
 }
 
 const hasParams = computed(() => selectedMethod.value.params.length > 0);
+
+async function execute(): Promise<void> {
+  const provider = new providers.InfuraProvider();
+  result.value = await (provider as providers.JsonRpcProvider).send(
+    selectedMethod.value.id,
+    inputs.value,
+  );
+}
+
+const result = ref('');
+const response = computed(() => {
+  return JSON.stringify(
+    {
+      jsonrpc: '2.0',
+      result: result.value,
+    },
+    null,
+    4,
+  );
+});
 </script>
 
 <style scoped>
@@ -309,10 +353,14 @@ main {
 
 .execution-response-body {
   padding: 8px;
+  overflow-y: scroll;
   border: 1px solid var(--color-border-primary);
   border-radius: 4px;
+  outline: none;
   background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
   font-family: var(--font-mono);
   font-size: 12px;
+  resize: none;
 }
 </style>
