@@ -9,30 +9,48 @@
         placeholder="Filter"
       />
       <div class="method-list">
-        <div class="method-item">eth_blockNumber</div>
-        <div class="method-item">eth_getBlockByNumber</div>
-        <div class="method-item">eth_getBlockByHash</div>
+        <div
+          v-for="method in METHOD_LIST"
+          :key="method.id"
+          class="method-item"
+          :class="{ selected: method.id === selectedMethod.id }"
+          @click="selectMethod(method)"
+        >
+          {{ method.id }}
+        </div>
       </div>
     </nav>
     <article class="method">
       <div class="method-header">
-        <h1 class="method-title">Get block number</h1>
+        <h1 class="method-title">{{ selectedMethod.name }}</h1>
         <div class="method-meta">
           <div class="method-type">Standard</div>
-          <div class="method-id">eth_blockNumber</div>
+          <div class="method-id">{{ selectedMethod.id }}</div>
         </div>
       </div>
       <div class="method-description">
-        Returns the number of the latest included block.
+        {{ selectedMethod.description }}
       </div>
-      <div class="method-params">
+      <div
+        v-if="hasParams"
+        class="method-params"
+      >
         <div class="method-param-header">Params</div>
         <div class="method-param-list">
-          <div class="method-param">
+          <div
+            v-for="(param, index) in selectedMethod.params"
+            :key="index"
+            class="method-param"
+          >
             <div class="method-param-meta">
-              <div class="method-param-name">number</div>
-              <div class="method-param-type">int</div>
-              <div class="method-param-required">*</div>
+              <div class="method-param-name">{{ param.name }}</div>
+              <div class="method-param-type">{{ param.type }}</div>
+              <div
+                v-if="param.isRequired"
+                class="method-param-required"
+              >
+                *
+              </div>
             </div>
             <div>
               <input class="method-param-value" />
@@ -57,6 +75,20 @@
     </div>
   </main>
 </template>
+
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+
+import { Method, LIST as METHOD_LIST } from '@/utils/methods';
+
+const selectedMethod = ref<Method>(METHOD_LIST[0]);
+
+function selectMethod(method: Method): void {
+  selectedMethod.value = method;
+}
+
+const hasParams = computed(() => selectedMethod.value.params.length > 0);
+</script>
 
 <style scoped>
 header {
@@ -109,6 +141,11 @@ main {
 .method-item:hover {
   background: var(--color-bg-secondary);
   cursor: pointer;
+}
+
+.method-item.selected {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
 }
 
 .method {
