@@ -7,18 +7,18 @@ type ParamType =
   | 'boolean'
   | 'block';
 
-interface SimpleParam {
-  type: ParamType;
+interface BaseParam {
   name: string;
   isArray: boolean;
   isRequired: boolean;
 }
 
-interface TupleParam {
+interface SimpleParam extends BaseParam {
+  type: ParamType;
+}
+
+interface TupleParam extends BaseParam {
   type: 'tuple';
-  name: string;
-  isArray: boolean;
-  isRequired: boolean;
   params: Param[];
 }
 
