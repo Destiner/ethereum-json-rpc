@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.14",
+    "ethers": "^5.7.2",
     "vue": "3.2.45",
     "vue-router": "4.1.6"
   },
