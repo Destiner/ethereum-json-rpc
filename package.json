@@ -1,5 +1,5 @@
 {
-  "name": "eth-api",
+  "name": "ethereum-json-rpc",
   "version": "1.0.0",
   "description": "Starter Vue app",
   "author": "Timur Badretdinov <destinerx@gmail.com>",
@@ -10,7 +10,7 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Destiner/eth-api.git"
+    "url": "git://github.com/Destiner/ethereum-json-rpc.git"
   },
   "scripts": {
     "build": "vite build",
