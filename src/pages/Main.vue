@@ -54,7 +54,10 @@
               </div>
             </div>
             <div v-if="param.type === 'boolean'">
-              <BaseToggle v-model="inputs[index]" />
+              <BaseToggle
+                :model-value="inputs[index] as boolean"
+                @update:model-value="(val) => handleInputUpdate(val, index)"
+              />
             </div>
             <div v-else-if="param.type !== 'tuple'">
               <input
@@ -125,6 +128,10 @@ function selectMethod(method: Method): void {
 }
 
 const inputs = ref<unknown[]>([]);
+
+function handleInputUpdate(param: unknown, index: number): void {
+  inputs.value[index] = param;
+}
 
 const isParamValid = computed(() =>
   validate(selectedMethod.value, inputs.value),
