@@ -53,7 +53,10 @@
                 *
               </div>
             </div>
-            <div v-if="param.type !== 'tuple'">
+            <div v-if="param.type === 'boolean'">
+              <BaseToggle v-model="inputs[index]" />
+            </div>
+            <div v-else-if="param.type !== 'tuple'">
               <input
                 v-model="inputs[index]"
                 class="method-param-value"
@@ -96,6 +99,7 @@
 import { providers } from 'ethers';
 import { computed, onMounted, ref } from 'vue';
 
+import BaseToggle from '@/components/BaseToggle.vue';
 import CodeView from '@/components/CodeView.vue';
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
 import validate from '@/utils/validation';
@@ -120,7 +124,7 @@ function selectMethod(method: Method): void {
   resetParamInputs();
 }
 
-const inputs = ref<string[]>([]);
+const inputs = ref<unknown[]>([]);
 
 const isParamValid = computed(() =>
   validate(selectedMethod.value, inputs.value),
