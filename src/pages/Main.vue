@@ -77,13 +77,21 @@
       </div>
       <div class="execution-response">
         <div class="execution-response-label">Response</div>
-        <textarea
-          v-model="response"
-          readonly
-          spellcheck="false"
-          :rows="10"
-          class="execution-response-body"
-        />
+        <div class="execution-response-body-wrapper">
+          <textarea
+            v-model="response"
+            readonly
+            spellcheck="false"
+            :rows="10"
+            class="execution-response-body"
+          />
+          <div
+            v-if="isLoading"
+            class="execution-response-loading"
+          >
+            <LoadingIndicator />
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -93,6 +101,7 @@
 import { providers } from 'ethers';
 import { computed, onMounted, ref } from 'vue';
 
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
 
 onMounted(() => {
@@ -123,23 +132,28 @@ function resetParamInputs(): void {
 const hasParams = computed(() => selectedMethod.value.params.length > 0);
 
 async function execute(): Promise<void> {
+  isLoading.value = true;
   const provider = new providers.InfuraProvider();
   result.value = await (provider as providers.JsonRpcProvider).send(
     selectedMethod.value.id,
     inputs.value,
   );
+  isLoading.value = false;
 }
 
+const isLoading = ref(false);
 const result = ref('');
 const response = computed(() => {
-  return JSON.stringify(
-    {
-      jsonrpc: '2.0',
-      result: result.value,
-    },
-    null,
-    4,
-  );
+  return isLoading.value
+    ? ''
+    : JSON.stringify(
+        {
+          jsonrpc: '2.0',
+          result: result.value,
+        },
+        null,
+        4,
+      );
 });
 </script>
 
@@ -351,7 +365,15 @@ main {
   background: var(--color-accent-dark);
 }
 
+.execution-response-body-wrapper {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
 .execution-response-body {
+  width: 100%;
   padding: 8px;
   overflow-y: scroll;
   border: 1px solid var(--color-border-primary);
@@ -362,5 +384,9 @@ main {
   font-family: var(--font-mono);
   font-size: 12px;
   resize: none;
+}
+
+.execution-response-loading {
+  position: absolute;
 }
 </style>
