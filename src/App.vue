@@ -14,9 +14,9 @@ import '@fontsource/inter/variable.css';
   --color-text-secondary: #3f4b52;
   --color-border-primary: #e5e5e5;
   --color-border-secondary: #b3b3b3;
-  --color-accent: #2181e2;
-  --color-accent-light: #dfebf7;
-  --color-accent-dark: #1d73c9;
+  --color-accent-primary: #bd21e2;
+  --color-accent-secondary: #f5ebf7;
+  --color-accent-tertiary: #a91dc9;
   --color-error: #ff4d45;
   --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
     segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
@@ -30,15 +30,15 @@ import '@fontsource/inter/variable.css';
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg-primary: #02070b;
-    --color-bg-secondary: #0e0f10;
-    --color-text-primary: #e5e5e5;
-    --color-text-secondary: #c0c0c0;
+    --color-bg-primary: #050105;
+    --color-bg-secondary: #141214;
+    --color-text-primary: #d9d9d9;
+    --color-text-secondary: #a6a6a6;
     --color-border-primary: #1f2226;
     --color-border-secondary: #333840;
-    --color-accent: #155493;
-    --color-accent-light: #17191a;
-    --color-accent-dark: #175a9d;
+    --color-accent-primary: #8c18a6;
+    --color-accent-secondary: #241d26;
+    --color-accent-tertiary: #84179d;
     --color-error: #992e29;
   }
 }

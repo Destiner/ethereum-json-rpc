@@ -222,14 +222,22 @@ main {
   display: flex;
   gap: 2px;
   flex-direction: column;
-  overflow-x: auto;
+}
+
+@media (min-width: 768px) {
+  .method-list {
+    overflow-x: auto;
+  }
 }
 
 .method-item {
-  padding: 4px;
+  padding: 4px 8px;
+  overflow: hidden;
   border-radius: 4px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .method-item:hover {
@@ -238,8 +246,7 @@ main {
 }
 
 .method-item.selected {
-  background: var(--color-accent-light);
-  color: var(--color-accent);
+  background: var(--color-accent-secondary);
 }
 
 .method {
@@ -394,13 +401,13 @@ main {
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
-  background: var(--color-accent);
+  background: var(--color-accent-primary);
   color: var(--color-bg-primary);
   font-weight: bold;
   cursor: pointer;
 }
 
 .execution-request-body:hover {
-  background: var(--color-accent-dark);
+  background: var(--color-accent-tertiary);
 }
 </style>
