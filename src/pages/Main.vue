@@ -170,8 +170,19 @@ header {
 }
 
 main {
+  --section-padding: 8px 12px;
+
   display: flex;
+  gap: 24px;
+  flex-direction: column;
   min-height: calc(100vh - 64px);
+}
+
+@media (min-width: 768px) {
+  main {
+    flex-direction: row;
+    gap: 0;
+  }
 }
 
 .methods {
@@ -179,8 +190,17 @@ main {
   gap: 8px;
   flex: 1;
   flex-direction: column;
-  padding: 15px 20px 10px;
+  max-height: 220px;
+  padding: var(--section-padding);
   overflow-x: auto;
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .methods {
+    max-height: initial;
+    padding: 15px 20px 10px;
+  }
 }
 
 .methods-filter {
@@ -227,9 +247,17 @@ main {
   gap: 32px;
   flex: 3;
   flex-direction: column;
-  padding: 30px;
-  border-right: 1px solid var(--color-border-primary);
-  border-left: 1px solid var(--color-border-primary);
+  padding: var(--section-padding);
+  border-top: 1px solid var(--color-border-primary);
+}
+
+@media (min-width: 768px) {
+  .method {
+    padding: 30px;
+    border-top: none;
+    border-right: 1px solid var(--color-border-primary);
+    border-left: 1px solid var(--color-border-primary);
+  }
 }
 
 .method-header {
@@ -337,7 +365,15 @@ main {
   gap: 16px;
   flex: 2;
   flex-direction: column;
-  padding: 15px 20px 10px;
+  padding: var(--section-padding);
+  border-top: 1px solid var(--color-border-primary);
+}
+
+@media (min-width: 768px) {
+  .execution {
+    padding: 15px 20px 10px;
+    border-top: none;
+  }
 }
 
 .execution-request,
