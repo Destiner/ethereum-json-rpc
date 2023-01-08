@@ -1,63 +1,72 @@
-import { Method } from './methods';
+import { Method, Param } from './methods';
 
 function validate(method: Method, inputs: unknown[]): boolean[] {
   const isValid: boolean[] = [];
   for (let i = 0; i < method.params.length; i++) {
     const param = method.params[i];
     const input = inputs[i];
-    if (param.type === 'boolean') {
-      isValid.push(typeof input === 'boolean');
-    }
+    isValid.push(validateParam(param, input));
+  }
+  return isValid;
+}
+
+function validateParam(param: Param, input: unknown): boolean {
+  if (param.type === 'boolean') {
+    return typeof input === 'boolean';
+  }
+  if (typeof input === 'string' && input === '') {
+    return !param.isRequired;
+  } else {
     if (param.type === 'int') {
       if (typeof input !== 'string') {
-        isValid.push(false);
+        return false;
       } else {
         const val = parseInt(input);
-        isValid.push(!isNaN(val) && val >= 0);
+        return !isNaN(val) && val >= 0;
       }
     }
     if (param.type === 'address') {
       if (typeof input !== 'string') {
-        isValid.push(false);
+        return false;
       } else {
-        isValid.push(isAddress(input));
+        return isAddress(input);
       }
     }
     if (param.type === 'hash') {
       if (typeof input !== 'string') {
-        isValid.push(false);
+        return false;
       } else {
-        isValid.push(isBytes32(input));
+        return isBytes32(input);
       }
     }
     if (param.type === 'bytes32') {
       if (typeof input !== 'string') {
-        isValid.push(false);
+        return false;
       } else {
-        isValid.push(isBytes32(input));
+        return isBytes32(input);
       }
     }
     if (param.type === 'bytes') {
       if (typeof input !== 'string') {
-        isValid.push(false);
+        return false;
       } else {
-        isValid.push(isBytes(input));
+        return isBytes(input);
       }
     }
     if (param.type === 'block') {
       if (typeof input !== 'string') {
-        isValid.push(false);
+        return false;
       } else {
         if (input === 'latest') {
-          isValid.push(true);
+          return true;
         } else {
           const val = parseInt(input);
-          isValid.push(!isNaN(val) && val >= 0 && val < 1e9);
+          return !isNaN(val) && val >= 0 && val < 1e9;
         }
       }
     }
   }
-  return isValid;
+  return false;
 }
 
 function isAddress(value: string): boolean {

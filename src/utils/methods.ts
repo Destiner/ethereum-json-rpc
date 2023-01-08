@@ -521,4 +521,4 @@ const LIST: Method[] = [
   },
 ];
 
-export { Method, LIST };
+export { Method, Param, LIST };
