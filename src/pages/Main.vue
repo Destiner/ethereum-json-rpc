@@ -66,6 +66,10 @@
     <div class="execution">
       <div class="execution-request">
         <div class="execution-request-label">Request</div>
+        <CodeView
+          :value="request"
+          :is-loading="false"
+        />
         <div>
           <button
             class="execution-request-body"
@@ -113,6 +117,15 @@ function selectMethod(method: Method): void {
 }
 
 const inputs = ref<string[]>([]);
+
+const request = computed(() => {
+  const request = {
+    jsonrpc: '2.0',
+    method: selectedMethod.value.id,
+    params: inputs.value,
+  };
+  return JSON.stringify(request, null, 4);
+});
 
 function resetParamInputs(): void {
   inputs.value = [];
