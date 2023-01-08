@@ -198,6 +198,11 @@ main {
   color: var(--color-text-secondary);
 }
 
+.method-description {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
 .method-params {
   display: flex;
   gap: 4px;
