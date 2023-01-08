@@ -77,21 +77,10 @@
       </div>
       <div class="execution-response">
         <div class="execution-response-label">Response</div>
-        <div class="execution-response-body-wrapper">
-          <textarea
-            v-model="response"
-            readonly
-            spellcheck="false"
-            :rows="10"
-            class="execution-response-body"
-          />
-          <div
-            v-if="isLoading"
-            class="execution-response-loading"
-          >
-            <LoadingIndicator />
-          </div>
-        </div>
+        <CodeView
+          :value="response"
+          :is-loading="isLoading"
+        />
       </div>
     </div>
   </main>
@@ -101,7 +90,7 @@
 import { providers } from 'ethers';
 import { computed, onMounted, ref } from 'vue';
 
-import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import CodeView from '@/components/CodeView.vue';
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
 
 onMounted(() => {
@@ -363,30 +352,5 @@ main {
 
 .execution-request-body:hover {
   background: var(--color-accent-dark);
-}
-
-.execution-response-body-wrapper {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-}
-
-.execution-response-body {
-  width: 100%;
-  padding: 8px;
-  overflow-y: scroll;
-  border: 1px solid var(--color-border-primary);
-  border-radius: 4px;
-  outline: none;
-  background: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  resize: none;
-}
-
-.execution-response-loading {
-  position: absolute;
 }
 </style>
