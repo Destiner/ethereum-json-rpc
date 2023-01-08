@@ -7,7 +7,7 @@
     "vue",
     "starter"
   ],
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/Destiner/ethereum-json-rpc.git"
