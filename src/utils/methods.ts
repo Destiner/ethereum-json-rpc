@@ -341,7 +341,7 @@ const LIST: Method[] = [
     description: 'Returns information about a block by block number.',
     params: [
       {
-        type: 'hash',
+        type: 'block',
         name: 'block',
         isArray: false,
         isRequired: true,
