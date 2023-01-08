@@ -5,12 +5,13 @@
   <main>
     <nav class="methods">
       <input
+        v-model="methodQuery"
         class="methods-filter"
         placeholder="Filter"
       />
       <div class="method-list">
         <div
-          v-for="method in METHOD_LIST"
+          v-for="method in availableMethods"
           :key="method.id"
           class="method-item"
           :class="{ selected: method.id === selectedMethod.id }"
@@ -80,6 +81,14 @@
 import { computed, ref } from 'vue';
 
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
+
+const methodQuery = ref('');
+
+const availableMethods = computed(() =>
+  METHOD_LIST.filter((method) =>
+    method.id.toLowerCase().includes(methodQuery.value.toLowerCase()),
+  ),
+);
 
 const selectedMethod = ref<Method>(METHOD_LIST[0]);
 
