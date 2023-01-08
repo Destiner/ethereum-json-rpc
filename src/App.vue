@@ -28,6 +28,21 @@ import '@fontsource/inter/variable.css';
     'Lucida Console', monospace;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #02070b;
+    --color-bg-secondary: #0e0f10;
+    --color-text-primary: #e5e5e5;
+    --color-text-secondary: #c0c0c0;
+    --color-border-primary: #141619;
+    --color-border-secondary: #292d33;
+    --color-accent: #155493;
+    --color-accent-light: #17191a;
+    --color-accent-dark: #175a9d;
+    --color-error: #992e29;
+  }
+}
+
 body {
   margin: 0;
   background: var(--color-bg-primary);
