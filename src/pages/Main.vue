@@ -57,6 +57,7 @@
               <input
                 v-model="inputs[index]"
                 class="method-param-value"
+                :class="{ invalid: !isValid[index] }"
               />
             </div>
           </div>
@@ -96,6 +97,7 @@ import { computed, onMounted, ref } from 'vue';
 
 import CodeView from '@/components/CodeView.vue';
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
+import validate from '@/utils/validation';
 
 onMounted(() => {
   resetParamInputs();
@@ -118,6 +120,8 @@ function selectMethod(method: Method): void {
 }
 
 const inputs = ref<string[]>([]);
+
+const isValid = computed(() => validate(selectedMethod.value, inputs.value));
 
 const request = computed(() => {
   const request = {
@@ -368,6 +372,10 @@ main {
 
 .method-param-value:focus {
   border: 1px solid var(--color-border-secondary);
+}
+
+.method-param-value.invalid {
+  border: 1px solid var(--color-error);
 }
 
 .execution {
