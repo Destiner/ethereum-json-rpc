@@ -7,7 +7,7 @@
       :rows="10"
     />
     <div
-      class="control"
+      class="clipboard"
       @click="copy"
     >
       <IconClipboard
@@ -76,7 +76,8 @@ textarea {
   resize: none;
 }
 
-.control {
+.clipboard {
+  display: none;
   position: absolute;
   top: 8px;
   right: 8px;
@@ -84,6 +85,14 @@ textarea {
   border: 1px solid var(--color-border-primary);
   border-radius: 4px;
   cursor: pointer;
+}
+
+.clipboard:hover {
+  border: 1px solid var(--color-border-secondary);
+}
+
+.wrapper:hover .clipboard {
+  display: initial;
 }
 
 .icon {
