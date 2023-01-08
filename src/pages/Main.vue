@@ -59,11 +59,12 @@
                 @update:model-value="(val) => handleInputUpdate(val, index)"
               />
             </div>
-            <div v-else-if="param.type !== 'tuple'">
+            <div v-else>
               <input
                 v-model="inputs[index]"
                 class="method-param-value"
                 :class="{ invalid: !isParamValid[index] }"
+                type="text"
               />
             </div>
           </div>
@@ -139,10 +140,13 @@ const isParamValid = computed(() =>
 const isValid = computed(() => isParamValid.value.every((isValid) => isValid));
 
 const request = computed(() => {
+  const formattedParams = selectedMethod.value?.formatter
+    ? selectedMethod.value?.formatter(inputs.value)
+    : inputs.value;
   const request = {
     jsonrpc: '2.0',
     method: selectedMethod.value.id,
-    params: inputs.value,
+    params: formattedParams,
   };
   return JSON.stringify(request, null, 4);
 });

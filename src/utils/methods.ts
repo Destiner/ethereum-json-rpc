@@ -7,22 +7,11 @@ type ParamType =
   | 'boolean'
   | 'block';
 
-interface BaseParam {
+interface Param {
+  type: ParamType;
   name: string;
-  isArray: boolean;
   isRequired: boolean;
 }
-
-interface SimpleParam extends BaseParam {
-  type: ParamType;
-}
-
-interface TupleParam extends BaseParam {
-  type: 'tuple';
-  params: Param[];
-}
-
-type Param = SimpleParam | TupleParam;
 
 type MethodType = 'standard';
 
@@ -32,6 +21,7 @@ interface Method {
   type: MethodType;
   description: string;
   params: Param[];
+  formatter?: (params: unknown[]) => unknown[];
 }
 
 const LIST: Method[] = [
@@ -58,13 +48,11 @@ const LIST: Method[] = [
       {
         type: 'address',
         name: 'account',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -79,19 +67,16 @@ const LIST: Method[] = [
       {
         type: 'address',
         name: 'contract',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'int',
         name: 'position',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -105,13 +90,11 @@ const LIST: Method[] = [
       {
         type: 'address',
         name: 'account',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -126,7 +109,6 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -141,7 +123,6 @@ const LIST: Method[] = [
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -156,7 +137,6 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -171,7 +151,6 @@ const LIST: Method[] = [
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -185,13 +164,11 @@ const LIST: Method[] = [
       {
         type: 'address',
         name: 'contract',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -204,56 +181,53 @@ const LIST: Method[] = [
       'Executes a new message call immediately without creating a transaction on the block chain.',
     params: [
       {
-        type: 'tuple',
-        name: 'contract',
-        isArray: false,
+        type: 'address',
+        name: 'from',
+        isRequired: false,
+      },
+      {
+        type: 'address',
+        name: 'to',
         isRequired: true,
-        params: [
-          {
-            type: 'address',
-            name: 'from',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'address',
-            name: 'to',
-            isArray: false,
-            isRequired: true,
-          },
-          {
-            type: 'int',
-            name: 'gas',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'int',
-            name: 'gasPrice',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'int',
-            name: 'value',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'bytes',
-            name: 'data',
-            isArray: false,
-            isRequired: false,
-          },
-        ],
+      },
+      {
+        type: 'int',
+        name: 'gas',
+        isRequired: false,
+      },
+      {
+        type: 'int',
+        name: 'gasPrice',
+        isRequired: false,
+      },
+      {
+        type: 'int',
+        name: 'value',
+        isRequired: false,
+      },
+      {
+        type: 'bytes',
+        name: 'data',
+        isRequired: false,
       },
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: false,
       },
     ],
+    formatter: (params): unknown[] => {
+      const call = {
+        from: params[0],
+        to: params[1],
+        gas: params[2],
+        gasPrice: params[3],
+        value: params[4],
+        data: params[5],
+      };
+      const block = params[6];
+      return [call, block];
+    },
   },
   {
     id: 'eth_estimateGas',
@@ -263,56 +237,53 @@ const LIST: Method[] = [
       'Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.',
     params: [
       {
-        type: 'tuple',
-        name: 'contract',
-        isArray: false,
-        isRequired: true,
-        params: [
-          {
-            type: 'address',
-            name: 'from',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'address',
-            name: 'to',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'int',
-            name: 'gas',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'int',
-            name: 'gasPrice',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'int',
-            name: 'value',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'bytes',
-            name: 'data',
-            isArray: false,
-            isRequired: false,
-          },
-        ],
+        type: 'address',
+        name: 'from',
+        isRequired: false,
+      },
+      {
+        type: 'address',
+        name: 'to',
+        isRequired: false,
+      },
+      {
+        type: 'int',
+        name: 'gas',
+        isRequired: false,
+      },
+      {
+        type: 'int',
+        name: 'gasPrice',
+        isRequired: false,
+      },
+      {
+        type: 'int',
+        name: 'value',
+        isRequired: false,
+      },
+      {
+        type: 'bytes',
+        name: 'data',
+        isRequired: false,
       },
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: false,
       },
     ],
+    formatter: (params): unknown[] => {
+      const call = {
+        from: params[0],
+        to: params[1],
+        gas: params[2],
+        gasPrice: params[3],
+        value: params[4],
+        data: params[5],
+      };
+      const block = params[6];
+      return [call, block];
+    },
   },
   {
     id: 'eth_getBlockByHash',
@@ -323,13 +294,11 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'boolean',
         name: 'isFull',
-        isArray: false,
         isRequired: false,
       },
     ],
@@ -343,13 +312,11 @@ const LIST: Method[] = [
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'boolean',
         name: 'isFull',
-        isArray: false,
         isRequired: false,
       },
     ],
@@ -364,7 +331,6 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'transaction',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -379,13 +345,11 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'int',
         name: 'index',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -400,13 +364,11 @@ const LIST: Method[] = [
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'int',
         name: 'index',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -420,7 +382,6 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'transaction',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -435,13 +396,11 @@ const LIST: Method[] = [
       {
         type: 'hash',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'int',
         name: 'index',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -456,13 +415,11 @@ const LIST: Method[] = [
       {
         type: 'block',
         name: 'block',
-        isArray: false,
         isRequired: true,
       },
       {
         type: 'int',
         name: 'index',
-        isArray: false,
         isRequired: true,
       },
     ],
@@ -474,50 +431,70 @@ const LIST: Method[] = [
     description: 'Returns an array of all logs matching a given filter object.',
     params: [
       {
-        type: 'tuple',
-        name: 'filter',
-        isArray: false,
-        isRequired: true,
-        params: [
-          {
-            type: 'block',
-            name: 'fromBlock',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'block',
-            name: 'toBlock',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'address',
-            name: 'contract',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'bytes32',
-            name: 'topics',
-            isArray: true,
-            isRequired: false,
-          },
-          {
-            type: 'int',
-            name: 'value',
-            isArray: false,
-            isRequired: false,
-          },
-          {
-            type: 'bytes',
-            name: 'data',
-            isArray: false,
-            isRequired: false,
-          },
-        ],
+        type: 'block',
+        name: 'fromBlock',
+        isRequired: false,
+      },
+      {
+        type: 'block',
+        name: 'toBlock',
+        isRequired: false,
+      },
+      {
+        type: 'address',
+        name: 'contract',
+        isRequired: false,
+      },
+      {
+        type: 'bytes32',
+        name: 'topic0',
+        isRequired: false,
+      },
+      {
+        type: 'bytes32',
+        name: 'topic1',
+        isRequired: false,
+      },
+      {
+        type: 'bytes32',
+        name: 'topic2',
+        isRequired: false,
+      },
+      {
+        type: 'bytes32',
+        name: 'topic3',
+        isRequired: false,
+      },
+      {
+        type: 'int',
+        name: 'value',
+        isRequired: false,
+      },
+      {
+        type: 'bytes',
+        name: 'data',
+        isRequired: false,
       },
     ],
+    formatter: (params): unknown[] => {
+      const fromBlock = params[0];
+      const toBlock = params[1];
+      const contract = params[2];
+      const topic0 = params[3];
+      const topic1 = params[4];
+      const topic2 = params[5];
+      const topic3 = params[6];
+      const value = params[7];
+      const data = params[8];
+      return [
+        fromBlock,
+        toBlock,
+        contract,
+        [topic0, topic1, topic2, topic3],
+        value,
+        data,
+      ];
+    },
   },
 ];
 
