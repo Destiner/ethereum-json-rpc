@@ -273,6 +273,10 @@ main {
   font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .method-item:hover {

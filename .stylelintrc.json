@@ -7,6 +7,12 @@
   "rules": {
     "string-quotes": "single",
     "media-feature-name-allowed-list": ["min-width", "prefers-color-scheme"],
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": ["user-select"]
+      }
+    ],
     "declaration-colon-newline-after": null,
     "value-list-comma-newline-after": null
   }
