@@ -152,7 +152,16 @@ const request = computed(() => {
 });
 
 function resetParamInputs(): void {
-  inputs.value = [];
+  const newInputs = [];
+  for (const param of selectedMethod.value.params) {
+    const input = param.isRequired
+      ? param.default
+      : param.type === 'boolean'
+      ? false
+      : '';
+    newInputs.push(input);
+  }
+  inputs.value = newInputs;
 }
 
 const hasParams = computed(() => selectedMethod.value.params.length > 0);

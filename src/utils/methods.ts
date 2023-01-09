@@ -7,11 +7,21 @@ type ParamType =
   | 'boolean'
   | 'block';
 
-interface Param {
+interface OptionalParam {
+  isRequired: false;
+}
+
+interface RequiredParam {
+  isRequired: true;
+  default: unknown;
+}
+
+type OptionalOrRequiredParam = OptionalParam | RequiredParam;
+
+type Param = OptionalOrRequiredParam & {
   type: ParamType;
   name: string;
-  isRequired: boolean;
-}
+};
 
 type MethodType = 'standard';
 
@@ -23,6 +33,13 @@ interface Method {
   params: Param[];
   formatter?: (params: unknown[]) => unknown[];
 }
+
+const SAMPLE_BLOCK_HASH =
+  '0x21c3ac17a523528af506a37601fcb1c81d029f8b68dc63cd094f72767acdfd13';
+const SAMPLE_TRANSACTION_HASH =
+  '0x05f71e1b2cb4f03e547739db15d080fd30c989eda04d37ce6264c5686e0722c9';
+const SAMPLE_ADDRESS = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+const SAMPLE_CONTRACT = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
 
 const LIST: Method[] = [
   {
@@ -49,11 +66,13 @@ const LIST: Method[] = [
         type: 'address',
         name: 'account',
         isRequired: true,
+        default: SAMPLE_ADDRESS,
       },
       {
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
     ],
   },
@@ -68,16 +87,19 @@ const LIST: Method[] = [
         type: 'address',
         name: 'contract',
         isRequired: true,
+        default: SAMPLE_CONTRACT,
       },
       {
         type: 'int',
         name: 'position',
         isRequired: true,
+        default: '0',
       },
       {
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
     ],
   },
@@ -91,11 +113,13 @@ const LIST: Method[] = [
         type: 'address',
         name: 'account',
         isRequired: true,
+        default: SAMPLE_ADDRESS,
       },
       {
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
     ],
   },
@@ -110,6 +134,7 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'block',
         isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
       },
     ],
   },
@@ -124,6 +149,7 @@ const LIST: Method[] = [
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
     ],
   },
@@ -138,6 +164,7 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'block',
         isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
       },
     ],
   },
@@ -152,6 +179,7 @@ const LIST: Method[] = [
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
     ],
   },
@@ -165,11 +193,13 @@ const LIST: Method[] = [
         type: 'address',
         name: 'contract',
         isRequired: true,
+        default: SAMPLE_CONTRACT,
       },
       {
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
     ],
   },
@@ -189,6 +219,7 @@ const LIST: Method[] = [
         type: 'address',
         name: 'to',
         isRequired: true,
+        default: SAMPLE_CONTRACT,
       },
       {
         type: 'int',
@@ -295,6 +326,7 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'block',
         isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
       },
       {
         type: 'boolean',
@@ -313,6 +345,7 @@ const LIST: Method[] = [
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
       {
         type: 'boolean',
@@ -332,6 +365,7 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'transaction',
         isRequired: true,
+        default: SAMPLE_TRANSACTION_HASH,
       },
     ],
   },
@@ -346,11 +380,13 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'block',
         isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
       },
       {
         type: 'int',
         name: 'index',
         isRequired: true,
+        default: '0',
       },
     ],
   },
@@ -365,11 +401,13 @@ const LIST: Method[] = [
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
       {
         type: 'int',
         name: 'index',
         isRequired: true,
+        default: '0',
       },
     ],
   },
@@ -383,6 +421,7 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'transaction',
         isRequired: true,
+        default: SAMPLE_TRANSACTION_HASH,
       },
     ],
   },
@@ -397,11 +436,13 @@ const LIST: Method[] = [
         type: 'hash',
         name: 'block',
         isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
       },
       {
         type: 'int',
         name: 'index',
         isRequired: true,
+        default: '0',
       },
     ],
   },
@@ -416,11 +457,13 @@ const LIST: Method[] = [
         type: 'block',
         name: 'block',
         isRequired: true,
+        default: 'latest',
       },
       {
         type: 'int',
         name: 'index',
         isRequired: true,
+        default: '0',
       },
     ],
   },
