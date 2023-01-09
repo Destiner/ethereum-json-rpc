@@ -57,7 +57,9 @@ function validateParam(param: Param, input: unknown): boolean {
       if (typeof input !== 'string') {
         return false;
       } else {
-        if (input === 'latest') {
+        if (
+          ['earliest', 'finalized', 'safe', 'latest', 'pending'].includes(input)
+        ) {
           return true;
         } else {
           const val = parseInt(input);
