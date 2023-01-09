@@ -2,7 +2,7 @@
   <router-view />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import '@fontsource/inter/variable.css';
 </script>
 
