@@ -129,6 +129,25 @@ function selectMethod(method: Method): void {
 }
 
 const inputs = ref<unknown[]>([]);
+const formattedInputs = computed(() => {
+  const convertedInputs = inputs.value.map((input, index) => {
+    if (input === '') {
+      return null;
+    }
+    const param = selectedMethod.value.params[index];
+    if (
+      param.type === 'int' ||
+      (param.type === 'block' && !isNaN(parseInt(input as string)))
+    ) {
+      // Convert to hex
+      return `0x${new Number(parseInt(input as string)).toString(16)}`;
+    }
+    return input;
+  });
+  return selectedMethod.value?.formatter
+    ? selectedMethod.value?.formatter(convertedInputs)
+    : convertedInputs;
+});
 
 function handleInputUpdate(param: unknown, index: number): void {
   inputs.value[index] = param;
@@ -140,13 +159,10 @@ const isParamValid = computed(() =>
 const isValid = computed(() => isParamValid.value.every((isValid) => isValid));
 
 const request = computed(() => {
-  const formattedParams = selectedMethod.value?.formatter
-    ? selectedMethod.value?.formatter(inputs.value)
-    : inputs.value;
   const request = {
     jsonrpc: '2.0',
     method: selectedMethod.value.id,
-    params: formattedParams,
+    params: formattedInputs.value,
   };
   return JSON.stringify(request, null, 4);
 });
@@ -171,7 +187,7 @@ async function execute(): Promise<void> {
   const provider = new providers.InfuraProvider();
   result.value = await (provider as providers.JsonRpcProvider).send(
     selectedMethod.value.id,
-    inputs.value,
+    formattedInputs.value,
   );
   isShown.value = true;
   isLoading.value = false;
