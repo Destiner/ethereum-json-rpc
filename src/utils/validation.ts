@@ -80,8 +80,9 @@ function isBytes32(value: string): boolean {
 }
 
 function isBytes(value: string): boolean {
-  const hashRegex = /^0x[0-9a-f]+$/;
-  return !!value.match(hashRegex);
+  const hashRegex = /^0x[0-9a-f]*$/;
+  const hasEvenByteNum = value.length % 2 === 0;
+  return !!value.match(hashRegex) && hasEvenByteNum;
 }
 
 export default validate;
