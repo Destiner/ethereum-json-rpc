@@ -244,7 +244,8 @@ const LIST: Method[] = [
       {
         type: 'block',
         name: 'block',
-        isRequired: false,
+        isRequired: true,
+        default: 'latest',
       },
     ],
     formatter: (params): unknown[] => {
