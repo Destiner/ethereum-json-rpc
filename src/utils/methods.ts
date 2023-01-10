@@ -91,9 +91,8 @@ const LIST: Method[] = [
       },
       {
         type: 'int',
-        name: 'position',
-        isRequired: true,
-        default: '0',
+        name: 'slot',
+        isRequired: false,
       },
       {
         type: 'block',
