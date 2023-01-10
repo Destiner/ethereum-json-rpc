@@ -43,10 +43,10 @@ const SAMPLE_CONTRACT = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
 
 const LIST: Method[] = [
   {
-    id: 'eth_gasPrice',
-    name: 'Get gas price',
+    id: 'eth_chainId',
+    name: 'Chain ID',
     type: 'standard',
-    description: 'Returns the current price per gas in wei.',
+    description: 'Returns the chain ID of the current network.',
     params: [],
   },
   {
@@ -57,10 +57,10 @@ const LIST: Method[] = [
     params: [],
   },
   {
-    id: 'eth_chainId',
-    name: 'Chain ID',
+    id: 'eth_gasPrice',
+    name: 'Get gas price',
     type: 'standard',
-    description: 'Returns the chain ID of the current network.',
+    description: 'Returns the current price per gas in wei.',
     params: [],
   },
   {
@@ -91,6 +91,26 @@ const LIST: Method[] = [
     ],
   },
   {
+    id: 'eth_getCode',
+    name: 'Get contract code',
+    type: 'standard',
+    description: 'Returns code at a given address.',
+    params: [
+      {
+        type: 'addr',
+        name: 'contract',
+        isRequired: true,
+        default: SAMPLE_CONTRACT,
+      },
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+    ],
+  },
+  {
     id: 'eth_getStorageAt',
     name: 'Get contract storage',
     type: 'standard',
@@ -107,106 +127,6 @@ const LIST: Method[] = [
         type: 'int',
         name: 'slot',
         isRequired: false,
-      },
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-    ],
-  },
-  {
-    id: 'eth_getTransactionCount',
-    name: 'Get transaction count',
-    type: 'standard',
-    description: 'Returns the number of transactions sent from an address.',
-    params: [
-      {
-        type: 'addr',
-        name: 'account',
-        isRequired: true,
-        default: SAMPLE_ADDRESS,
-      },
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-    ],
-  },
-  {
-    id: 'eth_getBlockTransactionCountByHash',
-    name: 'Get transaction count, by hash',
-    type: 'standard',
-    description:
-      'Returns the number of transactions in a block from a block matching the given block hash.',
-    params: [
-      {
-        type: 'hash',
-        name: 'block',
-        isRequired: true,
-        default: SAMPLE_BLOCK_HASH,
-      },
-    ],
-  },
-  {
-    id: 'eth_getBlockTransactionCountByNumber',
-    name: 'Get transaction count, by number',
-    type: 'standard',
-    description:
-      'Returns the number of transactions in a block matching the given block number.',
-    params: [
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-    ],
-  },
-  {
-    id: 'eth_getUncleCountByBlockHash',
-    name: 'Get uncle count, by hash',
-    type: 'standard',
-    description:
-      'Returns the number of uncles in a block from a block matching the given block hash.',
-    params: [
-      {
-        type: 'hash',
-        name: 'block',
-        isRequired: true,
-        default: SAMPLE_BLOCK_HASH,
-      },
-    ],
-  },
-  {
-    id: 'eth_getUncleCountByBlockNumber',
-    name: 'Get uncle count, by number',
-    type: 'standard',
-    description:
-      'Returns the number of uncles in a block from a block matching the given block number.',
-    params: [
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-    ],
-  },
-  {
-    id: 'eth_getCode',
-    name: 'Get contract code',
-    type: 'standard',
-    description: 'Returns code at a given address.',
-    params: [
-      {
-        type: 'addr',
-        name: 'contract',
-        isRequired: true,
-        default: SAMPLE_CONTRACT,
       },
       {
         type: 'block',
@@ -331,157 +251,6 @@ const LIST: Method[] = [
     },
   },
   {
-    id: 'eth_getBlockByHash',
-    name: 'Get block, by hash',
-    type: 'standard',
-    description: 'Returns information about a block by hash.',
-    params: [
-      {
-        type: 'hash',
-        name: 'block',
-        isRequired: true,
-        default: SAMPLE_BLOCK_HASH,
-      },
-      {
-        type: 'boolean',
-        name: 'isFull',
-        isRequired: false,
-      },
-    ],
-  },
-  {
-    id: 'eth_getBlockByNumber',
-    name: 'Get block, by number',
-    type: 'standard',
-    description: 'Returns information about a block by block number.',
-    params: [
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-      {
-        type: 'boolean',
-        name: 'isFull',
-        isRequired: false,
-      },
-    ],
-  },
-  {
-    id: 'eth_getTransactionByHash',
-    name: 'Get transaction, by number',
-    type: 'standard',
-    description:
-      'Returns the information about a transaction requested by transaction hash.',
-    params: [
-      {
-        type: 'hash',
-        name: 'transaction',
-        isRequired: true,
-        default: SAMPLE_TRANSACTION_HASH,
-      },
-    ],
-  },
-  {
-    id: 'eth_getTransactionByBlockHashAndIndex',
-    name: 'Get transaction, by block hash and index',
-    type: 'standard',
-    description:
-      'Returns information about a transaction by block hash and transaction index position.',
-    params: [
-      {
-        type: 'hash',
-        name: 'block',
-        isRequired: true,
-        default: SAMPLE_BLOCK_HASH,
-      },
-      {
-        type: 'int',
-        name: 'index',
-        isRequired: true,
-        default: '0',
-      },
-    ],
-  },
-  {
-    id: 'eth_getTransactionByBlockNumberAndIndex',
-    name: 'Get transaction, by block number and index',
-    type: 'standard',
-    description:
-      'Returns information about a transaction by block number and transaction index position.',
-    params: [
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-      {
-        type: 'int',
-        name: 'index',
-        isRequired: true,
-        default: '0',
-      },
-    ],
-  },
-  {
-    id: 'eth_getTransactionReceipt',
-    name: 'Get transaction receipt',
-    type: 'standard',
-    description: 'Returns the receipt of a transaction by transaction hash.',
-    params: [
-      {
-        type: 'hash',
-        name: 'transaction',
-        isRequired: true,
-        default: SAMPLE_TRANSACTION_HASH,
-      },
-    ],
-  },
-  {
-    id: 'eth_getUncleByBlockHashAndIndex',
-    name: 'Get uncle, by block hash and index',
-    type: 'standard',
-    description:
-      'Returns information about a uncle of a block by hash and uncle index position.',
-    params: [
-      {
-        type: 'hash',
-        name: 'block',
-        isRequired: true,
-        default: SAMPLE_BLOCK_HASH,
-      },
-      {
-        type: 'int',
-        name: 'index',
-        isRequired: true,
-        default: '0',
-      },
-    ],
-  },
-  {
-    id: 'eth_getUncleByBlockNumberAndIndex',
-    name: 'Get uncle, by block number and index',
-    type: 'standard',
-    description:
-      'Returns information about a uncle of a block by number and uncle index position.',
-    params: [
-      {
-        type: 'block',
-        name: 'block',
-        isRequired: true,
-        default: 'latest',
-      },
-      {
-        type: 'int',
-        name: 'index',
-        isRequired: true,
-        default: '0',
-      },
-    ],
-  },
-  {
     id: 'eth_getLogs',
     name: 'Get logs',
     type: 'standard',
@@ -540,6 +309,237 @@ const LIST: Method[] = [
         },
       ];
     },
+  },
+  {
+    id: 'eth_getTransactionCount',
+    name: 'Get transaction count',
+    type: 'standard',
+    description: 'Returns the number of transactions sent from an address.',
+    params: [
+      {
+        type: 'addr',
+        name: 'account',
+        isRequired: true,
+        default: SAMPLE_ADDRESS,
+      },
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+    ],
+  },
+  {
+    id: 'eth_getBlockByNumber',
+    name: 'Get block, by number',
+    type: 'standard',
+    description: 'Returns information about a block by block number.',
+    params: [
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+      {
+        type: 'boolean',
+        name: 'isFull',
+        isRequired: false,
+      },
+    ],
+  },
+  {
+    id: 'eth_getBlockByHash',
+    name: 'Get block, by hash',
+    type: 'standard',
+    description: 'Returns information about a block by hash.',
+    params: [
+      {
+        type: 'hash',
+        name: 'block',
+        isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
+      },
+      {
+        type: 'boolean',
+        name: 'isFull',
+        isRequired: false,
+      },
+    ],
+  },
+  {
+    id: 'eth_getBlockTransactionCountByNumber',
+    name: 'Get transaction count, by number',
+    type: 'standard',
+    description:
+      'Returns the number of transactions in a block matching the given block number.',
+    params: [
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+    ],
+  },
+  {
+    id: 'eth_getBlockTransactionCountByHash',
+    name: 'Get transaction count, by hash',
+    type: 'standard',
+    description:
+      'Returns the number of transactions in a block from a block matching the given block hash.',
+    params: [
+      {
+        type: 'hash',
+        name: 'block',
+        isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
+      },
+    ],
+  },
+  {
+    id: 'eth_getUncleCountByBlockNumber',
+    name: 'Get uncle count, by number',
+    type: 'standard',
+    description:
+      'Returns the number of uncles in a block from a block matching the given block number.',
+    params: [
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+    ],
+  },
+  {
+    id: 'eth_getUncleCountByBlockHash',
+    name: 'Get uncle count, by hash',
+    type: 'standard',
+    description:
+      'Returns the number of uncles in a block from a block matching the given block hash.',
+    params: [
+      {
+        type: 'hash',
+        name: 'block',
+        isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
+      },
+    ],
+  },
+  {
+    id: 'eth_getTransactionByHash',
+    name: 'Get transaction, by number',
+    type: 'standard',
+    description:
+      'Returns the information about a transaction requested by transaction hash.',
+    params: [
+      {
+        type: 'hash',
+        name: 'transaction',
+        isRequired: true,
+        default: SAMPLE_TRANSACTION_HASH,
+      },
+    ],
+  },
+  {
+    id: 'eth_getTransactionByBlockNumberAndIndex',
+    name: 'Get transaction, by block number and index',
+    type: 'standard',
+    description:
+      'Returns information about a transaction by block number and transaction index position.',
+    params: [
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+      {
+        type: 'int',
+        name: 'index',
+        isRequired: true,
+        default: '0',
+      },
+    ],
+  },
+  {
+    id: 'eth_getTransactionByBlockHashAndIndex',
+    name: 'Get transaction, by block hash and index',
+    type: 'standard',
+    description:
+      'Returns information about a transaction by block hash and transaction index position.',
+    params: [
+      {
+        type: 'hash',
+        name: 'block',
+        isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
+      },
+      {
+        type: 'int',
+        name: 'index',
+        isRequired: true,
+        default: '0',
+      },
+    ],
+  },
+  {
+    id: 'eth_getTransactionReceipt',
+    name: 'Get transaction receipt',
+    type: 'standard',
+    description: 'Returns the receipt of a transaction by transaction hash.',
+    params: [
+      {
+        type: 'hash',
+        name: 'transaction',
+        isRequired: true,
+        default: SAMPLE_TRANSACTION_HASH,
+      },
+    ],
+  },
+  {
+    id: 'eth_getUncleByBlockNumberAndIndex',
+    name: 'Get uncle, by block number and index',
+    type: 'standard',
+    description:
+      'Returns information about a uncle of a block by number and uncle index position.',
+    params: [
+      {
+        type: 'block',
+        name: 'block',
+        isRequired: true,
+        default: 'latest',
+      },
+      {
+        type: 'int',
+        name: 'index',
+        isRequired: true,
+        default: '0',
+      },
+    ],
+  },
+  {
+    id: 'eth_getUncleByBlockHashAndIndex',
+    name: 'Get uncle, by block hash and index',
+    type: 'standard',
+    description:
+      'Returns information about a uncle of a block by hash and uncle index position.',
+    params: [
+      {
+        type: 'hash',
+        name: 'block',
+        isRequired: true,
+        default: SAMPLE_BLOCK_HASH,
+      },
+      {
+        type: 'int',
+        name: 'index',
+        isRequired: true,
+        default: '0',
+      },
+    ],
   },
 ];
 
