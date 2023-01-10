@@ -40,7 +40,7 @@ import '@fontsource/inter/variable.css';
     --color-border-secondary: #333840;
     --color-accent-primary: #8c18a6;
     --color-accent-secondary: #241d26;
-    --color-accent-tertiary: #84179d;
+    --color-accent-tertiary: #7c1694;
     --color-error: #992e29;
   }
 }
