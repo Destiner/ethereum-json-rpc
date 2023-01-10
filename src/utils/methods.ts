@@ -64,6 +64,13 @@ const LIST: Method[] = [
     params: [],
   },
   {
+    id: 'eth_maxPriorityFeePerGas',
+    name: 'Get maximum priority fee',
+    type: 'standard',
+    description: 'Returns the current maxPriorityFeePerGas per gas in wei.',
+    params: [],
+  },
+  {
     id: 'eth_getBalance',
     name: 'Get balance',
     type: 'standard',
