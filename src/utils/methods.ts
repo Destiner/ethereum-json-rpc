@@ -518,7 +518,14 @@ const LIST: Method[] = [
       const topic1 = params[4];
       const topic2 = params[5];
       const topic3 = params[6];
-      return [fromBlock, toBlock, contract, [topic0, topic1, topic2, topic3]];
+      return [
+        {
+          fromBlock,
+          toBlock,
+          address: contract,
+          topics: [topic0, topic1, topic2, topic3],
+        },
+      ];
     },
   },
 ];
