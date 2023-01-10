@@ -1,5 +1,5 @@
 type ParamType =
-  | 'address'
+  | 'addr'
   | 'hash'
   | 'bytes32'
   | 'bytes'
@@ -63,7 +63,7 @@ const LIST: Method[] = [
     description: 'Returns the current price per gas in wei.',
     params: [
       {
-        type: 'address',
+        type: 'addr',
         name: 'account',
         isRequired: true,
         default: SAMPLE_ADDRESS,
@@ -84,7 +84,7 @@ const LIST: Method[] = [
       'Returns the value from a storage position at a given address.',
     params: [
       {
-        type: 'address',
+        type: 'addr',
         name: 'contract',
         isRequired: true,
         default: SAMPLE_CONTRACT,
@@ -110,7 +110,7 @@ const LIST: Method[] = [
     description: 'Returns the number of transactions sent from an address.',
     params: [
       {
-        type: 'address',
+        type: 'addr',
         name: 'account',
         isRequired: true,
         default: SAMPLE_ADDRESS,
@@ -190,7 +190,7 @@ const LIST: Method[] = [
     description: 'Returns code at a given address.',
     params: [
       {
-        type: 'address',
+        type: 'addr',
         name: 'contract',
         isRequired: true,
         default: SAMPLE_CONTRACT,
@@ -211,12 +211,12 @@ const LIST: Method[] = [
       'Executes a new message call immediately without creating a transaction on the block chain.',
     params: [
       {
-        type: 'address',
+        type: 'addr',
         name: 'from',
         isRequired: false,
       },
       {
-        type: 'address',
+        type: 'addr',
         name: 'to',
         isRequired: true,
         default: SAMPLE_CONTRACT,
@@ -269,12 +269,12 @@ const LIST: Method[] = [
       'Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.',
     params: [
       {
-        type: 'address',
+        type: 'addr',
         name: 'from',
         isRequired: false,
       },
       {
-        type: 'address',
+        type: 'addr',
         name: 'to',
         isRequired: false,
       },
@@ -485,7 +485,7 @@ const LIST: Method[] = [
         isRequired: false,
       },
       {
-        type: 'address',
+        type: 'addr',
         name: 'contract',
         isRequired: false,
       },

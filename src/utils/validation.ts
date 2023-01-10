@@ -25,7 +25,7 @@ function validateParam(param: Param, input: unknown): boolean {
         return !isNaN(val) && val >= 0;
       }
     }
-    if (param.type === 'address') {
+    if (param.type === 'addr') {
       if (typeof input !== 'string') {
         return false;
       } else {
