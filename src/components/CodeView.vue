@@ -81,7 +81,7 @@ textarea {
   position: absolute;
   top: 8px;
   right: 8px;
-  padding: 4px;
+  padding: 8px;
   border: 1px solid var(--color-border-primary);
   border-radius: 4px;
   cursor: pointer;
