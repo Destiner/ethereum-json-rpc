@@ -458,6 +458,7 @@ main {
 
 .execution-request-body {
   padding: 10px 20px;
+  transition: all 0.25s ease-in-out;
   border: none;
   border-radius: 10px;
   background: var(--color-accent-primary);
