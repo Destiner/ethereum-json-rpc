@@ -57,6 +57,13 @@ const LIST: Method[] = [
     params: [],
   },
   {
+    id: 'eth_chainId',
+    name: 'Chain ID',
+    type: 'standard',
+    description: 'Returns the chain ID of the current network.',
+    params: [],
+  },
+  {
     id: 'eth_getBalance',
     name: 'Get balance',
     type: 'standard',
