@@ -4,7 +4,7 @@
       :value="value"
       readonly
       spellcheck="false"
-      :rows="10"
+      :rows="16"
     />
     <div
       class="clipboard"
