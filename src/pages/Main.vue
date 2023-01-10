@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div>Ethereum JSON RPC</div>
+    <div>Ethereum JSON-RPC</div>
   </header>
   <main>
     <nav class="methods">
