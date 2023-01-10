@@ -73,6 +73,7 @@ button {
   outline: none;
   outline-color: #ffffffbf;
   outline-width: var(--border-width);
+  background: var(--color-bg-tertiary);
   cursor: pointer;
 }
 
