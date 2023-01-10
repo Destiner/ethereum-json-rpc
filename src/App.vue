@@ -10,6 +10,7 @@ import '@fontsource/inter/variable.css';
 :root {
   --color-bg-primary: #fff;
   --color-bg-secondary: #f8f8f8;
+  --color-bg-tertiary: #e6e6e6;
   --color-text-primary: #04111d;
   --color-text-secondary: #3f4b52;
   --color-border-primary: #e5e5e5;
@@ -32,6 +33,7 @@ import '@fontsource/inter/variable.css';
   :root {
     --color-bg-primary: #050105;
     --color-bg-secondary: #141214;
+    --color-bg-tertiary: #292529;
     --color-text-primary: #d9d9d9;
     --color-text-secondary: #a6a6a6;
     --color-border-primary: #1f2226;
