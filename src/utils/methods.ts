@@ -44,7 +44,7 @@ const SAMPLE_CONTRACT = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
 const LIST: Method[] = [
   {
     id: 'eth_chainId',
-    name: 'Chain ID',
+    name: 'Get chain ID',
     type: 'standard',
     description: 'Returns the chain ID of the current network.',
     params: [],
