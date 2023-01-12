@@ -5,6 +5,7 @@
       readonly
       spellcheck="false"
       :rows="16"
+      :class="{ error: isError }"
     />
     <div
       class="clipboard"
@@ -36,10 +37,16 @@ import LoadingIndicator from './LoadingIndicator.vue';
 import IconClipboard from './icon/Clipboard.vue';
 import IconSuccess from './icon/Success.vue';
 
-const props = defineProps<{
-  value: string;
-  isLoading: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    value: string;
+    isLoading: boolean;
+    isError?: boolean;
+  }>(),
+  {
+    isError: false,
+  },
+);
 
 onMounted(() => {
   stop();
@@ -74,6 +81,10 @@ textarea {
   font-family: var(--font-mono);
   font-size: 12px;
   resize: none;
+}
+
+textarea.error {
+  border: 1px solid var(--color-error);
 }
 
 .clipboard {

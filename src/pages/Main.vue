@@ -100,6 +100,7 @@
         <CodeView
           :value="response"
           :is-loading="isLoading"
+          :is-error="isError"
         />
       </div>
     </div>
@@ -114,6 +115,18 @@ import BaseToggle from '@/components/BaseToggle.vue';
 import CodeView from '@/components/CodeView.vue';
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
 import validate from '@/utils/validation';
+
+interface Error {
+  body: string;
+  error: {
+    code: number;
+  };
+  requestBody: string;
+  requestMethod: string;
+  url: string;
+  code: string;
+  version: string;
+}
 
 onMounted(() => {
   resetParamInputs();
@@ -132,6 +145,7 @@ const selectedMethod = ref<Method>(METHOD_LIST[0]);
 function selectMethod(method: Method): void {
   selectedMethod.value = method;
   isShown.value = false;
+  isError.value = false;
   resetParamInputs();
 }
 
@@ -190,22 +204,33 @@ function resetParamInputs(): void {
 const hasParams = computed(() => selectedMethod.value.params.length > 0);
 
 async function execute(): Promise<void> {
+  isError.value = false;
   isLoading.value = true;
   const provider = new providers.InfuraProvider();
-  result.value = await (provider as providers.JsonRpcProvider).send(
-    selectedMethod.value.id,
-    formattedInputs.value,
-  );
+  try {
+    result.value = await (provider as providers.JsonRpcProvider).send(
+      selectedMethod.value.id,
+      formattedInputs.value,
+    );
+  } catch (e) {
+    const error = e as Error;
+    // Prettify
+    result.value = JSON.stringify(JSON.parse(error.body), null, 4);
+    isError.value = true;
+  }
   isShown.value = true;
   isLoading.value = false;
 }
 
 const isShown = ref(false);
 const isLoading = ref(false);
+const isError = ref(false);
 const result = ref('');
 const response = computed(() => {
   return isLoading.value || !isShown.value
     ? ''
+    : isError.value
+    ? result.value
     : JSON.stringify(
         {
           jsonrpc: '2.0',
