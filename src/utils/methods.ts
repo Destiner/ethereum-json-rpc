@@ -21,6 +21,7 @@ type OptionalOrRequiredParam = OptionalParam | RequiredParam;
 type Param = OptionalOrRequiredParam & {
   type: ParamType;
   name: string;
+  description?: string;
 };
 
 type MethodType = 'standard';
@@ -127,6 +128,7 @@ const LIST: Method[] = [
         type: 'int',
         name: 'slot',
         isRequired: false,
+        description: 'Position (index) of the memory slot',
       },
       {
         type: 'block',
@@ -147,12 +149,15 @@ const LIST: Method[] = [
         type: 'addr',
         name: 'from',
         isRequired: false,
+        description:
+          'Source of the transaction call. Useful to impersonate another address.',
       },
       {
         type: 'addr',
         name: 'to',
         isRequired: true,
         default: SAMPLE_CONTRACT,
+        description: 'Address of the target contract',
       },
       {
         type: 'int',
@@ -173,6 +178,7 @@ const LIST: Method[] = [
         type: 'bytes',
         name: 'data',
         isRequired: false,
+        description: 'Transaction call input',
       },
       {
         type: 'block',
@@ -205,11 +211,14 @@ const LIST: Method[] = [
         type: 'addr',
         name: 'from',
         isRequired: false,
+        description:
+          'Source of the transaction call. Useful to impersonate another address.',
       },
       {
         type: 'addr',
         name: 'to',
         isRequired: false,
+        description: 'Address of the target contract',
       },
       {
         type: 'int',
@@ -230,6 +239,7 @@ const LIST: Method[] = [
         type: 'bytes',
         name: 'data',
         isRequired: false,
+        description: 'Transaction input',
       },
       {
         type: 'block',
@@ -260,16 +270,20 @@ const LIST: Method[] = [
         type: 'block',
         name: 'fromBlock',
         isRequired: false,
+        description: 'Start of the fetching window',
       },
       {
         type: 'block',
         name: 'toBlock',
         isRequired: false,
+        description: 'End of the fetching window',
       },
       {
         type: 'addr',
         name: 'contract',
         isRequired: false,
+        description:
+          'Source of the logs. If blank, will fetch logs from all contracts.',
       },
       {
         type: 'bytes32',
@@ -346,6 +360,8 @@ const LIST: Method[] = [
         type: 'boolean',
         name: 'isFull',
         isRequired: false,
+        description:
+          'Whether to fetch the full block. If false, will only fetch the header and the list of transaction hashes.',
       },
     ],
   },
@@ -365,6 +381,8 @@ const LIST: Method[] = [
         type: 'boolean',
         name: 'isFull',
         isRequired: false,
+        description:
+          'Whether to fetch the full block. If false, will only fetch the header and the list of transaction hashes.',
       },
     ],
   },
@@ -461,6 +479,7 @@ const LIST: Method[] = [
         name: 'index',
         isRequired: true,
         default: '0',
+        description: 'Transaction index',
       },
     ],
   },
@@ -482,6 +501,7 @@ const LIST: Method[] = [
         name: 'index',
         isRequired: true,
         default: '0',
+        description: 'Transaction index',
       },
     ],
   },
@@ -517,6 +537,7 @@ const LIST: Method[] = [
         name: 'index',
         isRequired: true,
         default: '0',
+        description: 'Uncle index',
       },
     ],
   },
@@ -538,6 +559,7 @@ const LIST: Method[] = [
         name: 'index',
         isRequired: true,
         default: '0',
+        description: 'Uncle index',
       },
     ],
   },

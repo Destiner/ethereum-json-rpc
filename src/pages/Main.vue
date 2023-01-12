@@ -44,13 +44,20 @@
             class="method-param"
           >
             <div class="method-param-meta">
-              <div class="method-param-name">{{ param.name }}</div>
-              <div class="method-param-type">{{ param.type }}</div>
-              <div
-                v-if="param.isRequired"
-                class="method-param-required"
-              >
-                *
+              <div class="method-param-meta-section">
+                <div class="method-param-name">{{ param.name }}</div>
+                <div class="method-param-type">{{ param.type }}</div>
+                <div
+                  v-if="param.isRequired"
+                  class="method-param-required"
+                >
+                  *
+                </div>
+              </div>
+              <div class="method-param-meta-section">
+                <div class="method-param-description">
+                  {{ param.description }}
+                </div>
               </div>
             </div>
             <div v-if="param.type === 'boolean'">
@@ -388,8 +395,14 @@ main {
 
 .method-param-meta {
   display: flex;
-  gap: 4px;
   flex: 1;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.method-param-meta-section {
+  display: flex;
+  gap: 4px;
   align-items: baseline;
 }
 
@@ -405,6 +418,11 @@ main {
 
 .method-param-required {
   color: var(--color-error);
+}
+
+.method-param-description {
+  color: var(--color-text-secondary);
+  font-size: 12px;
 }
 
 .method-param-value {
