@@ -4,11 +4,17 @@
   </header>
   <main>
     <nav class="methods">
-      <input
-        v-model="methodQuery"
-        class="methods-filter"
-        placeholder="Filter"
-      />
+      <div class="method-filter">
+        <input
+          ref="inputEl"
+          v-model="methodQuery"
+          class="method-filter-input"
+          placeholder="Filter"
+          @keydown.up.prevent="handleUp"
+          @keydown.down.prevent="handleDown"
+        />
+        <span class="method-filter-tip">{{ inputTipLabel }}</span>
+      </div>
       <div class="method-list">
         <div
           v-for="method in availableMethods"
@@ -88,7 +94,7 @@
         <div>
           <button
             class="execution-request-body"
-            :disabled="!isValid"
+            :disabled="!isValid || isLoading"
             @click="execute"
           >
             Execute
@@ -108,8 +114,9 @@
 </template>
 
 <script setup lang="ts">
+import { useActiveElement, useMagicKeys } from '@vueuse/core';
 import { providers } from 'ethers';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 import BaseToggle from '@/components/BaseToggle.vue';
 import CodeView from '@/components/CodeView.vue';
@@ -132,6 +139,11 @@ onMounted(() => {
   resetParamInputs();
 });
 
+const activeElement = useActiveElement();
+const { cmd_enter, cmd_slash } = useMagicKeys();
+
+const inputEl = ref<HTMLInputElement | null>(null);
+
 const methodQuery = ref('');
 
 const availableMethods = computed(() =>
@@ -148,6 +160,40 @@ function selectMethod(method: Method): void {
   isError.value = false;
   resetParamInputs();
 }
+
+const isInputActive = computed(() => activeElement.value === inputEl.value);
+
+watch(cmd_slash, (pressed) => {
+  if (pressed) {
+    inputEl.value?.focus();
+  }
+});
+
+function handleUp(): void {
+  const methodIndex = availableMethods.value.findIndex(
+    (method) => method.id === selectedMethod.value.id,
+  );
+  const newMethodIndex = Math.max(methodIndex - 1, 0);
+  selectMethod(availableMethods.value[newMethodIndex]);
+}
+
+function handleDown(): void {
+  const methodIndex = availableMethods.value.findIndex(
+    (method) => method.id === selectedMethod.value.id,
+  );
+  const newMethodIndex = Math.min(
+    methodIndex + 1,
+    availableMethods.value.length - 1,
+  );
+  selectMethod(availableMethods.value[newMethodIndex]);
+}
+
+const inputTipLabel = computed(() => {
+  const metaKey = /(Mac|iPhone|iPod|iPad)/i.test(navigator.userAgent)
+    ? '⌘'
+    : 'Ctrl+';
+  return isInputActive.value ? '↑↓' : `${metaKey}/`;
+});
 
 const inputs = ref<unknown[]>([]);
 const formattedInputs = computed(() => {
@@ -222,6 +268,12 @@ async function execute(): Promise<void> {
   isLoading.value = false;
 }
 
+watch(cmd_enter, (pressed) => {
+  if (pressed && isValid.value) {
+    execute();
+  }
+});
+
 const isShown = ref(false);
 const isLoading = ref(false);
 const isError = ref(false);
@@ -287,7 +339,14 @@ main {
   }
 }
 
-.methods-filter {
+.method-filter {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.method-filter-input {
+  width: 100%;
   margin: 0;
   padding: 2px 4px;
   border: 1px solid var(--color-border-primary);
@@ -298,8 +357,19 @@ main {
   font-size: 14px;
 }
 
-.methods-filter:focus {
+.method-filter-input:focus {
   border: 1px solid var(--color-border-secondary);
+}
+
+.method-filter-tip {
+  position: absolute;
+  right: 4px;
+  padding: 2px;
+  border-radius: 4px;
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 12px;
 }
 
 .method-list {
