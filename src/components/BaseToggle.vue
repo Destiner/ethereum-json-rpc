@@ -78,7 +78,7 @@ button {
 }
 
 button.active {
-  background: var(--color-accent-tertiary);
+  background: var(--color-accent-secondary);
 }
 
 .trigger {
