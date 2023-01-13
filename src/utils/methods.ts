@@ -150,14 +150,14 @@ const LIST: Method[] = [
         name: 'from',
         isRequired: false,
         description:
-          'Source of the transaction call. Useful to impersonate another address.',
+          'Source of the transaction call. Useful to impersonate another account.',
       },
       {
         type: 'addr',
         name: 'to',
         isRequired: true,
         default: SAMPLE_CONTRACT,
-        description: 'Address of the target contract',
+        description: 'Target contract',
       },
       {
         type: 'int',
@@ -212,13 +212,13 @@ const LIST: Method[] = [
         name: 'from',
         isRequired: false,
         description:
-          'Source of the transaction call. Useful to impersonate another address.',
+          'Source of the transaction call. Useful to impersonate another account.',
       },
       {
         type: 'addr',
         name: 'to',
         isRequired: false,
-        description: 'Address of the target contract',
+        description: 'Target contract',
       },
       {
         type: 'int',
