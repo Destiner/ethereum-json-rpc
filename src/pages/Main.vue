@@ -404,7 +404,7 @@ main {
 }
 
 .method-item.selected {
-  background: var(--color-accent-secondary);
+  background: var(--color-accent-tertiary);
 }
 
 .method {
@@ -582,7 +582,7 @@ main {
 }
 
 .execution-request-body:hover {
-  background: var(--color-accent-tertiary);
+  background: var(--color-accent-secondary);
 }
 
 .execution-request-body:disabled {

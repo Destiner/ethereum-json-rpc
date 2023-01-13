@@ -16,8 +16,8 @@ import '@fontsource/inter/variable.css';
   --color-border-primary: #e5e5e5;
   --color-border-secondary: #b3b3b3;
   --color-accent-primary: #bd21e2;
-  --color-accent-secondary: #f5ebf7;
-  --color-accent-tertiary: #a91dc9;
+  --color-accent-secondary: #a91dc9;
+  --color-accent-tertiary: #f5ebf7;
   --color-error: #ff4d45;
   --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
     segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
@@ -39,8 +39,8 @@ import '@fontsource/inter/variable.css';
     --color-border-primary: #1f2226;
     --color-border-secondary: #333840;
     --color-accent-primary: #8c18a6;
-    --color-accent-secondary: #241d26;
-    --color-accent-tertiary: #7c1694;
+    --color-accent-secondary: #7c1694;
+    --color-accent-tertiary: #241d26;
     --color-error: #992e29;
   }
 }
