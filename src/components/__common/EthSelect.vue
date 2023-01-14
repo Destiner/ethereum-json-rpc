@@ -124,6 +124,7 @@ export { Option };
 .list {
   display: flex;
   position: absolute;
+  z-index: 2;
   gap: var(--spacing-small);
   flex-direction: column;
   margin-top: var(--spacing-small);
