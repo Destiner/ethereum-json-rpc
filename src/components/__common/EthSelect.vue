@@ -9,15 +9,7 @@
         <IconChevronDown class="trigger-icon" />
       </ListboxButton>
 
-      <TransitionChild
-        as="template"
-        enter="list-enter"
-        enter-from="list-enter-from"
-        enter-to="list-enter-to"
-        leave="list-leave"
-        leave-from="list-leave-form"
-        leave-to="list-leave-to"
-      >
+      <transition name="list">
         <ListboxOptions class="list">
           <ListboxOption
             v-for="option in options"
@@ -34,7 +26,7 @@
             </li>
           </ListboxOption>
         </ListboxOptions>
-      </TransitionChild>
+      </transition>
     </Listbox>
   </div>
 </template>
@@ -45,7 +37,6 @@ import {
   ListboxButton,
   ListboxOptions,
   ListboxOption,
-  TransitionChild,
 } from '@headlessui/vue';
 import { computed } from 'vue';
 
@@ -106,7 +97,7 @@ export { Option };
   height: 20px;
 }
 
-.list-enter {
+.list-enter-active {
   transition: all 200ms ease-out;
 }
 
@@ -118,7 +109,7 @@ export { Option };
   opacity: 1;
 }
 
-.list-leave {
+.list-leave-active {
   transition: all 150ms ease-in;
 }
 
