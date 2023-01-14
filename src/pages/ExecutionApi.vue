@@ -92,7 +92,7 @@ main {
   --section-padding: 8px 12px;
 
   display: flex;
-  gap: 24px;
+  gap: var(--spacing-large);
   flex-direction: column;
   min-height: calc(100vh - 64px);
 }
@@ -106,7 +106,7 @@ main {
 
 .methods {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-normal);
   flex: 1;
   flex-direction: column;
   max-height: 220px;
@@ -125,7 +125,7 @@ main {
 
 .method {
   display: flex;
-  gap: 32px;
+  gap: var(--spacing-large);
   flex: 3;
   flex-direction: column;
   padding: var(--section-padding);
@@ -143,7 +143,7 @@ main {
 
 .execution {
   display: flex;
-  gap: 16px;
+  gap: var(--spacing-big);
   flex: 2;
   flex-direction: column;
   padding: var(--section-padding);

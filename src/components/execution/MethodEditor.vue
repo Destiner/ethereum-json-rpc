@@ -83,7 +83,7 @@ function handleInputUpdate(event: Event, index: number): void {
 <style scoped>
 .header {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-normal);
   flex-direction: column;
 }
 
@@ -95,7 +95,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .meta {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-small);
   align-items: center;
 }
 
@@ -119,7 +119,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .params {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-small);
   flex-direction: column;
 }
 
@@ -148,12 +148,12 @@ function handleInputUpdate(event: Event, index: number): void {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-normal);
 }
 
 .param-meta-section {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-small);
   align-items: baseline;
 }
 

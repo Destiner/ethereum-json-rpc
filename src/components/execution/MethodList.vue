@@ -121,7 +121,7 @@ const inputTipLabel = computed(() => {
 
 .list {
   display: flex;
-  gap: 2px;
+  gap: var(--spacing-tiny);
   flex-direction: column;
 }
 

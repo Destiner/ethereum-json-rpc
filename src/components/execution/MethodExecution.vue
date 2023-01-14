@@ -139,7 +139,7 @@ const response = computed(() => {
 .request,
 .response {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-small);
   flex-direction: column;
 }
 
