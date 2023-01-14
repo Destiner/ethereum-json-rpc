@@ -1,6 +1,6 @@
 <template>
   <div class="request">
-    <div class="request-label">Request</div>
+    <EthLabel :value="'Request'" />
     <div class="request-wrapper">
       <CodeView
         :value="request"
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="response">
-    <div class="response-label">Response</div>
+    <EthLabel :value="'Response'" />
     <CodeView
       :value="response"
       :is-loading="isLoading"
@@ -31,6 +31,7 @@ import { providers } from 'ethers';
 import { computed, ref, watch } from 'vue';
 
 import CodeView from '@/components/__common/CodeView.vue';
+import EthLabel from '@/components/__common/EthLabel.vue';
 import { Method } from '@/utils/methods';
 
 interface Error {
@@ -141,13 +142,6 @@ const response = computed(() => {
   display: flex;
   gap: var(--spacing-small);
   flex-direction: column;
-}
-
-.request-label,
-.response-label {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-small);
-  text-transform: uppercase;
 }
 
 .request-wrapper {

@@ -13,7 +13,7 @@
     v-if="hasParams"
     class="params"
   >
-    <div class="param-header">Params</div>
+    <EthLabel :value="'Params'" />
     <div class="param-list">
       <div
         v-for="(param, index) in method.params"
@@ -61,6 +61,7 @@
 import { computed } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
+import EthLabel from '@/components/__common/EthLabel.vue';
 import EthToggle from '@/components/__common/EthToggle.vue';
 import { Method } from '@/utils/methods';
 
@@ -118,12 +119,6 @@ const hasParams = computed(() => props.method.params.length > 0);
   display: flex;
   gap: var(--spacing-small);
   flex-direction: column;
-}
-
-.param-header {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-small);
-  text-transform: uppercase;
 }
 
 .param-list {
