@@ -79,7 +79,7 @@ textarea {
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--font-size-small);
   resize: none;
 }
 

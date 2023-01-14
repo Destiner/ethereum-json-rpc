@@ -89,7 +89,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .title {
   margin: 0;
-  font-size: 36px;
+  font-size: var(--font-size-extra-large);
   font-weight: bold;
 }
 
@@ -104,7 +104,7 @@ function handleInputUpdate(event: Event, index: number): void {
   border-radius: 2px;
   background: var(--color-text-primary);
   color: var(--color-bg-primary);
-  font-size: 11px;
+  font-size: var(--font-size-tiny);
   text-transform: uppercase;
 }
 
@@ -114,7 +114,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .description {
   color: var(--color-text-secondary);
-  font-size: 14px;
+  font-size: var(--font-size-normal);
 }
 
 .params {
@@ -125,7 +125,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .param-header {
   color: var(--color-text-secondary);
-  font-size: 12px;
+  font-size: var(--font-size-small);
   text-transform: uppercase;
 }
 
@@ -158,13 +158,13 @@ function handleInputUpdate(event: Event, index: number): void {
 }
 
 .param-name {
-  font-size: 14px;
+  font-size: var(--font-size-normal);
   font-weight: bold;
 }
 
 .param-type {
   color: var(--color-text-secondary);
-  font-size: 12px;
+  font-size: var(--font-size-small);
 }
 
 .param-required {
@@ -173,7 +173,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .param-description {
   color: var(--color-text-secondary);
-  font-size: 12px;
+  font-size: var(--font-size-small);
 }
 
 .param-value {
@@ -184,7 +184,7 @@ function handleInputUpdate(event: Event, index: number): void {
   outline: none;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: var(--font-size-normal);
   text-align: right;
 }
 

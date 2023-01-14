@@ -19,6 +19,10 @@ import '@fontsource/inter/variable.css';
   --color-accent-secondary: #a91dc9;
   --color-accent-tertiary: #f5ebf7;
   --color-error: #ff4d45;
+  --font-size-tiny: 11px;
+  --font-size-small: 12px;
+  --font-size-normal: 14px;
+  --font-size-extra-large: 36px;
   --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
     segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
     sans-serif;

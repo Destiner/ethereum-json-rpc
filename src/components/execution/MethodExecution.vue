@@ -146,7 +146,7 @@ const response = computed(() => {
 .request-label,
 .response-label {
   color: var(--color-text-secondary);
-  font-size: 12px;
+  font-size: var(--font-size-small);
   text-transform: uppercase;
 }
 

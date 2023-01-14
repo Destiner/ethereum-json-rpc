@@ -101,7 +101,7 @@ const inputTipLabel = computed(() => {
   outline: none;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: var(--font-size-normal);
 }
 
 .filter-input:focus {
@@ -116,7 +116,7 @@ const inputTipLabel = computed(() => {
   background: var(--color-bg-tertiary);
   color: var(--color-text-secondary);
   font-family: 'Helvetica Neue', sans-serif;
-  font-size: 12px;
+  font-size: var(--font-size-small);
 }
 
 .list {
@@ -136,7 +136,7 @@ const inputTipLabel = computed(() => {
   overflow: hidden;
   border-radius: 4px;
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: var(--font-size-normal);
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-user-select: none;
