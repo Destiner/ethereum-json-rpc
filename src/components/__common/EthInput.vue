@@ -53,4 +53,8 @@ input {
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
 }
+
+input:focus {
+  border: 1px solid var(--color-border-secondary);
+}
 </style>

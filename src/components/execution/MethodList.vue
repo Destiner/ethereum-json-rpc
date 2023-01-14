@@ -97,10 +97,6 @@ const inputTipLabel = computed(() => {
   width: 100%;
 }
 
-.filter-input:focus {
-  border: 1px solid var(--color-border-secondary);
-}
-
 .filter-tip {
   position: absolute;
   right: 4px;

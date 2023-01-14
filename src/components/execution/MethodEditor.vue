@@ -173,10 +173,6 @@ const hasParams = computed(() => props.method.params.length > 0);
   text-align: right;
 }
 
-.param-value:focus {
-  border: 1px solid var(--color-border-secondary);
-}
-
 .param-value.invalid {
   border: 1px solid var(--color-error);
 }
