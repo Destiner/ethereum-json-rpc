@@ -44,12 +44,12 @@
           />
         </div>
         <div v-else>
-          <input
-            :value="inputs[index]"
+          <EthInput
+            :model-value="inputs[index] as string"
             class="param-value"
             :class="{ invalid: !isParamValid[index] }"
             type="text"
-            @input="(e) => handleInputUpdate(e, index)"
+            @update:model-value="(val) => emit('update-input', index, val)"
           />
         </div>
       </div>
@@ -60,6 +60,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import EthInput from '@/components/__common/EthInput.vue';
 import EthToggle from '@/components/__common/EthToggle.vue';
 import { Method } from '@/utils/methods';
 
@@ -74,10 +75,6 @@ const emit = defineEmits<{
 }>();
 
 const hasParams = computed(() => props.method.params.length > 0);
-
-function handleInputUpdate(event: Event, index: number): void {
-  emit('update-input', index, (event.target as HTMLInputElement).value);
-}
 </script>
 
 <style scoped>
@@ -178,13 +175,6 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .param-value {
   width: 140px;
-  padding: 4px 8px;
-  border: 1px solid var(--color-border-primary);
-  border-radius: var(--border-radius-medium);
-  outline: none;
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-normal);
   text-align: right;
 }
 

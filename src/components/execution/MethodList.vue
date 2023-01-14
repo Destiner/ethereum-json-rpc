@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <input
+    <EthInput
       ref="inputEl"
       v-model="methodQuery"
       class="filter-input"
@@ -24,9 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { useActiveElement, useMagicKeys } from '@vueuse/core';
+import { useMagicKeys } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 
+import EthInput from '@/components/__common/EthInput.vue';
 import { Method, LIST as METHOD_LIST } from '@/utils/methods';
 
 const props = defineProps<{
@@ -37,10 +38,9 @@ const emit = defineEmits<{
   (e: 'select', value: Method): void;
 }>();
 
-const activeElement = useActiveElement();
 const { cmd_slash } = useMagicKeys();
 
-const inputEl = ref<HTMLInputElement | null>(null);
+const inputEl = ref<InstanceType<typeof EthInput> | null>(null);
 
 const methodQuery = ref('');
 
@@ -50,9 +50,10 @@ const availableMethods = computed(() =>
   ),
 );
 
-const isInputActive = computed(() => activeElement.value === inputEl.value);
+const isInputActive = computed(() => inputEl.value?.isActive);
 
 watch(cmd_slash, (pressed) => {
+  console.log(inputEl.value);
   if (pressed) {
     inputEl.value?.focus();
   }
@@ -94,14 +95,6 @@ const inputTipLabel = computed(() => {
 
 .filter-input {
   width: 100%;
-  margin: 0;
-  padding: 2px 4px;
-  border: 1px solid var(--color-border-primary);
-  border-radius: var(--border-radius-medium);
-  outline: none;
-  background: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-normal);
 }
 
 .filter-input:focus {
