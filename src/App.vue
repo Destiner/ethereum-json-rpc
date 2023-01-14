@@ -22,6 +22,7 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
   --color-accent-secondary: #a91dc9;
   --color-accent-tertiary: #f5ebf7;
   --color-error: #ff4d45;
+  --color-success: #23cdb1;
   --spacing-tiny: 2px;
   --spacing-small: 4px;
   --spacing-normal: 8px;
@@ -57,6 +58,7 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
     --color-accent-secondary: #7c1694;
     --color-accent-tertiary: #241d26;
     --color-error: #992e29;
+    --color-success: #299986;
   }
 }
 
