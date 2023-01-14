@@ -1,11 +1,11 @@
 <template>
   <div class="request">
     <div class="request-label">Request</div>
-    <CodeView
-      :value="request"
-      :is-loading="false"
-    />
-    <div>
+    <div class="request-wrapper">
+      <CodeView
+        :value="request"
+        :is-loading="false"
+      />
       <button
         class="request-body"
         :disabled="!isValid || isLoading"
@@ -150,7 +150,15 @@ const response = computed(() => {
   text-transform: uppercase;
 }
 
+.request-wrapper {
+  position: relative;
+}
+
 .request-body {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  margin: 0;
   padding: 10px 20px;
   transition: all 0.25s ease-in-out;
   border: none;
