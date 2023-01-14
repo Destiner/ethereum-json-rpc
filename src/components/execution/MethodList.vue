@@ -86,7 +86,7 @@ const inputTipLabel = computed(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .filter {
   display: flex;
   position: relative;
