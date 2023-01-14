@@ -38,7 +38,7 @@
           </div>
         </div>
         <div v-if="param.type === 'boolean'">
-          <BaseToggle
+          <EthToggle
             :model-value="inputs[index] as boolean"
             @update:model-value="(val) => emit('update-input', index, val)"
           />
@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import BaseToggle from '@/components/__common/BaseToggle.vue';
+import EthToggle from '@/components/__common/EthToggle.vue';
 import { Method } from '@/utils/methods';
 
 const props = defineProps<{
