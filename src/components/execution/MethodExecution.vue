@@ -30,7 +30,7 @@ import { useMagicKeys } from '@vueuse/core';
 import { providers } from 'ethers';
 import { computed, ref, watch } from 'vue';
 
-import CodeView from '@/components/CodeView.vue';
+import CodeView from '@/components/__common/CodeView.vue';
 import { Method } from '@/utils/methods';
 
 interface Error {

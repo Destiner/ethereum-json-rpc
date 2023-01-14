@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import BaseToggle from '@/components/BaseToggle.vue';
+import BaseToggle from '@/components/__common/BaseToggle.vue';
 import { Method } from '@/utils/methods';
 
 const props = defineProps<{
