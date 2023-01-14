@@ -74,7 +74,7 @@ textarea {
   padding: 8px;
   overflow-y: scroll;
   border: 1px solid var(--color-border-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   outline: none;
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
@@ -94,7 +94,7 @@ textarea.error {
   right: 8px;
   padding: 8px;
   border: 1px solid var(--color-border-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   cursor: pointer;
 }
 

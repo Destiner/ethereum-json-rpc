@@ -97,7 +97,7 @@ const inputTipLabel = computed(() => {
   margin: 0;
   padding: 2px 4px;
   border: 1px solid var(--color-border-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   outline: none;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
@@ -112,7 +112,7 @@ const inputTipLabel = computed(() => {
   position: absolute;
   right: 4px;
   padding: 2px;
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   background: var(--color-bg-tertiary);
   color: var(--color-text-secondary);
   font-family: 'Helvetica Neue', sans-serif;
@@ -134,7 +134,7 @@ const inputTipLabel = computed(() => {
 .item {
   padding: 4px 8px;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
   text-overflow: ellipsis;

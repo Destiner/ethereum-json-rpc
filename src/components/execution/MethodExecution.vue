@@ -154,7 +154,7 @@ const response = computed(() => {
   padding: 10px 20px;
   transition: all 0.25s ease-in-out;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-big);
   background: var(--color-accent-primary);
   color: var(--color-bg-primary);
   font-weight: bold;

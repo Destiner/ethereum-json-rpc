@@ -101,7 +101,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .type {
   padding: 2px 4px;
-  border-radius: 2px;
+  border-radius: var(--border-radius-small);
   background: var(--color-text-primary);
   color: var(--color-bg-primary);
   font-size: var(--font-size-tiny);
@@ -131,7 +131,7 @@ function handleInputUpdate(event: Event, index: number): void {
 
 .param-list {
   border: 1px solid var(--color-border-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   background: var(--color-bg-secondary);
 }
 
@@ -180,7 +180,7 @@ function handleInputUpdate(event: Event, index: number): void {
   width: 140px;
   padding: 4px 8px;
   border: 1px solid var(--color-border-primary);
-  border-radius: 4px;
+  border-radius: var(--border-radius-medium);
   outline: none;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
