@@ -1,7 +1,4 @@
 <template>
-  <header>
-    <div>Ethereum JSON-RPC</div>
-  </header>
   <main>
     <nav class="methods">
       <MethodList
@@ -79,15 +76,6 @@ const isError = ref(false);
 </script>
 
 <style scoped>
-header {
-  display: flex;
-  align-items: center;
-  height: 64px;
-  padding: 0 24px;
-  border-bottom: 1px solid var(--color-border-primary);
-  font-weight: bold;
-}
-
 main {
   --section-padding: 8px 12px;
 

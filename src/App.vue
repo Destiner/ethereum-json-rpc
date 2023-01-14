@@ -1,9 +1,12 @@
 <template>
+  <EthHeader />
   <router-view />
 </template>
 
 <script setup lang="ts">
 import '@fontsource/inter/variable.css';
+
+import EthHeader from '@/components/_app/header/EthHeader.vue';
 </script>
 
 <style>
