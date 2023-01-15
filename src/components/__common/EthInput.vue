@@ -4,6 +4,7 @@
       v-if="label"
       :value="label"
       :required="required"
+      :disabled="disabled"
       :target="id"
     />
     <input
@@ -11,6 +12,7 @@
       ref="el"
       type="text"
       :value="modelValue"
+      :disabled="disabled"
       @input="handleInput"
     />
   </div>
@@ -26,6 +28,7 @@ withDefaults(
   defineProps<{
     modelValue: string;
     required?: boolean;
+    disabled?: boolean;
     label?: string;
   }>(),
   {
@@ -82,5 +85,10 @@ input {
 
 input:focus {
   border: 1px solid var(--color-border-secondary);
+}
+
+input:disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 </style>
