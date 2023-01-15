@@ -4,6 +4,7 @@
       v-if="label"
       :value="label"
       :target="id"
+      :disabled="disabled"
     />
     <Listbox
       :model-value="selectedOption"
@@ -12,6 +13,7 @@
       <ListboxButton
         :id="id"
         class="trigger"
+        :class="{ disabled }"
       >
         <div>{{ selectedOption.label }}</div>
         <IconChevronDown class="trigger-icon" />
@@ -55,6 +57,7 @@ import EthLabel from './EthLabel.vue';
 const props = defineProps<{
   value: string;
   options: Option[];
+  disabled?: boolean;
   label?: string;
 }>();
 
@@ -109,6 +112,11 @@ export { Option };
 
 .trigger:hover {
   border-color: var(--color-border-secondary);
+}
+
+.trigger.disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .trigger-icon {
