@@ -47,7 +47,7 @@
           <EthInput
             :model-value="inputs[index] as string"
             class="param-value"
-            :class="{ invalid: !isParamValid[index] }"
+            :has-error="!isParamValid[index]"
             type="text"
             @update:model-value="(val) => emit('update-input', index, val)"
           />
@@ -171,9 +171,5 @@ const hasParams = computed(() => props.method.params.length > 0);
 .param-value {
   width: 140px;
   text-align: right;
-}
-
-.param-value.invalid {
-  border: 1px solid var(--color-error);
 }
 </style>
