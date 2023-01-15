@@ -3,6 +3,7 @@
     <EthLabel
       v-if="label"
       :value="label"
+      :required="required"
       :for="id"
     />
     <input
@@ -24,6 +25,7 @@ import EthLabel from './EthLabel.vue';
 withDefaults(
   defineProps<{
     modelValue: string;
+    required?: boolean;
     label?: string;
   }>(),
   {
