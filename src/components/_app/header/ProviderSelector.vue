@@ -157,40 +157,6 @@ const providerOptions: {
   },
 ];
 
-const url = ref('');
-const isUrlDirty = ref(false);
-const isUrlValid = computed(() => !!url.value && isValidUrl(url.value));
-function handleUrlInput(): void {
-  isUrlDirty.value = true;
-  updateOptions();
-}
-
-const key = ref('');
-const isKeyDirty = ref(false);
-const isKeyValid = computed(() => !!key.value);
-function handleKeyInput(): void {
-  isKeyDirty.value = true;
-  updateOptions();
-}
-
-function hasError(isValid: boolean, isDirty: boolean): boolean {
-  return !isValid && isDirty;
-}
-
-const isValid = computed(() => {
-  switch (providerType.value) {
-    case AUTOMATIC_PROVIDER: {
-      return true;
-    }
-    case CUSTOM_PROVIDER: {
-      return isUrlValid.value;
-    }
-    default: {
-      return isKeyValid.value;
-    }
-  }
-});
-
 const providerType = ref<ProviderType>(AUTOMATIC_PROVIDER);
 
 watch(providerType, (_newType, oldType) => {
@@ -237,26 +203,6 @@ function updateOptions(): void {
   }
 }
 
-function fill(): void {
-  switch (options.value.type) {
-    case AUTOMATIC_PROVIDER: {
-      providerType.value = AUTOMATIC_PROVIDER;
-      chain.value = options.value.chain;
-      break;
-    }
-    case CUSTOM_PROVIDER: {
-      providerType.value = CUSTOM_PROVIDER;
-      url.value = options.value.url;
-      break;
-    }
-    case 'preset': {
-      providerType.value = options.value.preset;
-      key.value = options.value.key;
-      chain.value = options.value.chain;
-    }
-  }
-}
-
 const chain = ref<Chain>(ETHEREUM);
 
 const UNKNOWN_CHAIN = 'unknown';
@@ -290,6 +236,60 @@ function getChainOptions(chains: (Chain | typeof UNKNOWN_CHAIN)[]): Option[] {
 watch(chain, () => {
   updateOptions();
 });
+
+const url = ref('');
+const isUrlDirty = ref(false);
+const isUrlValid = computed(() => !!url.value && isValidUrl(url.value));
+function handleUrlInput(): void {
+  isUrlDirty.value = true;
+  updateOptions();
+}
+
+const key = ref('');
+const isKeyDirty = ref(false);
+const isKeyValid = computed(() => !!key.value);
+function handleKeyInput(): void {
+  isKeyDirty.value = true;
+  updateOptions();
+}
+
+const isValid = computed(() => {
+  switch (providerType.value) {
+    case AUTOMATIC_PROVIDER: {
+      return true;
+    }
+    case CUSTOM_PROVIDER: {
+      return isUrlValid.value;
+    }
+    default: {
+      return isKeyValid.value;
+    }
+  }
+});
+
+function hasError(isValid: boolean, isDirty: boolean): boolean {
+  return !isValid && isDirty;
+}
+
+function fill(): void {
+  switch (options.value.type) {
+    case AUTOMATIC_PROVIDER: {
+      providerType.value = AUTOMATIC_PROVIDER;
+      chain.value = options.value.chain;
+      break;
+    }
+    case CUSTOM_PROVIDER: {
+      providerType.value = CUSTOM_PROVIDER;
+      url.value = options.value.url;
+      break;
+    }
+    case 'preset': {
+      providerType.value = options.value.preset;
+      key.value = options.value.key;
+      chain.value = options.value.chain;
+    }
+  }
+}
 
 watch(provider, () => {
   ping();
