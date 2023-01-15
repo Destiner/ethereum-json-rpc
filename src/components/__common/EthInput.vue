@@ -43,6 +43,7 @@ withDefaults(
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
+  (e: 'input', value: string): void;
 }>();
 
 const activeElement = useActiveElement();
@@ -61,6 +62,7 @@ function focus(): void {
 function handleInput(event: Event): void {
   const value = (event.target as HTMLInputElement).value;
   emit('update:modelValue', value);
+  emit('input', value);
 }
 
 defineExpose({
