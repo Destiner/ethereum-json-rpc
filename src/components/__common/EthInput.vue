@@ -13,6 +13,7 @@
       type="text"
       :value="modelValue"
       :disabled="disabled"
+      :placeholder="placeholder"
       @input="handleInput"
     />
   </div>
@@ -30,9 +31,11 @@ withDefaults(
     required?: boolean;
     disabled?: boolean;
     label?: string;
+    placeholder?: string;
   }>(),
   {
     label: '',
+    placeholder: '',
   },
 );
 
