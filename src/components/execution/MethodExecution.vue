@@ -159,7 +159,7 @@ const response = computed(() => {
   border: none;
   border-radius: var(--border-radius-big);
   background: var(--color-accent-primary);
-  color: var(--color-bg-primary);
+  color: var(--color-accent-tertiary);
   font-weight: bold;
   cursor: pointer;
 }
