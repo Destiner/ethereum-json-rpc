@@ -19,7 +19,7 @@ type Chain =
   | typeof POLYGON
   | typeof ARBITRUM;
 
-const CHAINS: Chain[] = [ETHEREUM, OPTIMISM, POLYGON, ARBITRUM];
+const CHAINS: Chain[] = [ETHEREUM, POLYGON, ARBITRUM, OPTIMISM];
 
 interface AutomaticProviderOptions {
   type: 'automatic';
