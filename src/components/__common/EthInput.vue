@@ -11,6 +11,7 @@
       :id="id"
       ref="el"
       type="text"
+      :class="{ error: hasError }"
       :value="modelValue"
       :disabled="disabled"
       :placeholder="placeholder"
@@ -28,6 +29,7 @@ import EthLabel from './EthLabel.vue';
 withDefaults(
   defineProps<{
     modelValue: string;
+    hasError?: boolean;
     required?: boolean;
     disabled?: boolean;
     label?: string;
@@ -93,5 +95,9 @@ input:focus {
 input:disabled {
   opacity: 0.6;
   pointer-events: none;
+}
+
+input.error {
+  border: 1px solid var(--color-error);
 }
 </style>
