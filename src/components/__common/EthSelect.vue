@@ -1,10 +1,18 @@
 <template>
-  <div>
+  <div class="select">
+    <EthLabel
+      v-if="label"
+      :value="label"
+      :for="id"
+    />
     <Listbox
       :model-value="selectedOption"
       @update:model-value="handleUpdate"
     >
-      <ListboxButton class="trigger">
+      <ListboxButton
+        :id="id"
+        class="trigger"
+      >
         <div>{{ selectedOption.label }}</div>
         <IconChevronDown class="trigger-icon" />
       </ListboxButton>
@@ -42,14 +50,19 @@ import { computed } from 'vue';
 
 import IconChevronDown from '@/components/__common/icon/ChevronDown.vue';
 
+import EthLabel from './EthLabel.vue';
+
 const props = defineProps<{
   value: string;
   options: Option[];
+  label?: string;
 }>();
 
 const emit = defineEmits<{
   (e: 'select', value: string): void;
 }>();
+
+const id = computed(() => `select-${Math.random().toString().substring(2)}`);
 
 const selectedOption = computed<Option>(
   () => props.options.find((option) => option.value === props.value) as Option,
@@ -71,6 +84,12 @@ export { Option };
 </script>
 
 <style scoped>
+.select {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+
 .trigger {
   display: flex;
   position: relative;
