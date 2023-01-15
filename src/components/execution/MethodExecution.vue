@@ -30,6 +30,7 @@ import { useMagicKeys } from '@vueuse/core';
 import { providers } from 'ethers';
 import { computed, ref, watch } from 'vue';
 
+import useProvider from '@/composables/useProvider';
 import CodeView from '@/components/__common/CodeView.vue';
 import EthLabel from '@/components/__common/EthLabel.vue';
 import { Method } from '@/utils/methods';
@@ -60,6 +61,7 @@ const emit = defineEmits<{
 }>();
 
 const { cmd_enter } = useMagicKeys();
+const { provider } = useProvider();
 
 const isLoading = ref(false);
 
@@ -97,9 +99,8 @@ const request = computed(() => {
 async function execute(): Promise<void> {
   emit('update:is-error', false);
   isLoading.value = true;
-  const provider = new providers.InfuraProvider();
   try {
-    result.value = await (provider as providers.JsonRpcProvider).send(
+    result.value = await (provider.value as providers.JsonRpcProvider).send(
       props.method.id,
       formattedInputs.value,
     );
