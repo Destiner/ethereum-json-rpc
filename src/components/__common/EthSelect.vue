@@ -114,7 +114,7 @@ export { Option };
 }
 
 .trigger:hover {
-  border-color: var(--color-border-secondary);
+  background: var(--color-bg-secondary);
 }
 
 .trigger.disabled {
