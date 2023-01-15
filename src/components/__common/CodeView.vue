@@ -7,19 +7,10 @@
       :rows="16"
       :class="{ error: isError }"
     />
-    <div
-      class="clipboard"
-      @click="copy"
-    >
-      <IconClipboard
-        v-if="ready"
-        class="icon"
-      />
-      <IconSuccess
-        v-else
-        class="icon"
-      />
-    </div>
+    <CopyButton
+      class="button"
+      :value="value"
+    />
     <div
       v-if="isLoading"
       class="loading"
@@ -30,14 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { useTimeout } from '@vueuse/core';
-import { onMounted } from 'vue';
-
+import CopyButton from './CopyButton.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
-import IconClipboard from './icon/Clipboard.vue';
-import IconSuccess from './icon/Success.vue';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     value: string;
     isLoading: boolean;
@@ -47,17 +34,6 @@ const props = withDefaults(
     isError: false,
   },
 );
-
-onMounted(() => {
-  stop();
-});
-
-const { ready, start, stop } = useTimeout(2000, { controls: true });
-
-function copy(): void {
-  navigator.clipboard.writeText(props.value);
-  start();
-}
 </script>
 
 <style scoped>
@@ -87,29 +63,15 @@ textarea.error {
   border: 1px solid var(--color-error);
 }
 
-.clipboard {
+.button {
   display: none;
   position: absolute;
   top: 8px;
   right: 8px;
-  padding: 8px;
-  border: 1px solid var(--color-border-primary);
-  border-radius: var(--border-radius-medium);
-  cursor: pointer;
 }
 
-.clipboard:hover {
-  border: 1px solid var(--color-border-secondary);
-}
-
-.wrapper:hover .clipboard {
+.wrapper:hover .button {
   display: initial;
-}
-
-.icon {
-  width: 16px;
-  height: 16px;
-  color: var(--color-text-secondary);
 }
 
 .loading {
