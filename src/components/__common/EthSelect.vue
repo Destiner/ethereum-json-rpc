@@ -6,38 +6,40 @@
       :target="id"
       :disabled="disabled"
     />
-    <Listbox
-      :model-value="selectedOption"
-      @update:model-value="handleUpdate"
-    >
-      <ListboxButton
-        :id="id"
-        class="trigger"
-        :class="{ disabled }"
+    <div>
+      <Listbox
+        :model-value="selectedOption"
+        @update:model-value="handleUpdate"
       >
-        <div>{{ selectedOption.label }}</div>
-        <IconChevronDown class="trigger-icon" />
-      </ListboxButton>
+        <ListboxButton
+          :id="id"
+          class="trigger"
+          :class="{ disabled }"
+        >
+          <div>{{ selectedOption.label }}</div>
+          <IconChevronDown class="trigger-icon" />
+        </ListboxButton>
 
-      <transition name="list">
-        <ListboxOptions class="list">
-          <ListboxOption
-            v-for="option in options"
-            v-slot="{ active, selected }"
-            :key="option.value"
-            :value="option.value"
-            as="template"
-          >
-            <li
-              class="item"
-              :class="{ active, selected }"
+        <transition name="list">
+          <ListboxOptions class="list">
+            <ListboxOption
+              v-for="option in options"
+              v-slot="{ active, selected }"
+              :key="option.value"
+              :value="option.value"
+              as="template"
             >
-              {{ option.label }}
-            </li>
-          </ListboxOption>
-        </ListboxOptions>
-      </transition>
-    </Listbox>
+              <li
+                class="item"
+                :class="{ active, selected }"
+              >
+                {{ option.label }}
+              </li>
+            </ListboxOption>
+          </ListboxOptions>
+        </transition>
+      </Listbox>
+    </div>
   </div>
 </template>
 
