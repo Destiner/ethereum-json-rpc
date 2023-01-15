@@ -28,7 +28,7 @@ import { useMagicKeys } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
-import { Method, LIST as METHOD_LIST } from '@/utils/methods';
+import useMethods, { Method } from '@/composables/useMethods';
 
 const props = defineProps<{
   selected: Method;
@@ -39,13 +39,14 @@ const emit = defineEmits<{
 }>();
 
 const { cmd_slash } = useMagicKeys();
+const { methods } = useMethods();
 
 const inputEl = ref<InstanceType<typeof EthInput> | null>(null);
 
 const methodQuery = ref('');
 
 const availableMethods = computed(() =>
-  METHOD_LIST.filter((method) =>
+  methods.value.filter((method) =>
     method.id.toLowerCase().includes(methodQuery.value.toLowerCase()),
   ),
 );
@@ -53,7 +54,6 @@ const availableMethods = computed(() =>
 const isInputActive = computed(() => inputEl.value?.isActive);
 
 watch(cmd_slash, (pressed) => {
-  console.log(inputEl.value);
   if (pressed) {
     inputEl.value?.focus();
   }

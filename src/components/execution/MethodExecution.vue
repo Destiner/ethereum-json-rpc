@@ -30,10 +30,10 @@ import { useMagicKeys } from '@vueuse/core';
 import { providers } from 'ethers';
 import { computed, ref, watch } from 'vue';
 
-import useProvider from '@/composables/useProvider';
 import CodeView from '@/components/__common/CodeView.vue';
 import EthLabel from '@/components/__common/EthLabel.vue';
-import { Method } from '@/utils/methods';
+import { Method } from '@/composables/useMethods';
+import useProvider from '@/composables/useProvider';
 
 interface Error {
   body: string;

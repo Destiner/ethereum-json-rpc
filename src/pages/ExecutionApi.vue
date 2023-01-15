@@ -32,8 +32,10 @@ import { computed, onMounted, ref } from 'vue';
 import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
 import MethodList from '@/components/execution/MethodList.vue';
-import { Method, LIST as METHOD_LIST } from '@/utils/methods';
+import useMethods, { Method } from '@/composables/useMethods';
 import validate from '@/utils/validation';
+
+const { methods } = useMethods();
 
 onMounted(() => {
   resetParamInputs();
@@ -46,7 +48,7 @@ function handleMethodSelect(method: Method): void {
   resetParamInputs();
 }
 
-const selectedMethod = ref<Method>(METHOD_LIST[0]);
+const selectedMethod = ref<Method>(methods.value[0]);
 
 const inputs = ref<unknown[]>([]);
 
