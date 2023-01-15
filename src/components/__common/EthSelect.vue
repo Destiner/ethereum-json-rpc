@@ -3,7 +3,7 @@
     <EthLabel
       v-if="label"
       :value="label"
-      :for="id"
+      :target="id"
     />
     <Listbox
       :model-value="selectedOption"

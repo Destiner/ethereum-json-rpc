@@ -4,7 +4,7 @@
       v-if="label"
       :value="label"
       :required="required"
-      :for="id"
+      :target="id"
     />
     <input
       :id="id"
