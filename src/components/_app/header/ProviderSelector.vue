@@ -72,6 +72,7 @@
           <div
             v-if="latestBlock >= 0"
             class="status"
+            :class="{ loading: isLoading }"
           >
             <div
               class="status-indicator"
@@ -111,7 +112,7 @@ import useProvider, {
 } from '@/composables/useProvider';
 import { isValidUrl } from '@/utils/validation';
 
-const PING_INTERVAL = 5000;
+const PING_INTERVAL = 10000;
 
 const label = computed(() =>
   getChainName(providerChain.value || UNKNOWN_CHAIN),
@@ -323,15 +324,18 @@ watch(isVisible, (value) => {
 });
 
 async function ping(): Promise<void> {
+  isLoading.value = true;
   try {
     latestBlock.value = await provider.value.getBlockNumber();
     isError.value = false;
   } catch (e) {
     isError.value = true;
   }
+  isLoading.value = false;
 }
 
 const isError = ref<boolean>(false);
+const isLoading = ref<boolean>(false);
 const latestBlock = ref<number>(-1);
 </script>
 
@@ -404,6 +408,11 @@ const latestBlock = ref<number>(-1);
   gap: var(--spacing-normal);
   align-items: center;
   padding-left: 2px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.status.loading {
+  opacity: 0.6;
 }
 
 .status-indicator {
