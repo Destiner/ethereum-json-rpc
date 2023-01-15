@@ -5,21 +5,13 @@
       :value="label"
       :for="id"
     />
-    <div class="input-wrapper">
-      <input
-        :id="id"
-        ref="el"
-        type="text"
-        :value="modelValue"
-        @input="handleInput"
-      />
-      <CopyButton
-        v-if="canCopy"
-        class="copy"
-        :value="modelValue"
-        compact
-      />
-    </div>
+    <input
+      :id="id"
+      ref="el"
+      type="text"
+      :value="modelValue"
+      @input="handleInput"
+    />
   </div>
 </template>
 
@@ -27,17 +19,14 @@
 import { useActiveElement } from '@vueuse/core';
 import { computed, ref } from 'vue';
 
-import CopyButton from './CopyButton.vue';
 import EthLabel from './EthLabel.vue';
 
 withDefaults(
   defineProps<{
     modelValue: string;
-    canCopy?: boolean;
     label?: string;
   }>(),
   {
-    canCopy: false,
     label: '',
   },
 );
@@ -77,12 +66,6 @@ defineExpose({
   gap: var(--spacing-small);
 }
 
-.input-wrapper {
-  display: flex;
-  position: relative;
-  align-items: center;
-}
-
 input {
   width: 100%;
   margin: 0;
@@ -97,16 +80,5 @@ input {
 
 input:focus {
   border: 1px solid var(--color-border-secondary);
-}
-
-.copy {
-  display: none;
-  position: absolute;
-  right: 10px;
-}
-
-input:focus ~ .copy,
-.input-wrapper:hover .copy {
-  display: initial;
 }
 </style>
