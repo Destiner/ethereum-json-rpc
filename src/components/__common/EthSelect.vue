@@ -57,24 +57,25 @@ import IconChevronDown from '@/components/__common/icon/ChevronDown.vue';
 import EthLabel from './EthLabel.vue';
 
 const props = defineProps<{
-  value: string;
+  modelValue: string;
   options: Option[];
   disabled?: boolean;
   label?: string;
 }>();
 
 const emit = defineEmits<{
-  (e: 'select', value: string): void;
+  (e: 'update:modelValue', value: string): void;
 }>();
 
 const id = computed(() => `select-${Math.random().toString().substring(2)}`);
 
 const selectedOption = computed<Option>(
-  () => props.options.find((option) => option.value === props.value) as Option,
+  () =>
+    props.options.find((option) => option.value === props.modelValue) as Option,
 );
 
 function handleUpdate(value: string): void {
-  emit('select', value);
+  emit('update:modelValue', value);
 }
 </script>
 
