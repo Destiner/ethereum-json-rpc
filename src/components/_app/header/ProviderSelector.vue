@@ -9,7 +9,10 @@
       </PopoverButton>
       <transition name="panel">
         <PopoverPanel class="panel">
-          <div class="provider">
+          <div
+            ref="el"
+            class="provider"
+          >
             <EthSelect
               v-model="providerType"
               :options="providerOptions"
@@ -67,7 +70,7 @@
             />
           </div>
           <div
-            ref="el"
+            v-if="latestBlock >= 0"
             class="status"
           >
             <div
@@ -329,7 +332,7 @@ async function ping(): Promise<void> {
 }
 
 const isError = ref<boolean>(false);
-const latestBlock = ref<number>(1);
+const latestBlock = ref<number>(-1);
 </script>
 
 <style scoped>
