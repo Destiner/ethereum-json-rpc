@@ -1,15 +1,18 @@
 <template>
   <div
     class="button"
+    :class="{ compact }"
     @click="copy"
   >
     <IconClipboard
       v-if="ready"
       class="icon"
+      :class="{ compact }"
     />
     <IconSuccess
       v-else
       class="icon"
+      :class="{ compact }"
     />
   </div>
 </template>
@@ -21,9 +24,15 @@ import { onMounted } from 'vue';
 import IconClipboard from './icon/Clipboard.vue';
 import IconSuccess from './icon/Success.vue';
 
-const props = defineProps<{
-  value: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    value: string;
+    compact?: boolean;
+  }>(),
+  {
+    compact: false,
+  },
+);
 
 onMounted(() => {
   stop();
@@ -49,9 +58,19 @@ function copy(): void {
   border: 1px solid var(--color-border-secondary);
 }
 
+.button.compact {
+  padding: 2px;
+  border: none;
+}
+
 .icon {
   width: 16px;
   height: 16px;
   color: var(--color-text-secondary);
+}
+
+.icon.compact {
+  width: 12px;
+  height: 12px;
 }
 </style>
