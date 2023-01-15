@@ -1,5 +1,8 @@
 <template>
-  <label :for="target">
+  <label
+    :for="target"
+    :class="{ disabled }"
+  >
     {{ value }}
     <span
       v-if="required"
@@ -14,6 +17,7 @@
 defineProps<{
   value: string;
   required?: boolean;
+  disabled?: boolean;
   target?: string;
 }>();
 </script>
@@ -23,6 +27,11 @@ label {
   color: var(--color-text-secondary);
   font-size: var(--font-size-small);
   text-transform: uppercase;
+}
+
+label.disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .required {
