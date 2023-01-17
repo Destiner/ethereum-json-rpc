@@ -1,5 +1,31 @@
 import { Ref, computed } from 'vue';
 
+import {
+  CHAIN_ID,
+  BLOCK_NUMBER,
+  GAS_PRICE,
+  MAX_PRIORITY_FEE_PER_GAS,
+  GET_BALANCE,
+  GET_CODE,
+  GET_STORAGE_AT,
+  CALL,
+  ESTIMATE_GAS,
+  GET_LOGS,
+  GET_TRANSACTION_COUNT,
+  GET_BLOCK_BY_NUMBER,
+  GET_BLOCK_BY_HASH,
+  GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
+  GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
+  GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
+  GET_UNCLE_COUNT_BY_BLOCK_HASH,
+  GET_TRANSACTION_BY_HASH,
+  GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
+  GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
+  GET_TRANSACTION_RECEIPT,
+  GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
+  GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+} from '@/utils/methods';
+
 import useProvider, {
   ARBITRUM,
   ETHEREUM,
@@ -110,35 +136,35 @@ function getMethodList(defaults: Defaults): Method[] {
 
   return [
     {
-      id: 'eth_chainId',
+      id: CHAIN_ID,
       name: 'Get chain ID',
       type: 'standard',
       description: 'Returns the chain ID of the current network.',
       params: [],
     },
     {
-      id: 'eth_blockNumber',
+      id: BLOCK_NUMBER,
       name: 'Get block number',
       type: 'standard',
       description: 'Returns the number of most recent block.',
       params: [],
     },
     {
-      id: 'eth_gasPrice',
+      id: GAS_PRICE,
       name: 'Get gas price',
       type: 'standard',
       description: 'Returns the current price per gas in wei.',
       params: [],
     },
     {
-      id: 'eth_maxPriorityFeePerGas',
+      id: MAX_PRIORITY_FEE_PER_GAS,
       name: 'Get maximum priority fee',
       type: 'standard',
       description: 'Returns the current maxPriorityFeePerGas per gas in wei.',
       params: [],
     },
     {
-      id: 'eth_getBalance',
+      id: GET_BALANCE,
       name: 'Get balance',
       type: 'standard',
       description: 'Returns the current price per gas in wei.',
@@ -158,7 +184,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getCode',
+      id: GET_CODE,
       name: 'Get contract code',
       type: 'standard',
       description: 'Returns code at a given address.',
@@ -178,7 +204,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getStorageAt',
+      id: GET_STORAGE_AT,
       name: 'Get contract storage',
       type: 'standard',
       description:
@@ -205,7 +231,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_call',
+      id: CALL,
       name: 'Call',
       type: 'standard',
       description:
@@ -267,7 +293,7 @@ function getMethodList(defaults: Defaults): Method[] {
       },
     },
     {
-      id: 'eth_estimateGas',
+      id: ESTIMATE_GAS,
       name: 'Estimate gas',
       type: 'standard',
       description:
@@ -327,7 +353,7 @@ function getMethodList(defaults: Defaults): Method[] {
       },
     },
     {
-      id: 'eth_getLogs',
+      id: GET_LOGS,
       name: 'Get logs',
       type: 'standard',
       description:
@@ -392,7 +418,7 @@ function getMethodList(defaults: Defaults): Method[] {
       },
     },
     {
-      id: 'eth_getTransactionCount',
+      id: GET_TRANSACTION_COUNT,
       name: 'Get transaction count',
       type: 'standard',
       description: 'Returns the number of transactions sent from an address.',
@@ -412,7 +438,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getBlockByNumber',
+      id: GET_BLOCK_BY_NUMBER,
       name: 'Get block, by number',
       type: 'standard',
       description: 'Returns information about a block by block number.',
@@ -433,7 +459,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getBlockByHash',
+      id: GET_BLOCK_BY_HASH,
       name: 'Get block, by hash',
       type: 'standard',
       description: 'Returns information about a block by hash.',
@@ -454,7 +480,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getBlockTransactionCountByNumber',
+      id: GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
       name: 'Get transaction count, by number',
       type: 'standard',
       description:
@@ -469,7 +495,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getBlockTransactionCountByHash',
+      id: GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
       name: 'Get transaction count, by hash',
       type: 'standard',
       description:
@@ -484,7 +510,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getUncleCountByBlockNumber',
+      id: GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
       name: 'Get uncle count, by number',
       type: 'standard',
       description:
@@ -499,7 +525,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getUncleCountByBlockHash',
+      id: GET_UNCLE_COUNT_BY_BLOCK_HASH,
       name: 'Get uncle count, by hash',
       type: 'standard',
       description:
@@ -514,7 +540,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getTransactionByHash',
+      id: GET_TRANSACTION_BY_HASH,
       name: 'Get transaction, by number',
       type: 'standard',
       description:
@@ -529,7 +555,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getTransactionByBlockNumberAndIndex',
+      id: GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
       name: 'Get transaction, by block number and index',
       type: 'standard',
       description:
@@ -551,7 +577,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getTransactionByBlockHashAndIndex',
+      id: GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
       name: 'Get transaction, by block hash and index',
       type: 'standard',
       description:
@@ -573,7 +599,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getTransactionReceipt',
+      id: GET_TRANSACTION_RECEIPT,
       name: 'Get transaction receipt',
       type: 'standard',
       description: 'Returns the receipt of a transaction by transaction hash.',
@@ -587,7 +613,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getUncleByBlockNumberAndIndex',
+      id: GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
       name: 'Get uncle, by block number and index',
       type: 'standard',
       description:
@@ -609,7 +635,7 @@ function getMethodList(defaults: Defaults): Method[] {
       ],
     },
     {
-      id: 'eth_getUncleByBlockHashAndIndex',
+      id: GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
       name: 'Get uncle, by block hash and index',
       type: 'standard',
       description:
