@@ -4,7 +4,7 @@
       :value="value"
       readonly
       spellcheck="false"
-      :rows="16"
+      :rows="compact ? 10 : 16"
       :class="{ error: isError }"
     />
     <CopyButton
@@ -24,16 +24,12 @@
 import CopyButton from './CopyButton.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 
-withDefaults(
-  defineProps<{
-    value: string;
-    isLoading: boolean;
-    isError?: boolean;
-  }>(),
-  {
-    isError: false,
-  },
-);
+defineProps<{
+  value: string;
+  isLoading?: boolean;
+  compact?: boolean;
+  isError?: boolean;
+}>();
 </script>
 
 <style scoped>

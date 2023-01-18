@@ -4,7 +4,7 @@
     <div class="request-wrapper">
       <CodeView
         :value="request"
-        :is-loading="false"
+        compact
       />
       <button
         class="request-body"
