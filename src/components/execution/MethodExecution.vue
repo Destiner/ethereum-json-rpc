@@ -1,4 +1,18 @@
 <template>
+  <div class="targets">
+    <EthRadio
+      v-model="targetLanguage"
+      :options="targetLanguages"
+      :label="'Language'"
+      @update:model-value="handleTargetLanguageUpdate"
+    />
+    <EthRadio
+      v-if="targetLibraries.length > 1"
+      v-model="targetLibrary"
+      :options="targetLibraries"
+      :label="'Library'"
+    />
+  </div>
   <div class="request">
     <EthLabel :value="'Request'" />
     <div class="request-wrapper">
@@ -32,8 +46,23 @@ import { computed, ref, watch } from 'vue';
 
 import CodeView from '@/components/__common/CodeView.vue';
 import EthLabel from '@/components/__common/EthLabel.vue';
+import EthRadio, { Option } from '@/components/__common/EthRadio.vue';
 import { Method } from '@/composables/useMethods';
 import useProvider from '@/composables/useProvider';
+import {
+  Language as TargetLanguage,
+  Library as TargetLibrary,
+  LANGUAGE_JSON,
+  LANGUAGE_JAVASCRIPT,
+  LANGUAGE_PYTHON,
+  LIBRARY_VANILLA,
+  LIBRARY_ETHERS,
+  LIBRARY_FETCH,
+  LIBRARY_AXIOS,
+  LIBRARY_WEB3_PY,
+  LIBRARY_REQUESTS,
+  getRequest,
+} from '@/utils/targets';
 
 interface Error {
   body: string;
@@ -63,6 +92,47 @@ const emit = defineEmits<{
 const { cmd_enter } = useMagicKeys();
 const { provider } = useProvider();
 
+const targetLanguage = ref<TargetLanguage>(LANGUAGE_JSON);
+const targetLanguages: Option[] = [
+  {
+    label: 'JSON',
+    value: LANGUAGE_JSON,
+  },
+  {
+    label: 'Javascript',
+    value: LANGUAGE_JAVASCRIPT,
+  },
+  {
+    label: 'Python',
+    value: LANGUAGE_PYTHON,
+  },
+];
+
+function handleTargetLanguageUpdate(): void {
+  targetLibrary.value = targetLibraries.value[0].value as TargetLibrary;
+}
+
+const targetLibrary = ref<TargetLibrary>(LIBRARY_VANILLA);
+const targetLibraries = computed<Option[]>(() => {
+  switch (targetLanguage.value) {
+    case LANGUAGE_JSON:
+      return [{ label: 'Vanilla', value: LIBRARY_VANILLA }];
+    case LANGUAGE_JAVASCRIPT:
+      return [
+        { label: 'ethers', value: LIBRARY_ETHERS },
+        { label: 'Fetch', value: LIBRARY_FETCH },
+        { label: 'Axios', value: LIBRARY_AXIOS },
+      ];
+    case LANGUAGE_PYTHON:
+      return [
+        { label: 'Web3.py', value: LIBRARY_WEB3_PY },
+        { label: 'Requests', value: LIBRARY_REQUESTS },
+      ];
+    default:
+      return [{ label: 'Vanilla', value: LIBRARY_VANILLA }];
+  }
+});
+
 const isLoading = ref(false);
 
 const isValid = computed(() => props.isParamValid.every((isValid) => isValid));
@@ -87,14 +157,14 @@ const formattedInputs = computed(() => {
     : convertedInputs;
 });
 
-const request = computed(() => {
-  const request = {
-    jsonrpc: '2.0',
-    method: props.method.id,
-    params: formattedInputs.value,
-  };
-  return JSON.stringify(request, null, 4);
-});
+const request = computed(() =>
+  getRequest(
+    targetLanguage.value,
+    targetLibrary.value,
+    props.method.id,
+    formattedInputs.value,
+  ),
+);
 
 async function execute(): Promise<void> {
   emit('update:is-error', false);
@@ -138,6 +208,12 @@ const response = computed(() => {
 </script>
 
 <style scoped>
+.targets {
+  display: flex;
+  gap: var(--spacing-normal);
+  flex-direction: column;
+}
+
 .request,
 .response {
   display: flex;
