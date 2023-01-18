@@ -24,6 +24,7 @@ import {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  MethodId,
 } from '@/utils/methods';
 
 import useProvider, {
@@ -63,7 +64,7 @@ type Param = OptionalOrRequiredParam & {
 type MethodType = 'standard';
 
 interface Method {
-  id: string;
+  id: MethodId;
   name: string;
   type: MethodType;
   description: string;
