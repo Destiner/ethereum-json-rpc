@@ -188,6 +188,7 @@ function getJavascriptBrowserRequest(
 ): string {
   const formattedParams = JSON.stringify(params, null, 2)
     .replace(/"/g, "'")
+    // eslint-disable-next-line no-useless-escape
     .replace(/^[^\[\]]/gm, '     ')
     .replace(/^\]/gm, '    ]');
   return `const response = await fetch(providerEndpoint, {
@@ -206,6 +207,7 @@ function getJavascriptBrowserRequest(
 function getJavascriptNodeRequest(method: MethodId, params: unknown[]): string {
   const formattedParams = JSON.stringify(params, null, 2)
     .replace(/"/g, "'")
+    // eslint-disable-next-line no-useless-escape
     .replace(/^[^\[\]]/gm, '     ')
     .replace(/^\]/gm, '    ]');
   return `const response = await axios({
@@ -313,6 +315,7 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
 function getPythonRequestsRequest(method: MethodId, params: unknown[]): string {
   const formattedParams = JSON.stringify(params, null, 4)
     .replace(/"/g, "'")
+    // eslint-disable-next-line no-useless-escape
     .replace(/^[^\[\]]/gm, '         ')
     .replace(/^\]/gm, '        ]');
   switch (method) {
