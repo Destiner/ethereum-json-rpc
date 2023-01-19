@@ -1,15 +1,19 @@
 <template>
   <header>
-    <div class="branding">
+    <div class="side">
       <BrandLogo class="icon" />
       <div class="label">Ethereum JSON-RPC</div>
     </div>
-    <ProviderSelector />
+    <div class="side">
+      <ProviderSelector />
+      <LinkGithub class="icon-github" />
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import BrandLogo from './BrandLogo.vue';
+import LinkGithub from './LinkGithub.vue';
 import ProviderSelector from './ProviderSelector.vue';
 </script>
 
@@ -29,9 +33,9 @@ header {
   }
 }
 
-.branding {
+.side {
   display: flex;
-  gap: var(--spacing-normal);
+  gap: var(--spacing-big);
   align-items: center;
 }
 
@@ -52,5 +56,10 @@ header {
   .label {
     display: initial;
   }
+}
+
+.icon-github {
+  width: 24px;
+  height: 24px;
 }
 </style>
