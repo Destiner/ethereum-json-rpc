@@ -63,7 +63,7 @@ import { computed } from 'vue';
 import EthInput from '@/components/__common/EthInput.vue';
 import EthLabel from '@/components/__common/EthLabel.vue';
 import EthToggle from '@/components/__common/EthToggle.vue';
-import { Method } from '@/composables/useMethods';
+import { Method } from '@/utils/methods';
 
 const props = defineProps<{
   method: Method;

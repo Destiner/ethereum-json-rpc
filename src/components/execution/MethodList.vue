@@ -28,7 +28,8 @@ import { useMagicKeys } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
-import useMethods, { Method } from '@/composables/useMethods';
+import useMethods from '@/composables/useMethods';
+import { Method } from '@/utils/methods';
 
 const props = defineProps<{
   selected: Method;

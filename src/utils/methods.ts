@@ -1,3 +1,40 @@
+type ParamType =
+  | 'addr'
+  | 'hash'
+  | 'bytes32'
+  | 'bytes'
+  | 'int'
+  | 'boolean'
+  | 'block';
+
+interface OptionalParam {
+  isRequired: false;
+}
+
+interface RequiredParam {
+  isRequired: true;
+  default: unknown;
+}
+
+type OptionalOrRequiredParam = OptionalParam | RequiredParam;
+
+type Param = OptionalOrRequiredParam & {
+  type: ParamType;
+  name: string;
+  description?: string;
+};
+
+type MethodType = 'standard';
+
+interface Method {
+  id: MethodId;
+  name: string;
+  type: MethodType;
+  description: string;
+  params: Param[];
+  formatter?: (params: unknown[]) => unknown[];
+}
+
 const CHAIN_ID = 'eth_chainId';
 const BLOCK_NUMBER = 'eth_blockNumber';
 const GAS_PRICE = 'eth_gasPrice';
@@ -76,4 +113,6 @@ export {
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
   MethodId,
+  Method,
+  Param,
 };

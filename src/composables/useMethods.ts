@@ -24,7 +24,7 @@ import {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
-  MethodId,
+  Method,
 } from '@/utils/methods';
 
 import useProvider, {
@@ -34,43 +34,6 @@ import useProvider, {
   POLYGON,
   Chain,
 } from './useProvider';
-
-type ParamType =
-  | 'addr'
-  | 'hash'
-  | 'bytes32'
-  | 'bytes'
-  | 'int'
-  | 'boolean'
-  | 'block';
-
-interface OptionalParam {
-  isRequired: false;
-}
-
-interface RequiredParam {
-  isRequired: true;
-  default: unknown;
-}
-
-type OptionalOrRequiredParam = OptionalParam | RequiredParam;
-
-type Param = OptionalOrRequiredParam & {
-  type: ParamType;
-  name: string;
-  description?: string;
-};
-
-type MethodType = 'standard';
-
-interface Method {
-  id: MethodId;
-  name: string;
-  type: MethodType;
-  description: string;
-  params: Param[];
-  formatter?: (params: unknown[]) => unknown[];
-}
 
 interface Defaults {
   blockHash: string;
@@ -661,4 +624,3 @@ function getMethodList(defaults: Defaults): Method[] {
 }
 
 export default useMethods;
-export { Method, Param };

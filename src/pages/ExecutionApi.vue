@@ -32,7 +32,8 @@ import { computed, onMounted, ref } from 'vue';
 import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
 import MethodList from '@/components/execution/MethodList.vue';
-import useMethods, { Method } from '@/composables/useMethods';
+import useMethods from '@/composables/useMethods';
+import { Method } from '@/utils/methods';
 import validate from '@/utils/validation';
 
 const { methods } = useMethods();

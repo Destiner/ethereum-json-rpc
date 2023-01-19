@@ -48,9 +48,9 @@ import { computed, ref, watch } from 'vue';
 import CodeView from '@/components/__common/CodeView.vue';
 import EthLabel from '@/components/__common/EthLabel.vue';
 import EthRadio, { Option } from '@/components/__common/EthRadio.vue';
-import { Method } from '@/composables/useMethods';
 import useProvider from '@/composables/useProvider';
 import useTarget from '@/composables/useTarget';
+import { Method } from '@/utils/methods';
 import {
   Language as TargetLanguage,
   Library as TargetLibrary,
