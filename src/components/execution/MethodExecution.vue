@@ -1,16 +1,17 @@
 <template>
   <div class="targets">
     <EthRadio
-      v-model="targetLanguage"
+      :model-value="targetLanguage"
       :options="targetLanguages"
       :label="'Language'"
       @update:model-value="handleTargetLanguageUpdate"
     />
     <EthRadio
       v-if="targetLibraries.length > 1"
-      v-model="targetLibrary"
+      :model-value="targetLibrary"
       :options="targetLibraries"
       :label="'Library'"
+      @update:model-value="handleTargetLibraryUpdate"
     />
   </div>
   <div class="request">
@@ -49,6 +50,7 @@ import EthLabel from '@/components/__common/EthLabel.vue';
 import EthRadio, { Option } from '@/components/__common/EthRadio.vue';
 import { Method } from '@/composables/useMethods';
 import useProvider from '@/composables/useProvider';
+import useTarget from '@/composables/useTarget';
 import {
   Language as TargetLanguage,
   Library as TargetLibrary,
@@ -91,8 +93,9 @@ const emit = defineEmits<{
 
 const { cmd_enter } = useMagicKeys();
 const { provider } = useProvider();
+const { target } = useTarget();
 
-const targetLanguage = ref<TargetLanguage>(LANGUAGE_JSON);
+const targetLanguage = computed<TargetLanguage>(() => target.value.language);
 const targetLanguages: Option[] = [
   {
     label: 'JSON',
@@ -108,13 +111,23 @@ const targetLanguages: Option[] = [
   },
 ];
 
-function handleTargetLanguageUpdate(): void {
-  targetLibrary.value = targetLibraries.value[0].value as TargetLibrary;
+function handleTargetLanguageUpdate(language: string): void {
+  const targetLanguage = language as TargetLanguage;
+  const library = getTargetLibraryOptions(targetLanguage)[0]
+    .value as TargetLibrary;
+  target.value = {
+    language: targetLanguage,
+    library,
+  };
 }
 
-const targetLibrary = ref<TargetLibrary>(LIBRARY_VANILLA);
-const targetLibraries = computed<Option[]>(() => {
-  switch (targetLanguage.value) {
+const targetLibrary = computed<TargetLibrary>(() => target.value.library);
+const targetLibraries = computed<Option[]>(() =>
+  getTargetLibraryOptions(targetLanguage.value),
+);
+
+function getTargetLibraryOptions(language: TargetLanguage): Option[] {
+  switch (language) {
     case LANGUAGE_JSON:
       return [{ label: 'Vanilla', value: LIBRARY_VANILLA }];
     case LANGUAGE_JAVASCRIPT:
@@ -131,7 +144,14 @@ const targetLibraries = computed<Option[]>(() => {
     default:
       return [{ label: 'Vanilla', value: LIBRARY_VANILLA }];
   }
-});
+}
+
+function handleTargetLibraryUpdate(library: string): void {
+  target.value = {
+    language: target.value.language,
+    library: library as TargetLibrary,
+  };
+}
 
 const isLoading = ref(false);
 
