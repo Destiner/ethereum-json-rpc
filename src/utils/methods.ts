@@ -7,12 +7,21 @@ type PrimitiveParamType =
   | 'boolean'
   | 'block';
 
-type PrimitiveParam = {
+interface OptionalParam {
+  isRequired: false;
+}
+
+interface RequiredParam {
+  isRequired: true;
+  default: unknown;
+}
+
+type OptionalOrRequiredParam = OptionalParam | RequiredParam;
+
+type PrimitiveParam = OptionalOrRequiredParam & {
   type: PrimitiveParamType;
   name: string;
   description?: string;
-  isRequired: boolean;
-  default?: unknown;
 };
 
 type ArrayParam = {
