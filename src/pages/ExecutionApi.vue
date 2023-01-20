@@ -8,17 +8,14 @@
     </nav>
     <article class="method">
       <MethodEditor
+        v-model:inputs="inputs"
         :method="selectedMethod"
-        :inputs="inputs"
-        :is-param-valid="isParamValid"
-        @update-input="handleInputUpdate"
       />
     </article>
     <div class="execution">
       <MethodExecution
         v-model:is-error="isError"
         v-model:is-shown="isShown"
-        :is-param-valid="isParamValid"
         :inputs="inputs"
         :method="selectedMethod"
       />
@@ -27,14 +24,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
 import MethodList from '@/components/execution/MethodList.vue';
 import useMethods from '@/composables/useMethods';
-import { Method } from '@/utils/methods';
-import validate from '@/utils/validation';
+import { Method, Param } from '@/utils/methods';
 
 const { methods } = useMethods();
 
@@ -53,25 +49,34 @@ const selectedMethod = ref<Method>(methods.value[0]);
 
 const inputs = ref<unknown[]>([]);
 
-function handleInputUpdate(index: number, value: unknown): void {
-  inputs.value[index] = value;
-}
-
-const isParamValid = computed(() =>
-  validate(selectedMethod.value, inputs.value),
-);
-
 function resetParamInputs(): void {
   const newInputs = [];
   for (const param of selectedMethod.value.params) {
-    const input = param.isRequired
-      ? param.default
-      : param.type === 'boolean'
-      ? false
-      : '';
+    const input = getDefaultParamValue(param);
     newInputs.push(input);
   }
   inputs.value = newInputs;
+}
+
+function getDefaultParamValue(param: Param): unknown {
+  if (param.type === 'array') {
+    return param.items.map((item) => getDefaultParamValue(item));
+  }
+  if (param.type === 'object') {
+    return Object.fromEntries(
+      Object.entries(param.items).map(([key, value]) => [
+        key,
+        getDefaultParamValue(value),
+      ]),
+    );
+  }
+  if (param.isRequired) {
+    return param.default;
+  }
+  if (param.type === 'boolean') {
+    return false;
+  }
+  return '';
 }
 
 const isShown = ref(false);

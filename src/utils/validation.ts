@@ -1,9 +1,9 @@
-import { Method, Param } from './methods';
+import { Param } from './methods';
 
-function validate(method: Method, inputs: unknown[]): boolean[] {
+function validateParams(params: Param[], inputs: unknown[]): boolean[] {
   const isValid: boolean[] = [];
-  for (let i = 0; i < method.params.length; i++) {
-    const param = method.params[i];
+  for (let i = 0; i < params.length; i++) {
+    const param = params[i];
     const input = inputs[i];
     isValid.push(validateParam(param, input));
   }
@@ -11,6 +11,16 @@ function validate(method: Method, inputs: unknown[]): boolean[] {
 }
 
 function validateParam(param: Param, input: unknown): boolean {
+  if (param.type === 'array') {
+    return param.items.every((item, index) =>
+      validateParam(item, (input as unknown[])[index]),
+    );
+  }
+  if (param.type === 'object') {
+    return Object.entries(param.items).every(([key, value]) =>
+      validateParam(value, (input as Record<string, unknown>)[key]),
+    );
+  }
   if (param.type === 'boolean') {
     return typeof input === 'boolean';
   }
@@ -100,5 +110,4 @@ function isValidUrl(value: string): boolean {
   return !!value.match(urlRegex);
 }
 
-export default validate;
-export { isValidUrl };
+export { validateParam, validateParams, isValidUrl };

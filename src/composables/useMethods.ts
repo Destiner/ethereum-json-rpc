@@ -202,39 +202,45 @@ function getMethodList(defaults: Defaults): Method[] {
         'Executes a new message call immediately without creating a transaction on the block chain.',
       params: [
         {
-          type: 'addr',
-          name: 'from',
-          isRequired: false,
-          description:
-            'Source of the transaction call. Useful to impersonate another account.',
-        },
-        {
-          type: 'addr',
-          name: 'to',
-          isRequired: true,
-          default: contract,
-          description: 'Target contract',
-        },
-        {
-          type: 'int',
-          name: 'gas',
-          isRequired: false,
-        },
-        {
-          type: 'int',
-          name: 'gasPrice',
-          isRequired: false,
-        },
-        {
-          type: 'int',
-          name: 'value',
-          isRequired: false,
-        },
-        {
-          type: 'bytes',
-          name: 'data',
-          isRequired: false,
-          description: 'Transaction call input',
+          type: 'object',
+          name: 'transaction',
+          items: {
+            from: {
+              type: 'addr',
+              name: 'from',
+              isRequired: false,
+              description:
+                'Source of the transaction call. Useful to impersonate another account.',
+            },
+            to: {
+              type: 'addr',
+              name: 'to',
+              isRequired: true,
+              default: contract,
+              description: 'Target contract',
+            },
+            gas: {
+              type: 'int',
+              name: 'gas',
+              isRequired: false,
+            },
+            gasPrice: {
+              type: 'int',
+              name: 'gasPrice',
+              isRequired: false,
+            },
+            value: {
+              type: 'int',
+              name: 'value',
+              isRequired: false,
+            },
+            data: {
+              type: 'bytes',
+              name: 'data',
+              isRequired: false,
+              description: 'Transaction call input',
+            },
+          },
         },
         {
           type: 'block',
@@ -243,18 +249,6 @@ function getMethodList(defaults: Defaults): Method[] {
           default: 'latest',
         },
       ],
-      formatter: (params): unknown[] => {
-        const call = {
-          from: params[0],
-          to: params[1],
-          gas: params[2],
-          gasPrice: params[3],
-          value: params[4],
-          data: params[5],
-        };
-        const block = params[6];
-        return [call, block];
-      },
     },
     {
       id: ESTIMATE_GAS,
@@ -264,38 +258,44 @@ function getMethodList(defaults: Defaults): Method[] {
         'Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.',
       params: [
         {
-          type: 'addr',
-          name: 'from',
-          isRequired: false,
-          description:
-            'Source of the transaction call. Useful to impersonate another account.',
-        },
-        {
-          type: 'addr',
-          name: 'to',
-          isRequired: false,
-          description: 'Target contract',
-        },
-        {
-          type: 'int',
-          name: 'gas',
-          isRequired: false,
-        },
-        {
-          type: 'int',
-          name: 'gasPrice',
-          isRequired: false,
-        },
-        {
-          type: 'int',
-          name: 'value',
-          isRequired: false,
-        },
-        {
-          type: 'bytes',
-          name: 'data',
-          isRequired: false,
-          description: 'Transaction input',
+          type: 'object',
+          name: 'transaction',
+          items: {
+            from: {
+              type: 'addr',
+              name: 'from',
+              isRequired: false,
+              description:
+                'Source of the transaction call. Useful to impersonate another account.',
+            },
+            to: {
+              type: 'addr',
+              name: 'to',
+              isRequired: false,
+              description: 'Target contract',
+            },
+            gas: {
+              type: 'int',
+              name: 'gas',
+              isRequired: false,
+            },
+            gasPrice: {
+              type: 'int',
+              name: 'gasPrice',
+              isRequired: false,
+            },
+            value: {
+              type: 'int',
+              name: 'value',
+              isRequired: false,
+            },
+            data: {
+              type: 'bytes',
+              name: 'data',
+              isRequired: false,
+              description: 'Transaction input',
+            },
+          },
         },
         {
           type: 'block',
@@ -303,18 +303,6 @@ function getMethodList(defaults: Defaults): Method[] {
           isRequired: false,
         },
       ],
-      formatter: (params): unknown[] => {
-        const call = {
-          from: params[0],
-          to: params[1],
-          gas: params[2],
-          gasPrice: params[3],
-          value: params[4],
-          data: params[5],
-        };
-        const block = params[6];
-        return [call, block];
-      },
     },
     {
       id: GET_LOGS,
@@ -324,62 +312,57 @@ function getMethodList(defaults: Defaults): Method[] {
         'Returns an array of all logs matching a given filter object.',
       params: [
         {
-          type: 'block',
-          name: 'fromBlock',
-          isRequired: false,
-          description: 'Start of the fetching window',
-        },
-        {
-          type: 'block',
-          name: 'toBlock',
-          isRequired: false,
-          description: 'End of the fetching window',
-        },
-        {
-          type: 'addr',
-          name: 'contract',
-          isRequired: false,
-          description:
-            'Source of the logs. If blank, will fetch logs from all contracts.',
-        },
-        {
-          type: 'bytes32',
-          name: 'topic0',
-          isRequired: false,
-        },
-        {
-          type: 'bytes32',
-          name: 'topic1',
-          isRequired: false,
-        },
-        {
-          type: 'bytes32',
-          name: 'topic2',
-          isRequired: false,
-        },
-        {
-          type: 'bytes32',
-          name: 'topic3',
-          isRequired: false,
+          type: 'object',
+          name: 'filter',
+          items: {
+            fromBlock: {
+              type: 'block',
+              name: 'fromBlock',
+              isRequired: false,
+              description: 'Start of the fetching window',
+            },
+            toBlock: {
+              type: 'block',
+              name: 'toBlock',
+              isRequired: false,
+              description: 'End of the fetching window',
+            },
+            address: {
+              type: 'addr',
+              name: 'contract',
+              isRequired: false,
+              description:
+                'Source of the logs. If blank, will fetch logs from all contracts.',
+            },
+            topics: {
+              type: 'array',
+              name: 'topics',
+              items: [
+                {
+                  type: 'bytes32',
+                  name: 'topic0',
+                  isRequired: false,
+                },
+                {
+                  type: 'bytes32',
+                  name: 'topic1',
+                  isRequired: false,
+                },
+                {
+                  type: 'bytes32',
+                  name: 'topic2',
+                  isRequired: false,
+                },
+                {
+                  type: 'bytes32',
+                  name: 'topic3',
+                  isRequired: false,
+                },
+              ],
+            },
+          },
         },
       ],
-      formatter: (params): unknown[] => {
-        const fromBlock = params[0];
-        const toBlock = params[1];
-        const contract = params[2];
-        const topic0 = params[3];
-        const topic1 = params[4];
-        const topic2 = params[5];
-        const topic3 = params[6];
-        return [
-          {
-            fromBlock,
-            toBlock,
-            address: contract,
-            topics: [topic0, topic1, topic2, topic3],
-          },
-        ];
-      },
     },
     {
       id: GET_TRANSACTION_COUNT,

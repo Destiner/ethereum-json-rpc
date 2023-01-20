@@ -1,4 +1,4 @@
-type ParamType =
+type PrimitiveParamType =
   | 'addr'
   | 'hash'
   | 'bytes32'
@@ -7,22 +7,29 @@ type ParamType =
   | 'boolean'
   | 'block';
 
-interface OptionalParam {
-  isRequired: false;
-}
-
-interface RequiredParam {
-  isRequired: true;
-  default: unknown;
-}
-
-type OptionalOrRequiredParam = OptionalParam | RequiredParam;
-
-type Param = OptionalOrRequiredParam & {
-  type: ParamType;
+type PrimitiveParam = {
+  type: PrimitiveParamType;
   name: string;
   description?: string;
+  isRequired: boolean;
+  default?: unknown;
 };
+
+type ArrayParam = {
+  type: 'array';
+  name: string;
+  description?: string;
+  items: Param[];
+};
+
+type ObjectParam = {
+  type: 'object';
+  name: string;
+  description?: string;
+  items: Record<string, Param>;
+};
+
+type Param = PrimitiveParam | ArrayParam | ObjectParam;
 
 type MethodType = 'standard';
 
@@ -32,7 +39,6 @@ interface Method {
   type: MethodType;
   description: string;
   params: Param[];
-  formatter?: (params: unknown[]) => unknown[];
 }
 
 const CHAIN_ID = 'eth_chainId';

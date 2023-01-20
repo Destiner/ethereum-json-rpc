@@ -50,7 +50,7 @@ import EthLabel from '@/components/__common/EthLabel.vue';
 import EthRadio, { Option } from '@/components/__common/EthRadio.vue';
 import useProvider from '@/composables/useProvider';
 import useTarget from '@/composables/useTarget';
-import { Method } from '@/utils/methods';
+import { Method, Param } from '@/utils/methods';
 import {
   Language as TargetLanguage,
   Library as TargetLibrary,
@@ -65,6 +65,7 @@ import {
   LIBRARY_REQUESTS,
   getRequest,
 } from '@/utils/targets';
+import { validateParams } from '@/utils/validation';
 
 interface Error {
   body: string;
@@ -79,7 +80,6 @@ interface Error {
 }
 
 const props = defineProps<{
-  isParamValid: boolean[];
   inputs: unknown[];
   method: Method;
   isShown: boolean;
@@ -155,27 +155,43 @@ function handleTargetLibraryUpdate(library: string): void {
 
 const isLoading = ref(false);
 
-const isValid = computed(() => props.isParamValid.every((isValid) => isValid));
-
-const formattedInputs = computed(() => {
-  const convertedInputs = props.inputs.map((input, index) => {
-    if (input === '') {
-      return null;
-    }
-    const param = props.method.params[index];
-    if (
-      param.type === 'int' ||
-      (param.type === 'block' && !isNaN(parseInt(input as string)))
-    ) {
-      // Convert to hex
-      return `0x${new Number(parseInt(input as string)).toString(16)}`;
-    }
-    return input;
-  });
-  return props.method?.formatter
-    ? props.method?.formatter(convertedInputs)
-    : convertedInputs;
+const isValid = computed(() => {
+  const isParamValid = validateParams(props.method.params, props.inputs);
+  return isParamValid.every((isValid) => isValid);
 });
+
+const formattedInputs = computed(() =>
+  props.inputs.map((input, index) =>
+    formatInput(props.method.params[index], input),
+  ),
+);
+
+function formatInput(param: Param, input: unknown): unknown {
+  if (param.type === 'array') {
+    return param.items.map((item, index) =>
+      formatInput(item, (input as unknown[])[index]),
+    );
+  }
+  if (param.type === 'object') {
+    return Object.fromEntries(
+      Object.entries(param.items).map(([key, value]) => [
+        key,
+        formatInput(value, (input as Record<string, unknown>)[key]),
+      ]),
+    );
+  }
+  if (input === '') {
+    return null;
+  }
+  if (
+    param.type === 'int' ||
+    (param.type === 'block' && !isNaN(parseInt(input as string)))
+  ) {
+    // Convert to hex
+    return `0x${new Number(parseInt(input as string)).toString(16)}`;
+  }
+  return input;
+}
 
 const request = computed(() =>
   getRequest(

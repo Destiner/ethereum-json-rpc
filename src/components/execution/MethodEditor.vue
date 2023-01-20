@@ -9,73 +9,35 @@
   <div class="description">
     {{ method.description }}
   </div>
-  <div
+  <MethodForm
     v-if="hasParams"
-    class="params"
-  >
-    <EthLabel :value="'Params'" />
-    <div class="param-list">
-      <div
-        v-for="(param, index) in method.params"
-        :key="index"
-        class="param"
-      >
-        <div class="param-meta">
-          <div class="param-meta-section">
-            <div class="param-name">{{ param.name }}</div>
-            <div class="param-type">{{ param.type }}</div>
-            <div
-              v-if="param.isRequired"
-              class="param-required"
-            >
-              *
-            </div>
-          </div>
-          <div class="param-meta-section">
-            <div class="param-description">
-              {{ param.description }}
-            </div>
-          </div>
-        </div>
-        <div v-if="param.type === 'boolean'">
-          <EthToggle
-            :model-value="inputs[index] as boolean"
-            @update:model-value="(val) => emit('update-input', index, val)"
-          />
-        </div>
-        <div v-else>
-          <EthInput
-            :model-value="inputs[index] as string"
-            class="param-value"
-            :has-error="!isParamValid[index]"
-            type="text"
-            @update:model-value="(val) => emit('update-input', index, val)"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+    :inputs="inputs"
+    :params="method.params"
+    @update:inputs="handleUpdate"
+  />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import EthInput from '@/components/__common/EthInput.vue';
-import EthLabel from '@/components/__common/EthLabel.vue';
-import EthToggle from '@/components/__common/EthToggle.vue';
 import { Method } from '@/utils/methods';
+
+import MethodForm from './MethodForm.vue';
 
 const props = defineProps<{
   method: Method;
   inputs: unknown[];
-  isParamValid: boolean[];
 }>();
 
 const emit = defineEmits<{
-  (e: 'update-input', index: number, value: unknown): void;
+  (e: 'update:inputs', value: unknown[]): void;
 }>();
 
 const hasParams = computed(() => props.method.params.length > 0);
+
+function handleUpdate(value: unknown[]): void {
+  emit('update:inputs', value);
+}
 </script>
 
 <style scoped>
