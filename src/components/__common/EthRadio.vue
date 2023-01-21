@@ -124,6 +124,10 @@ export { Option };
   color: var(--color-text-secondary);
 }
 
+.option:hover > .label {
+  color: var(--color-text-primary);
+}
+
 .label.checked {
   color: var(--color-text-primary);
 }
