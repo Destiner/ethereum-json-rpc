@@ -44,7 +44,7 @@ header {
   height: 32px;
   padding: 4px;
   border-radius: 50%;
-  background: var(--color-text-primary);
+  background: white;
 }
 
 .label {
