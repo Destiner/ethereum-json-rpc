@@ -23,6 +23,9 @@ import {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  ACCOUNTS,
+  COINBASE,
+  SYNCING,
   MethodId,
   FEE_HISTORY,
 } from './methods';
@@ -182,6 +185,9 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX:
     case GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX:
     case GET_UNCLE_BY_BLOCK_HASH_AND_INDEX:
+    case ACCOUNTS:
+    case COINBASE:
+    case SYNCING:
       return '';
   }
 }
@@ -304,6 +310,14 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
     case GET_TRANSACTION_RECEIPT: {
       return `transaction_receipt = w3.eth.get_transaction_receipt('${params[0]}')`;
     }
+    case ACCOUNTS:
+      return `accounts = w3.eth.accounts`;
+
+    case COINBASE:
+      return `coinbase = w3.eth.coinbase`;
+
+    case SYNCING:
+      return `syncing = w3.eth.syncing`;
     case FEE_HISTORY:
     case GET_PROOF:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:

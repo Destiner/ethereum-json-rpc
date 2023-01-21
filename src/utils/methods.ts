@@ -81,6 +81,9 @@ const GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX =
 const GET_TRANSACTION_RECEIPT = 'eth_getTransactionReceipt';
 const GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX = 'eth_getUncleByBlockNumberAndIndex';
 const GET_UNCLE_BY_BLOCK_HASH_AND_INDEX = 'eth_getUncleByBlockHashAndIndex';
+const SYNCING = 'eth_syncing';
+const COINBASE = 'eth_coinbase';
+const ACCOUNTS = 'eth_accounts';
 
 type MethodId =
   | typeof CHAIN_ID
@@ -107,7 +110,10 @@ type MethodId =
   | typeof GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX
   | typeof GET_TRANSACTION_RECEIPT
   | typeof GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX
-  | typeof GET_UNCLE_BY_BLOCK_HASH_AND_INDEX;
+  | typeof GET_UNCLE_BY_BLOCK_HASH_AND_INDEX
+  | typeof ACCOUNTS
+  | typeof COINBASE
+  | typeof SYNCING;
 
 function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
   return {
@@ -143,6 +149,9 @@ export {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  ACCOUNTS,
+  COINBASE,
+  SYNCING,
   ArrayParam,
   Method,
   MethodId,

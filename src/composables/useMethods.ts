@@ -26,6 +26,9 @@ import {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  ACCOUNTS,
+  COINBASE,
+  SYNCING,
   Method,
 } from '@/utils/methods';
 
@@ -663,6 +666,28 @@ function getMethodList(defaults: Defaults): Method[] {
           description: 'Uncle index',
         },
       ],
+    },
+    {
+      id: ACCOUNTS,
+      name: 'Accounts',
+      type: 'standard',
+      description: 'Returns a list of addresses owned by client.',
+      params: [],
+    },
+    {
+      id: COINBASE,
+      name: 'Coinbase',
+      type: 'standard',
+      description: 'Returns the client coinbase address.',
+      params: [],
+    },
+    {
+      id: SYNCING,
+      name: 'Syncing status',
+      type: 'standard',
+      description:
+        'Returns an object with data about the sync status or false.',
+      params: [],
     },
   ];
 }
