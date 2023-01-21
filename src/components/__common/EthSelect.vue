@@ -108,6 +108,7 @@ export { Option };
   border-radius: var(--border-radius-medium);
   outline: none;
   background: var(--color-bg-primary);
+  box-shadow: var(--shadow-small);
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
   cursor: pointer;

@@ -92,6 +92,7 @@ input {
   border-radius: var(--border-radius-medium);
   outline: none;
   background: var(--color-bg-primary);
+  box-shadow: var(--shadow-small-inset);
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
 }

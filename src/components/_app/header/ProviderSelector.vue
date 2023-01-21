@@ -351,6 +351,7 @@ const latestBlock = ref<number>(-1);
   border: 1px solid var(--color-border-primary);
   border-radius: var(--border-radius-medium);
   background: transparent;
+  box-shadow: var(--shadow-medium);
   font-size: var(--font-size-big);
   cursor: pointer;
 }

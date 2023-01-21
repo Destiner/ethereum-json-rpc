@@ -24,6 +24,10 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
   --color-accent-tertiary: #f5ebf7;
   --color-error: #ff4d45;
   --color-success: #23cdb1;
+  --shadow-small: rgb(0 0 0 / 10%) 0 1px 1px 0;
+  --shadow-small-inset: rgba(0 0 0 / 5%) 0 1px 1px 0 inset;
+  --shadow-medium: rgb(0 0 0 / 20%) 0 2px 4px 0;
+  --shadow-medium-inset: rgb(0 0 0 / 10%) 0 2px 2px 0 inset;
   --spacing-tiny: 2px;
   --spacing-small: 4px;
   --spacing-normal: 8px;
@@ -60,6 +64,10 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
     --color-accent-tertiary: #241d26;
     --color-error: #992e29;
     --color-success: #299986;
+    --shadow-small: rgb(0 0 0 / 15%) 0 1px 1px 0;
+    --shadow-small-inset: rgba(0 0 0 / 10%) 0 1px 1px 0 inset;
+    --shadow-medium: rgb(0 0 0 / 30%) 0 2px 4px 0;
+    --shadow-medium-inset: rgb(0 0 0 / 20%) 0 2px 2px 0 inset;
   }
 }
 

@@ -49,6 +49,7 @@ textarea {
   border-radius: var(--border-radius-medium);
   outline: none;
   background: var(--color-bg-secondary);
+  box-shadow: var(--shadow-medium-inset);
   color: var(--color-text-primary);
   font-family: var(--font-mono);
   font-size: var(--font-size-small);
