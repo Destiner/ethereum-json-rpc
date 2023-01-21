@@ -105,6 +105,8 @@ main {
 
 .methods {
   display: flex;
+  position: sticky;
+  top: 0;
   gap: var(--spacing-normal);
   flex: 1;
   flex-direction: column;
