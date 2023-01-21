@@ -50,7 +50,7 @@ import EthLabel from '@/components/__common/EthLabel.vue';
 import EthRadio, { Option } from '@/components/__common/EthRadio.vue';
 import useProvider from '@/composables/useProvider';
 import useTarget from '@/composables/useTarget';
-import { Method, Param } from '@/utils/methods';
+import { Method, Param, getArrayParamItem } from '@/utils/methods';
 import {
   Language as TargetLanguage,
   Library as TargetLibrary,
@@ -168,9 +168,11 @@ const formattedInputs = computed(() =>
 
 function formatInput(param: Param, input: unknown): unknown {
   if (param.type === 'array') {
-    return param.items.map((item, index) =>
-      formatInput(item, (input as unknown[])[index]),
-    );
+    const itemInputs = input as unknown[];
+    return itemInputs.map((itemInput, index) => {
+      const itemParam = getArrayParamItem(param, index);
+      return formatInput(itemParam, itemInput);
+    });
   }
   if (param.type === 'object') {
     return Object.fromEntries(

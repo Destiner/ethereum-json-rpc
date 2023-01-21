@@ -1,4 +1,4 @@
-import { Param } from './methods';
+import { Param, PrimitiveParam, getArrayParamItem } from './methods';
 
 function validateParams(params: Param[], inputs: unknown[]): boolean[] {
   const isValid: boolean[] = [];
@@ -12,73 +12,57 @@ function validateParams(params: Param[], inputs: unknown[]): boolean[] {
 
 function validateParam(param: Param, input: unknown): boolean {
   if (param.type === 'array') {
-    return param.items.every((item, index) =>
-      validateParam(item, (input as unknown[])[index]),
-    );
+    const itemInputs = input as unknown[];
+    return itemInputs.every((itemInput, index) => {
+      const itemParam = getArrayParamItem(param, index);
+      return validatePrimitiveParam(itemParam, itemInput);
+    });
   }
   if (param.type === 'object') {
     return Object.entries(param.items).every(([key, value]) =>
       validateParam(value, (input as Record<string, unknown>)[key]),
     );
   }
+  return validatePrimitiveParam(param, input);
+}
+
+function validatePrimitiveParam(
+  param: PrimitiveParam,
+  input: unknown,
+): boolean {
   if (param.type === 'boolean') {
     return typeof input === 'boolean';
   }
-  if (typeof input === 'string' && input === '') {
+  if (typeof input !== 'string') {
+    return false;
+  }
+  if (input === '') {
     return !param.isRequired;
-  } else {
-    if (param.type === 'int') {
-      if (typeof input !== 'string') {
-        return false;
+  }
+  switch (param.type) {
+    case 'int': {
+      const val = parseInt(input);
+      return !isNaN(val) && val >= 0;
+    }
+    case 'addr':
+      return isAddress(input);
+    case 'hash':
+      return isBytes32(input);
+    case 'bytes32':
+      return isBytes32(input);
+    case 'bytes':
+      return isBytes(input);
+    case 'block': {
+      if (
+        ['earliest', 'finalized', 'safe', 'latest', 'pending'].includes(input)
+      ) {
+        return true;
       } else {
         const val = parseInt(input);
-        return !isNaN(val) && val >= 0;
-      }
-    }
-    if (param.type === 'addr') {
-      if (typeof input !== 'string') {
-        return false;
-      } else {
-        return isAddress(input);
-      }
-    }
-    if (param.type === 'hash') {
-      if (typeof input !== 'string') {
-        return false;
-      } else {
-        return isBytes32(input);
-      }
-    }
-    if (param.type === 'bytes32') {
-      if (typeof input !== 'string') {
-        return false;
-      } else {
-        return isBytes32(input);
-      }
-    }
-    if (param.type === 'bytes') {
-      if (typeof input !== 'string') {
-        return false;
-      } else {
-        return isBytes(input);
-      }
-    }
-    if (param.type === 'block') {
-      if (typeof input !== 'string') {
-        return false;
-      } else {
-        if (
-          ['earliest', 'finalized', 'safe', 'latest', 'pending'].includes(input)
-        ) {
-          return true;
-        } else {
-          const val = parseInt(input);
-          return !isNaN(val) && val >= 0 && val < 1e9;
-        }
+        return !isNaN(val) && val >= 0 && val < 1e9;
       }
     }
   }
-  return false;
 }
 
 function isAddress(value: string): boolean {

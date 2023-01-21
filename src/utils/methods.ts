@@ -26,9 +26,10 @@ type PrimitiveParam = OptionalOrRequiredParam & {
 
 type ArrayParam = {
   type: 'array';
+  itemType: PrimitiveParamType;
   name: string;
   description?: string;
-  items: Param[];
+  count?: number;
 };
 
 type ObjectParam = {
@@ -103,6 +104,14 @@ type MethodId =
   | typeof GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX
   | typeof GET_UNCLE_BY_BLOCK_HASH_AND_INDEX;
 
+function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
+  return {
+    type: param.itemType,
+    name: index.toString(),
+    isRequired: false,
+  };
+}
+
 export {
   CHAIN_ID,
   BLOCK_NUMBER,
@@ -127,7 +136,10 @@ export {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
-  MethodId,
+  ArrayParam,
   Method,
+  MethodId,
   Param,
+  PrimitiveParam,
+  getArrayParamItem,
 };

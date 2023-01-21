@@ -30,7 +30,7 @@ import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
 import MethodList from '@/components/execution/MethodList.vue';
 import useMethods from '@/composables/useMethods';
-import { Method, Param } from '@/utils/methods';
+import { Method, Param, getArrayParamItem } from '@/utils/methods';
 
 const { methods } = useMethods();
 
@@ -60,7 +60,10 @@ function resetParamInputs(): void {
 
 function getDefaultParamValue(param: Param): unknown {
   if (param.type === 'array') {
-    return param.items.map((item) => getDefaultParamValue(item));
+    const length = param.count ? param.count : 1;
+    return Array.from({ length }, (_, i) =>
+      getDefaultParamValue(getArrayParamItem(param, i)),
+    );
   }
   if (param.type === 'object') {
     return Object.fromEntries(

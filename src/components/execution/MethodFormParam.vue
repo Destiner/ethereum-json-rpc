@@ -22,11 +22,12 @@
     </div>
     <div v-if="param.type === 'array'">
       <MethodFormParam
-        v-for="(item, index) in param.items"
+        v-for="(itemInput, index) in input as unknown[]"
         :key="index"
-        :param="item"
-        :input="(input as unknown[])[index]"
+        :param="getArrayParamItem(param, index)"
+        :input="itemInput"
         @update:input="(value) => handleArrayUpdate(index, value)"
+        @blur="() => handleArrayBlur(index)"
       />
     </div>
     <div v-else-if="param.type === 'object'">
@@ -51,6 +52,7 @@
         :has-error="!validateParam(param, input)"
         type="text"
         @update:model-value="handleUpdate"
+        @blur="handleBlur"
       />
     </div>
   </div>
@@ -59,7 +61,7 @@
 <script setup lang="ts">
 import EthInput from '@/components/__common/EthInput.vue';
 import EthToggle from '@/components/__common/EthToggle.vue';
-import { Param } from '@/utils/methods';
+import { ArrayParam, Param, getArrayParamItem } from '@/utils/methods';
 import { validateParam } from '@/utils/validation';
 
 const props = defineProps<{
@@ -69,6 +71,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:input', value: unknown): void;
+  (e: 'blur'): void;
 }>();
 
 function isParamRequired(param: Param): boolean {
@@ -86,8 +89,49 @@ function handleUpdate(input: unknown): void {
 }
 
 function handleArrayUpdate(index: number, value: unknown): void {
-  const newInput = [...(props.input as unknown[])];
+  const arrayParam = props.param as ArrayParam;
+  const arrayInput = props.input as unknown[];
+  const inputValue = value as string | boolean;
+  const newInput = [...arrayInput];
+  if (index === arrayInput.length - 1) {
+    if (typeof inputValue === 'string') {
+      if (inputValue !== '') {
+        // Only update the length if the array is dynamic
+        if (!arrayParam.count) {
+          newInput.push('');
+        }
+      }
+    }
+  }
   newInput[index] = value;
+  emit('update:input', newInput);
+}
+
+function handleArrayBlur(index: number): void {
+  const arrayParam = props.param as ArrayParam;
+  const arrayInput = props.input as (string | boolean)[];
+  const inputValue = arrayInput[index];
+  // Always keep the first element
+  if (index === 0) {
+    return;
+  }
+  // Only trigger if the last element is updated
+  if (index !== arrayInput.length - 1) {
+    return;
+  }
+  if (typeof inputValue !== 'string') {
+    return;
+  }
+  // Only trigger if the input is clean
+  if (inputValue !== '') {
+    return;
+  }
+  // Only trigger if the array is dynamic
+  if (arrayParam.count) {
+    return;
+  }
+  // Remove the last element from the list
+  const newInput = arrayInput.slice(0, arrayInput.length - 1);
   emit('update:input', newInput);
 }
 
@@ -95,6 +139,10 @@ function handleObjectUpdate(key: string, value: unknown): void {
   const newInput = { ...(props.input as Record<string, unknown>) };
   newInput[key] = value;
   emit('update:input', newInput);
+}
+
+function handleBlur(): void {
+  emit('blur');
 }
 </script>
 

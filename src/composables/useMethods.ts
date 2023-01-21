@@ -336,29 +336,9 @@ function getMethodList(defaults: Defaults): Method[] {
             },
             topics: {
               type: 'array',
+              itemType: 'bytes32',
               name: 'topics',
-              items: [
-                {
-                  type: 'bytes32',
-                  name: 'topic0',
-                  isRequired: false,
-                },
-                {
-                  type: 'bytes32',
-                  name: 'topic1',
-                  isRequired: false,
-                },
-                {
-                  type: 'bytes32',
-                  name: 'topic2',
-                  isRequired: false,
-                },
-                {
-                  type: 'bytes32',
-                  name: 'topic3',
-                  isRequired: false,
-                },
-              ],
+              count: 4,
             },
           },
         },
