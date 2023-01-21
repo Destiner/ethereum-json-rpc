@@ -162,19 +162,15 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
       ).replace(/"/g, "'");
       return `const logs = await provider.getLogs(${formattedParams})`;
     }
-    case GET_TRANSACTION_COUNT: {
+    case GET_TRANSACTION_COUNT:
       return `const count = await provider.getTransactionCount('${params[0]}', '${params[1]}')`;
-    }
     case GET_BLOCK_BY_HASH:
-    case GET_BLOCK_BY_NUMBER: {
+    case GET_BLOCK_BY_NUMBER:
       return `const block = await provider.getBlock('${params[0]}', ${params[1]})`;
-    }
-    case GET_TRANSACTION_BY_HASH: {
+    case GET_TRANSACTION_BY_HASH:
       return `const transaction = await provider.getTransaction('${params[0]}')`;
-    }
-    case GET_TRANSACTION_RECEIPT: {
+    case GET_TRANSACTION_RECEIPT:
       return `const transactionReceipt = await provider.getTransactionReceipt('${params[0]}')`;
-    }
     case FEE_HISTORY:
     case GET_PROOF:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:
@@ -295,27 +291,21 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
       // TODO
       return '';
     }
-    case GET_TRANSACTION_COUNT: {
+    case GET_TRANSACTION_COUNT:
       return `count = w3.eth.get_transaction_count('${params[0]}', '${params[1]}')`;
-    }
     case GET_BLOCK_BY_HASH:
-    case GET_BLOCK_BY_NUMBER: {
+    case GET_BLOCK_BY_NUMBER:
       return `block = w3.eth.get_block('${params[0]}', ${
         params[1] ? 'True' : 'False'
       })`;
-    }
-    case GET_TRANSACTION_BY_HASH: {
+    case GET_TRANSACTION_BY_HASH:
       return `transaction = w3.eth.get_transaction('${params[0]}')`;
-    }
-    case GET_TRANSACTION_RECEIPT: {
+    case GET_TRANSACTION_RECEIPT:
       return `transaction_receipt = w3.eth.get_transaction_receipt('${params[0]}')`;
-    }
     case ACCOUNTS:
       return `accounts = w3.eth.accounts`;
-
     case COINBASE:
       return `coinbase = w3.eth.coinbase`;
-
     case SYNCING:
       return `syncing = w3.eth.syncing`;
     case FEE_HISTORY:
