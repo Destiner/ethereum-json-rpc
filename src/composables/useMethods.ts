@@ -291,6 +291,27 @@ function getMethodList(defaults: Defaults): Method[] {
               isRequired: false,
               description: 'Transaction call input',
             },
+            maxFeePerGas: {
+              type: 'int',
+              name: 'max fee per gas',
+              isRequired: false,
+            },
+            maxPriorityFeePerGas: {
+              type: 'int',
+              name: 'max priority fee per gas',
+              isRequired: false,
+            },
+            nonce: {
+              type: 'int',
+              name: 'nonce',
+              isRequired: false,
+            },
+            type: {
+              type: 'int',
+              name: 'type',
+              isRequired: false,
+              description: 'Transaction type',
+            },
           },
         },
         {
@@ -345,6 +366,27 @@ function getMethodList(defaults: Defaults): Method[] {
               name: 'data',
               isRequired: false,
               description: 'Transaction input',
+            },
+            maxFeePerGas: {
+              type: 'int',
+              name: 'max fee per gas',
+              isRequired: false,
+            },
+            maxPriorityFeePerGas: {
+              type: 'int',
+              name: 'max priority fee per gas',
+              isRequired: false,
+            },
+            nonce: {
+              type: 'int',
+              name: 'nonce',
+              isRequired: false,
+            },
+            type: {
+              type: 'int',
+              name: 'type',
+              isRequired: false,
+              description: 'Transaction type',
             },
           },
         },

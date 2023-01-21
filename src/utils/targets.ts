@@ -55,6 +55,10 @@ type Library =
   | typeof LIBRARY_WEB3_PY
   | typeof LIBRARY_REQUESTS;
 
+interface Call {
+  nonce?: string;
+}
+
 interface LogFilter {
   fromBlock: string | null;
   toBlock: string | null;
@@ -126,12 +130,14 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case GET_STORAGE_AT:
       return `const storage = await provider.getStorageAt('${params[0]}', '${params[1]}', '${params[2]}')`;
     case CALL: {
+      const nonce = (params[0] as Call).nonce;
       const formattedParams = JSON.stringify(
         {
           ...(params[0] as object),
           gas: undefined,
           gasLimit: null,
           blockTag: params[1],
+          nonce: nonce ? parseInt(nonce) : undefined,
         },
         null,
         2,
@@ -139,12 +145,14 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
       return `const result = await provider.call(${formattedParams})`;
     }
     case ESTIMATE_GAS: {
+      const nonce = (params[0] as Call).nonce;
       const formattedParams = JSON.stringify(
         {
           ...(params[0] as object),
           gas: undefined,
           gasLimit: null,
           blockTag: params[1] === null ? undefined : params[1],
+          nonce: nonce ? parseInt(nonce) : undefined,
         },
         null,
         2,
