@@ -16,6 +16,7 @@
       :disabled="disabled"
       :placeholder="placeholder"
       @input="handleInput"
+      @blur="handleBlur"
     />
   </div>
 </template>
@@ -44,6 +45,7 @@ withDefaults(
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
   (e: 'input', value: string): void;
+  (e: 'blur'): void;
 }>();
 
 const activeElement = useActiveElement();
@@ -63,6 +65,10 @@ function handleInput(event: Event): void {
   const value = (event.target as HTMLInputElement).value;
   emit('update:modelValue', value);
   emit('input', value);
+}
+
+function handleBlur(): void {
+  emit('blur');
 }
 
 defineExpose({
