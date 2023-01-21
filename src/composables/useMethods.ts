@@ -144,7 +144,7 @@ function getMethodList(defaults: Defaults): Method[] {
       params: [
         {
           type: 'int',
-          name: 'blockCount',
+          name: 'block count',
           isRequired: true,
           default: '1',
           description:
@@ -152,7 +152,7 @@ function getMethodList(defaults: Defaults): Method[] {
         },
         {
           type: 'block',
-          name: 'newestBlock',
+          name: 'newest block',
           isRequired: true,
           default: 'latest',
           description: 'Highest block of the requested range.',
@@ -160,7 +160,7 @@ function getMethodList(defaults: Defaults): Method[] {
         {
           type: 'array',
           itemType: 'int',
-          name: 'rewardPercentiles',
+          name: 'reward percentiles',
           isRequired: true,
           default: address,
           description:
@@ -277,7 +277,7 @@ function getMethodList(defaults: Defaults): Method[] {
             },
             gasPrice: {
               type: 'int',
-              name: 'gasPrice',
+              name: 'gas price',
               isRequired: false,
             },
             value: {
@@ -332,7 +332,7 @@ function getMethodList(defaults: Defaults): Method[] {
             },
             gasPrice: {
               type: 'int',
-              name: 'gasPrice',
+              name: 'gas price',
               isRequired: false,
             },
             value: {
@@ -368,13 +368,13 @@ function getMethodList(defaults: Defaults): Method[] {
           items: {
             fromBlock: {
               type: 'block',
-              name: 'fromBlock',
+              name: 'from block',
               isRequired: false,
               description: 'Start of the fetching window',
             },
             toBlock: {
               type: 'block',
-              name: 'toBlock',
+              name: 'to block',
               isRequired: false,
               description: 'End of the fetching window',
             },
@@ -411,7 +411,7 @@ function getMethodList(defaults: Defaults): Method[] {
         {
           type: 'array',
           itemType: 'bytes32',
-          name: 'storageKeys',
+          name: 'storage keys',
         },
         {
           type: 'block',
@@ -465,7 +465,7 @@ function getMethodList(defaults: Defaults): Method[] {
         },
         {
           type: 'boolean',
-          name: 'isFull',
+          name: 'is full',
           isRequired: false,
           description:
             'Whether to fetch the full block. If false, will only fetch the header and the list of transaction hashes.',
@@ -486,7 +486,7 @@ function getMethodList(defaults: Defaults): Method[] {
         },
         {
           type: 'boolean',
-          name: 'isFull',
+          name: 'is full',
           isRequired: false,
           description:
             'Whether to fetch the full block. If false, will only fetch the header and the list of transaction hashes.',
