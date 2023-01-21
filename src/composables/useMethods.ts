@@ -12,6 +12,7 @@ import {
   CALL,
   ESTIMATE_GAS,
   GET_LOGS,
+  GET_PROOF,
   GET_TRANSACTION_COUNT,
   GET_BLOCK_BY_NUMBER,
   GET_BLOCK_BY_HASH,
@@ -387,6 +388,42 @@ function getMethodList(defaults: Defaults): Method[] {
           },
         },
       ],
+    },
+    {
+      id: GET_PROOF,
+      name: 'Get proof',
+      type: 'standard',
+      description:
+        'Returns the merkle proof for a given account and optionally some storage keys.',
+      params: [
+        {
+          type: 'addr',
+          name: 'account',
+          isRequired: true,
+          default: address,
+        },
+        {
+          type: 'array',
+          itemType: 'bytes32',
+          name: 'storageKeys',
+        },
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+      ],
+      formatter: (params): unknown[] => {
+        const account = params[0];
+        const storageKeys = params[1] as (string | null)[];
+        const block = params[2];
+
+        const formattedStorageKeys = storageKeys.filter(
+          (key): key is string => key !== null,
+        );
+        return [account, formattedStorageKeys, block];
+      },
     },
     {
       id: GET_TRANSACTION_COUNT,

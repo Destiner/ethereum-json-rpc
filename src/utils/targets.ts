@@ -9,6 +9,7 @@ import {
   CALL,
   ESTIMATE_GAS,
   GET_LOGS,
+  GET_PROOF,
   GET_TRANSACTION_COUNT,
   GET_BLOCK_BY_NUMBER,
   GET_BLOCK_BY_HASH,
@@ -172,6 +173,7 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
       return `const transactionReceipt = await provider.getTransactionReceipt('${params[0]}')`;
     }
     case FEE_HISTORY:
+    case GET_PROOF:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:
     case GET_BLOCK_TRANSACTION_COUNT_BY_HASH:
     case GET_UNCLE_COUNT_BY_BLOCK_NUMBER:
@@ -303,6 +305,7 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
       return `transaction_receipt = w3.eth.get_transaction_receipt('${params[0]}')`;
     }
     case FEE_HISTORY:
+    case GET_PROOF:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:
     case GET_BLOCK_TRANSACTION_COUNT_BY_HASH:
     case GET_UNCLE_COUNT_BY_BLOCK_NUMBER:

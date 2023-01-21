@@ -63,6 +63,7 @@ const GET_STORAGE_AT = 'eth_getStorageAt';
 const CALL = 'eth_call';
 const ESTIMATE_GAS = 'eth_estimateGas';
 const GET_LOGS = 'eth_getLogs';
+const GET_PROOF = 'eth_getProof';
 const GET_TRANSACTION_COUNT = 'eth_getTransactionCount';
 const GET_BLOCK_BY_NUMBER = 'eth_getBlockByNumber';
 const GET_BLOCK_BY_HASH = 'eth_getBlockByHash';
@@ -93,6 +94,7 @@ type MethodId =
   | typeof CALL
   | typeof ESTIMATE_GAS
   | typeof GET_LOGS
+  | typeof GET_PROOF
   | typeof GET_TRANSACTION_COUNT
   | typeof GET_BLOCK_BY_NUMBER
   | typeof GET_BLOCK_BY_HASH
@@ -127,6 +129,7 @@ export {
   CALL,
   ESTIMATE_GAS,
   GET_LOGS,
+  GET_PROOF,
   GET_TRANSACTION_COUNT,
   GET_BLOCK_BY_NUMBER,
   GET_BLOCK_BY_HASH,
