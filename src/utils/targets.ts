@@ -23,6 +23,7 @@ import {
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
   MethodId,
+  FEE_HISTORY,
 } from './methods';
 
 const LANGUAGE_JSON = 'json';
@@ -170,6 +171,7 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case GET_TRANSACTION_RECEIPT: {
       return `const transactionReceipt = await provider.getTransactionReceipt('${params[0]}')`;
     }
+    case FEE_HISTORY:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:
     case GET_BLOCK_TRANSACTION_COUNT_BY_HASH:
     case GET_UNCLE_COUNT_BY_BLOCK_NUMBER:
@@ -300,6 +302,7 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
     case GET_TRANSACTION_RECEIPT: {
       return `transaction_receipt = w3.eth.get_transaction_receipt('${params[0]}')`;
     }
+    case FEE_HISTORY:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:
     case GET_BLOCK_TRANSACTION_COUNT_BY_HASH:
     case GET_UNCLE_COUNT_BY_BLOCK_NUMBER:

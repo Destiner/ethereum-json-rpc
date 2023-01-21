@@ -160,11 +160,14 @@ const isValid = computed(() => {
   return isParamValid.every((isValid) => isValid);
 });
 
-const formattedInputs = computed(() =>
-  props.inputs.map((input, index) =>
+const formattedInputs = computed(() => {
+  const convertedInputs = props.inputs.map((input, index) =>
     formatInput(props.method.params[index], input),
-  ),
-);
+  );
+  return props.method?.formatter
+    ? props.method?.formatter(convertedInputs)
+    : convertedInputs;
+});
 
 function formatInput(param: Param, input: unknown): unknown {
   if (param.type === 'array') {

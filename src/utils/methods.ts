@@ -49,12 +49,14 @@ interface Method {
   type: MethodType;
   description: string;
   params: Param[];
+  formatter?: (params: unknown[]) => unknown[];
 }
 
 const CHAIN_ID = 'eth_chainId';
 const BLOCK_NUMBER = 'eth_blockNumber';
 const GAS_PRICE = 'eth_gasPrice';
 const MAX_PRIORITY_FEE_PER_GAS = 'eth_maxPriorityFeePerGas';
+const FEE_HISTORY = 'eth_feeHistory';
 const GET_BALANCE = 'eth_getBalance';
 const GET_CODE = 'eth_getCode';
 const GET_STORAGE_AT = 'eth_getStorageAt';
@@ -84,6 +86,7 @@ type MethodId =
   | typeof BLOCK_NUMBER
   | typeof GAS_PRICE
   | typeof MAX_PRIORITY_FEE_PER_GAS
+  | typeof FEE_HISTORY
   | typeof GET_BALANCE
   | typeof GET_CODE
   | typeof GET_STORAGE_AT
@@ -117,6 +120,7 @@ export {
   BLOCK_NUMBER,
   GAS_PRICE,
   MAX_PRIORITY_FEE_PER_GAS,
+  FEE_HISTORY,
   GET_BALANCE,
   GET_CODE,
   GET_STORAGE_AT,

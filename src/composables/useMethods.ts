@@ -5,6 +5,7 @@ import {
   BLOCK_NUMBER,
   GAS_PRICE,
   MAX_PRIORITY_FEE_PER_GAS,
+  FEE_HISTORY,
   GET_BALANCE,
   GET_CODE,
   GET_STORAGE_AT,
@@ -126,6 +127,49 @@ function getMethodList(defaults: Defaults): Method[] {
       type: 'standard',
       description: 'Returns the current maxPriorityFeePerGas per gas in wei.',
       params: [],
+    },
+    {
+      id: FEE_HISTORY,
+      name: 'Transaction fee history',
+      type: 'standard',
+      description:
+        'Returns transaction base fee per gas and effective priority fee per gas for the requested/supported block range.',
+      params: [
+        {
+          type: 'int',
+          name: 'blockCount',
+          isRequired: true,
+          default: '1',
+          description:
+            'Requested range of blocks. Clients will return less than the requested range if not all blocks are available.',
+        },
+        {
+          type: 'block',
+          name: 'newestBlock',
+          isRequired: true,
+          default: 'latest',
+          description: 'Highest block of the requested range.',
+        },
+        {
+          type: 'array',
+          itemType: 'int',
+          name: 'rewardPercentiles',
+          isRequired: true,
+          default: address,
+          description:
+            'A monotonically increasing list of percentile values. For each block in the requested range, the transactions will be sorted in ascending order by effective tip per gas and the coresponding effective tip for the percentile will be determined, accounting for gas consumed.',
+        },
+      ],
+      formatter: (params): unknown[] => {
+        const blockCount = params[0];
+        const newestBlock = params[1];
+        const rewardPercentiles = params[2] as (string | null)[];
+        const formattedRewardPercentiles = rewardPercentiles
+          .filter((percentile): percentile is string => percentile !== null)
+          .map((percentile) => parseInt(percentile));
+        formattedRewardPercentiles.sort((a, b) => a - b);
+        return [blockCount, newestBlock, formattedRewardPercentiles];
+      },
     },
     {
       id: GET_BALANCE,
