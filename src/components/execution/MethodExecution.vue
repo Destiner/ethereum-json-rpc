@@ -16,13 +16,13 @@
   </div>
   <div class="request">
     <EthLabel :value="'Request'" />
-    <div class="request-wrapper">
+    <div class="request-view">
       <CodeView
         :value="request"
         compact
       />
       <button
-        class="request-body"
+        class="execute-button"
         :disabled="!isValid || isLoading"
         @click="execute"
       >
@@ -262,11 +262,11 @@ const response = computed(() => {
   flex-direction: column;
 }
 
-.request-wrapper {
+.request-view {
   position: relative;
 }
 
-.request-body {
+.execute-button {
   position: absolute;
   right: 8px;
   bottom: 8px;
@@ -281,11 +281,11 @@ const response = computed(() => {
   cursor: pointer;
 }
 
-.request-body:hover {
+.execute-button:hover {
   background: var(--color-accent-secondary);
 }
 
-.request-body:disabled {
+.execute-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
