@@ -63,6 +63,8 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
 }
 
 body {
+  --header-height: 64px;
+
   margin: 0;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);

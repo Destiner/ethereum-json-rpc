@@ -118,12 +118,13 @@ const inputTipLabel = computed(() => {
 @media (min-width: 768px) {
   .list {
     overflow-x: auto;
+    overflow-y: auto;
   }
 }
 
 .item {
   padding: 4px 8px;
-  overflow: hidden;
+  overflow-x: hidden;
   border-radius: var(--border-radius-medium);
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
@@ -133,6 +134,12 @@ const inputTipLabel = computed(() => {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@media (min-width: 768px) {
+  .item {
+    overflow-x: initial;
+  }
 }
 
 .item:hover {

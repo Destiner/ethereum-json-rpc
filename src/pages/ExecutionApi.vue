@@ -117,7 +117,7 @@ main {
 @media (min-width: 768px) {
   .methods {
     min-width: 350px;
-    max-height: initial;
+    max-height: calc(100vh - var(--header-height));
     padding: 15px 20px 10px;
   }
 }
