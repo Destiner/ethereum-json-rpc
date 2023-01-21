@@ -51,6 +51,7 @@ function handleUpdate(value: unknown[]): void {
   margin: 0;
   font-size: var(--font-size-extra-large);
   font-weight: bold;
+  letter-spacing: -0.5px;
 }
 
 .meta {

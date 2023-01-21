@@ -26,6 +26,7 @@ defineProps<{
 label {
   color: var(--color-text-secondary);
   font-size: var(--font-size-small);
+  letter-spacing: 0.3px;
   text-transform: uppercase;
 }
 
