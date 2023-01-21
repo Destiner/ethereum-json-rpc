@@ -84,6 +84,9 @@ const GET_UNCLE_BY_BLOCK_HASH_AND_INDEX = 'eth_getUncleByBlockHashAndIndex';
 const SYNCING = 'eth_syncing';
 const COINBASE = 'eth_coinbase';
 const ACCOUNTS = 'eth_accounts';
+const MINING = 'eth_mining';
+const HASHRATE = 'eth_hashrate';
+const GET_WORK = 'eth_getWork';
 
 type MethodId =
   | typeof CHAIN_ID
@@ -113,7 +116,10 @@ type MethodId =
   | typeof GET_UNCLE_BY_BLOCK_HASH_AND_INDEX
   | typeof ACCOUNTS
   | typeof COINBASE
-  | typeof SYNCING;
+  | typeof SYNCING
+  | typeof MINING
+  | typeof HASHRATE
+  | typeof GET_WORK;
 
 function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
   return {
@@ -152,6 +158,9 @@ export {
   ACCOUNTS,
   COINBASE,
   SYNCING,
+  MINING,
+  HASHRATE,
+  GET_WORK,
   ArrayParam,
   Method,
   MethodId,

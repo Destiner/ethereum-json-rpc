@@ -26,6 +26,9 @@ import {
   ACCOUNTS,
   COINBASE,
   SYNCING,
+  MINING,
+  HASHRATE,
+  GET_WORK,
   MethodId,
   FEE_HISTORY,
 } from './methods';
@@ -184,6 +187,9 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case ACCOUNTS:
     case COINBASE:
     case SYNCING:
+    case MINING:
+    case HASHRATE:
+    case GET_WORK:
       return '';
   }
 }
@@ -308,6 +314,10 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
       return `coinbase = w3.eth.coinbase`;
     case SYNCING:
       return `syncing = w3.eth.syncing`;
+    case MINING:
+      return `mining = w3.eth.mining`;
+    case HASHRATE:
+      return `hashrate = w3.eth.hashrate`;
     case FEE_HISTORY:
     case GET_PROOF:
     case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER:
@@ -318,6 +328,7 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
     case GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX:
     case GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX:
     case GET_UNCLE_BY_BLOCK_HASH_AND_INDEX:
+    case GET_WORK:
       return '';
   }
 }

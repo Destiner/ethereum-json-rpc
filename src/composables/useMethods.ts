@@ -29,6 +29,9 @@ import {
   ACCOUNTS,
   COINBASE,
   SYNCING,
+  MINING,
+  HASHRATE,
+  GET_WORK,
   Method,
 } from '@/utils/methods';
 
@@ -687,6 +690,29 @@ function getMethodList(defaults: Defaults): Method[] {
       type: 'standard',
       description:
         'Returns an object with data about the sync status or false.',
+      params: [],
+    },
+    {
+      id: MINING,
+      name: 'Mining status',
+      type: 'standard',
+      description: 'Returns whether the client is actively mining new blocks.',
+      params: [],
+    },
+    {
+      id: HASHRATE,
+      name: 'Hashrate',
+      type: 'standard',
+      description:
+        'Returns the number of hashes per second that the node is mining with.',
+      params: [],
+    },
+    {
+      id: GET_WORK,
+      name: 'Get work',
+      type: 'standard',
+      description:
+        'Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").',
       params: [],
     },
   ];
