@@ -64,6 +64,7 @@ textarea.error {
   position: absolute;
   top: 8px;
   right: 8px;
+  background: var(--color-bg-primary);
 }
 
 .wrapper:hover .button {
