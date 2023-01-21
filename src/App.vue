@@ -11,7 +11,8 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
 
 <style>
 :root {
-  --color-bg-primary: #fff;
+  --white: #fff;
+  --color-bg-primary: var(--white);
   --color-bg-secondary: #f8f8f8;
   --color-bg-tertiary: #e6e6e6;
   --color-text-primary: #04111d;

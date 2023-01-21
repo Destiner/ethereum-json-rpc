@@ -276,7 +276,7 @@ const response = computed(() => {
   border: none;
   border-radius: var(--border-radius-big);
   background: var(--color-accent-primary);
-  color: var(--color-accent-tertiary);
+  color: var(--white);
   font-weight: bold;
   cursor: pointer;
 }
