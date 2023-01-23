@@ -41,7 +41,7 @@ type ObjectParam = {
 
 type Param = PrimitiveParam | ArrayParam | ObjectParam;
 
-type MethodType = 'standard';
+type MethodType = 'standard' | 'debug';
 
 interface Method {
   id: MethodId;
@@ -87,6 +87,10 @@ const ACCOUNTS = 'eth_accounts';
 const MINING = 'eth_mining';
 const HASHRATE = 'eth_hashrate';
 const GET_WORK = 'eth_getWork';
+const DEBUG_TRACE_CALL = 'debug_traceCall';
+const DEBUG_TRACE_TRANSACTION = 'debug_traceTransaction';
+const DEBUG_TRACE_BLOCK_BY_NUMBER = 'debug_traceBlockByNumber';
+const DEBUG_TRACE_BLOCK_BY_HASH = 'debug_traceBlockByHash';
 
 type MethodId =
   | typeof CHAIN_ID
@@ -119,7 +123,11 @@ type MethodId =
   | typeof SYNCING
   | typeof MINING
   | typeof HASHRATE
-  | typeof GET_WORK;
+  | typeof GET_WORK
+  | typeof DEBUG_TRACE_CALL
+  | typeof DEBUG_TRACE_TRANSACTION
+  | typeof DEBUG_TRACE_BLOCK_BY_NUMBER
+  | typeof DEBUG_TRACE_BLOCK_BY_HASH;
 
 function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
   return {
@@ -161,6 +169,10 @@ export {
   MINING,
   HASHRATE,
   GET_WORK,
+  DEBUG_TRACE_CALL,
+  DEBUG_TRACE_TRANSACTION,
+  DEBUG_TRACE_BLOCK_BY_NUMBER,
+  DEBUG_TRACE_BLOCK_BY_HASH,
   ArrayParam,
   Method,
   MethodId,

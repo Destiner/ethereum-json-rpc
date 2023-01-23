@@ -23,6 +23,10 @@ import {
   GET_TRANSACTION_RECEIPT,
   GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
   GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  DEBUG_TRACE_CALL,
+  DEBUG_TRACE_TRANSACTION,
+  DEBUG_TRACE_BLOCK_BY_NUMBER,
+  DEBUG_TRACE_BLOCK_BY_HASH,
   ACCOUNTS,
   COINBASE,
   SYNCING,
@@ -198,6 +202,10 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case MINING:
     case HASHRATE:
     case GET_WORK:
+    case DEBUG_TRACE_CALL:
+    case DEBUG_TRACE_TRANSACTION:
+    case DEBUG_TRACE_BLOCK_BY_NUMBER:
+    case DEBUG_TRACE_BLOCK_BY_HASH:
       return '';
   }
 }
@@ -337,6 +345,10 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
     case GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX:
     case GET_UNCLE_BY_BLOCK_HASH_AND_INDEX:
     case GET_WORK:
+    case DEBUG_TRACE_CALL:
+    case DEBUG_TRACE_TRANSACTION:
+    case DEBUG_TRACE_BLOCK_BY_NUMBER:
+    case DEBUG_TRACE_BLOCK_BY_HASH:
       return '';
   }
 }

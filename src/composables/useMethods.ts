@@ -32,6 +32,10 @@ import {
   MINING,
   HASHRATE,
   GET_WORK,
+  DEBUG_TRACE_CALL,
+  DEBUG_TRACE_TRANSACTION,
+  DEBUG_TRACE_BLOCK_BY_NUMBER,
+  DEBUG_TRACE_BLOCK_BY_HASH,
   Method,
 } from '@/utils/methods';
 
@@ -756,6 +760,105 @@ function getMethodList(defaults: Defaults): Method[] {
       description:
         'Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").',
       params: [],
+    },
+    {
+      id: DEBUG_TRACE_CALL,
+      name: 'Trace call',
+      type: 'debug',
+      description:
+        'Runs an eth_call within the context of the given block execution using the final state of parent block as the base.',
+      params: [
+        {
+          type: 'object',
+          name: 'transaction',
+          items: {
+            from: {
+              type: 'addr',
+              name: 'from',
+              isRequired: false,
+              description:
+                'Source of the transaction call. Useful to impersonate another account.',
+            },
+            to: {
+              type: 'addr',
+              name: 'to',
+              isRequired: true,
+              default: contract,
+              description: 'Target contract',
+            },
+            gas: {
+              type: 'int',
+              name: 'gas',
+              isRequired: false,
+            },
+            gasPrice: {
+              type: 'int',
+              name: 'gas price',
+              isRequired: false,
+            },
+            value: {
+              type: 'int',
+              name: 'value',
+              isRequired: false,
+            },
+            data: {
+              type: 'bytes',
+              name: 'data',
+              isRequired: false,
+              description: 'Transaction call input',
+            },
+          },
+        },
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+      ],
+    },
+    {
+      id: DEBUG_TRACE_TRANSACTION,
+      name: 'Trace transaction',
+      type: 'debug',
+      description:
+        'Attempts to run the transaction in the exact same manner as it was executed on the network. It will replay any transaction that may have been executed prior to this one before it and will then attempt to execute the transaction that corresponds to the given hash.',
+      params: [
+        {
+          type: 'hash',
+          name: 'transaction',
+          isRequired: true,
+          default: transactionHash,
+        },
+      ],
+    },
+    {
+      id: DEBUG_TRACE_BLOCK_BY_NUMBER,
+      name: 'Trace block, by number',
+      type: 'debug',
+      description: 'Replays the block that is already present in the database.',
+      params: [
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+      ],
+    },
+    {
+      id: DEBUG_TRACE_BLOCK_BY_HASH,
+      name: 'Trace block, by hash',
+      type: 'debug',
+      description: 'Replays the block that is already present in the database.',
+      params: [
+        {
+          type: 'hash',
+          name: 'block',
+          isRequired: true,
+          default: blockHash,
+        },
+      ],
     },
   ];
 }
