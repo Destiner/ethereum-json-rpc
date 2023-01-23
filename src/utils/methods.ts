@@ -5,7 +5,8 @@ type PrimitiveParamType =
   | 'bytes'
   | 'int'
   | 'boolean'
-  | 'block';
+  | 'block'
+  | 'trace';
 
 interface OptionalParam {
   isRequired: false;

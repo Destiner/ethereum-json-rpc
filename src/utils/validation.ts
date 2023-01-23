@@ -62,6 +62,8 @@ function validatePrimitiveParam(
         return !isNaN(val) && val >= 0 && val < 1e9;
       }
     }
+    case 'trace':
+      return ['vmTrace', 'trace', 'statediff'].includes(input);
   }
 }
 
