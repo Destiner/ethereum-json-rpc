@@ -42,7 +42,7 @@ type ObjectParam = {
 
 type Param = PrimitiveParam | ArrayParam | ObjectParam;
 
-type MethodType = 'standard' | 'debug';
+type MethodType = 'standard' | 'debug' | 'trace';
 
 interface Method {
   id: MethodId;
@@ -92,6 +92,13 @@ const DEBUG_TRACE_CALL = 'debug_traceCall';
 const DEBUG_TRACE_TRANSACTION = 'debug_traceTransaction';
 const DEBUG_TRACE_BLOCK_BY_NUMBER = 'debug_traceBlockByNumber';
 const DEBUG_TRACE_BLOCK_BY_HASH = 'debug_traceBlockByHash';
+const TRACE_BLOCK = 'trace_block';
+const TRACE_CALL = 'trace_call';
+const TRACE_FILTER = 'trace_filter';
+const TRACE_RAW_TRANSACTION = 'trace_rawTransaction';
+const TRACE_REPLAY_BLOCK_TRANSACTIONS = 'trace_replayBlockTransactions';
+const TRACE_REPLAY_TRANSACTION = 'trace_replayTransaction';
+const TRACE_TRANSACTION = 'trace_transaction';
 
 type MethodId =
   | typeof CHAIN_ID
@@ -128,7 +135,14 @@ type MethodId =
   | typeof DEBUG_TRACE_CALL
   | typeof DEBUG_TRACE_TRANSACTION
   | typeof DEBUG_TRACE_BLOCK_BY_NUMBER
-  | typeof DEBUG_TRACE_BLOCK_BY_HASH;
+  | typeof DEBUG_TRACE_BLOCK_BY_HASH
+  | typeof TRACE_BLOCK
+  | typeof TRACE_CALL
+  | typeof TRACE_FILTER
+  | typeof TRACE_RAW_TRANSACTION
+  | typeof TRACE_REPLAY_BLOCK_TRANSACTIONS
+  | typeof TRACE_REPLAY_TRANSACTION
+  | typeof TRACE_TRANSACTION;
 
 function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
   return {
@@ -174,6 +188,13 @@ export {
   DEBUG_TRACE_TRANSACTION,
   DEBUG_TRACE_BLOCK_BY_NUMBER,
   DEBUG_TRACE_BLOCK_BY_HASH,
+  TRACE_BLOCK,
+  TRACE_CALL,
+  TRACE_FILTER,
+  TRACE_RAW_TRANSACTION,
+  TRACE_REPLAY_BLOCK_TRANSACTIONS,
+  TRACE_REPLAY_TRANSACTION,
+  TRACE_TRANSACTION,
   ArrayParam,
   Method,
   MethodId,

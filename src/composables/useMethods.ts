@@ -36,6 +36,13 @@ import {
   DEBUG_TRACE_TRANSACTION,
   DEBUG_TRACE_BLOCK_BY_NUMBER,
   DEBUG_TRACE_BLOCK_BY_HASH,
+  TRACE_BLOCK,
+  TRACE_CALL,
+  TRACE_FILTER,
+  TRACE_RAW_TRANSACTION,
+  TRACE_REPLAY_BLOCK_TRANSACTIONS,
+  TRACE_REPLAY_TRANSACTION,
+  TRACE_TRANSACTION,
   Method,
 } from '@/utils/methods';
 
@@ -50,6 +57,7 @@ import useProvider, {
 interface Defaults {
   blockHash: string;
   transactionHash: string;
+  transactionInput: string;
   address: string;
   contract: string;
 }
@@ -90,6 +98,8 @@ function getDefaults(chain: Chain | null): Defaults {
     [ARBITRUM]:
       '0x732dc072893bce74eb43784cae8650ddce4c4ce11940ec6d7ea6e681a83a1005',
   };
+  const defaultTransactionInput =
+    '0x02f8740181948459682f0085275c2c9f8b82520894885885521990b53fd00556c143ea056dd2f62a128808cc0c47d9477f9080c080a037437ba52140dbac1d7dc65cdb58531e038930c82314817f91cb8d8ea36a2bd0a001e134479d567b8595d77f61106cad34e62ed356d6971bc08fe0363a0696dd94';
   const defaultAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
   const contractMap: Record<Chain, string> = {
     [ETHEREUM]: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -102,13 +112,15 @@ function getDefaults(chain: Chain | null): Defaults {
   return {
     blockHash: blockHashMap[definedChain],
     transactionHash: transactionHashMap[definedChain],
+    transactionInput: defaultTransactionInput,
     address: defaultAddress,
     contract: contractMap[definedChain],
   };
 }
 
 function getMethodList(defaults: Defaults): Method[] {
-  const { blockHash, transactionHash, address, contract } = defaults;
+  const { blockHash, transactionHash, transactionInput, address, contract } =
+    defaults;
 
   return [
     {
@@ -857,6 +869,208 @@ function getMethodList(defaults: Defaults): Method[] {
           name: 'block',
           isRequired: true,
           default: blockHash,
+        },
+      ],
+    },
+    {
+      id: TRACE_BLOCK,
+      name: 'Trace block, by number',
+      type: 'trace',
+      description: 'Replays the block that is already present in the database.',
+      params: [
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+      ],
+    },
+    {
+      id: TRACE_CALL,
+      name: 'Trace call',
+      type: 'trace',
+      description: 'Simulates the call',
+      params: [
+        {
+          type: 'object',
+          name: 'block',
+          items: {
+            from: {
+              type: 'addr',
+              name: 'from',
+              isRequired: false,
+              description:
+                'Source of the transaction call. Useful to impersonate another account.',
+            },
+            to: {
+              type: 'addr',
+              name: 'to',
+              isRequired: false,
+              description: 'Target contract',
+            },
+            gas: {
+              type: 'int',
+              name: 'gas',
+              isRequired: false,
+            },
+            gasPrice: {
+              type: 'int',
+              name: 'gas price',
+              isRequired: false,
+            },
+            value: {
+              type: 'int',
+              name: 'value',
+              isRequired: false,
+            },
+            data: {
+              type: 'bytes',
+              name: 'data',
+              isRequired: false,
+              description: 'Transaction input',
+            },
+          },
+        },
+        {
+          type: 'array',
+          itemType: 'trace',
+          name: 'type',
+          description:
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+        },
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+      ],
+    },
+    {
+      id: TRACE_FILTER,
+      name: 'Trace filtered transactions',
+      type: 'trace',
+      description:
+        'Simulates the block transactions, filtered by "from" or "to" addresses',
+      params: [
+        {
+          type: 'object',
+          name: 'filter',
+          items: {
+            fromBlock: {
+              type: 'block',
+              name: 'from block',
+              isRequired: false,
+            },
+            toBlock: {
+              type: 'block',
+              name: 'to block',
+              isRequired: false,
+            },
+            fromaddress: {
+              type: 'array',
+              name: 'from addresses',
+              isRequired: false,
+              itemType: 'addr',
+              description: 'Sender address list',
+            },
+            toaddress: {
+              type: 'addr',
+              name: 'to address',
+              isRequired: false,
+              description: 'Receiver address',
+            },
+            after: {
+              type: 'int',
+              name: 'after',
+              isRequired: false,
+              description: 'Trace array offset',
+            },
+            count: {
+              type: 'int',
+              name: 'count',
+              isRequired: false,
+              description: 'Number of traces to display in a batch.',
+            },
+          },
+        },
+      ],
+    },
+    {
+      id: TRACE_RAW_TRANSACTION,
+      name: 'Trace raw transaction',
+      type: 'trace',
+      description: 'Simulates the transaction based on the raw data',
+      params: [
+        {
+          type: 'bytes',
+          name: 'data',
+          isRequired: true,
+          default: transactionInput,
+        },
+        {
+          type: 'array',
+          itemType: 'trace',
+          name: 'type',
+          description:
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+        },
+      ],
+    },
+    {
+      id: TRACE_REPLAY_BLOCK_TRANSACTIONS,
+      name: 'Replay block transactions',
+      type: 'trace',
+      description: 'Replays the block transactions',
+      params: [
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+        {
+          type: 'array',
+          itemType: 'trace',
+          name: 'type',
+          description:
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+        },
+      ],
+    },
+    {
+      id: TRACE_REPLAY_TRANSACTION,
+      name: 'Replay transaction',
+      type: 'trace',
+      description: 'Replays a single transaction',
+      params: [
+        {
+          type: 'hash',
+          name: 'hash',
+          isRequired: true,
+          default: transactionHash,
+        },
+        {
+          type: 'array',
+          itemType: 'trace',
+          name: 'type',
+          description:
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+        },
+      ],
+    },
+    {
+      id: TRACE_TRANSACTION,
+      name: 'Trace transaction',
+      type: 'trace',
+      description: 'Simulates a single transaction',
+      params: [
+        {
+          type: 'hash',
+          name: 'hash',
+          isRequired: true,
+          default: transactionHash,
         },
       ],
     },
