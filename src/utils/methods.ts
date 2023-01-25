@@ -44,6 +44,8 @@ type Param = PrimitiveParam | ArrayParam | ObjectParam;
 
 type MethodType = 'standard' | 'debug' | 'trace';
 
+const METHOD_TYPES: MethodType[] = ['standard', 'debug', 'trace'];
+
 interface Method {
   id: MethodId;
   name: string;
@@ -195,9 +197,11 @@ export {
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
+  METHOD_TYPES,
   ArrayParam,
   Method,
   MethodId,
+  MethodType,
   Param,
   PrimitiveParam,
   getArrayParamItem,

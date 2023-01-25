@@ -12,13 +12,22 @@
   </div>
   <div class="list">
     <div
-      v-for="method in availableMethods"
-      :key="method.id"
-      class="item"
-      :class="{ selected: method.id === selected.id }"
-      @click="emit('select', method)"
+      v-for="type in METHOD_TYPES"
+      :key="type"
+      class="group"
     >
-      {{ method.id }}
+      <h2 class="group-type">{{ formatMethodType(type) }}</h2>
+      <div class="group-list">
+        <div
+          v-for="method in groupedMethods[type]"
+          :key="method.id"
+          class="item"
+          :class="{ selected: method.id === selected.id }"
+          @click="emit('select', method)"
+        >
+          {{ method.id }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -29,7 +38,8 @@ import { computed, ref, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
 import useMethods from '@/composables/useMethods';
-import { Method } from '@/utils/methods';
+import { formatMethodType } from '@/utils/formatters';
+import { Method, MethodType, METHOD_TYPES } from '@/utils/methods';
 
 const props = defineProps<{
   selected: Method;
@@ -45,6 +55,18 @@ const { methods } = useMethods();
 const inputEl = ref<InstanceType<typeof EthInput> | null>(null);
 
 const methodQuery = ref('');
+
+const groupedMethods = computed<Record<MethodType, Method[]>>(
+  () =>
+    Object.fromEntries(
+      METHOD_TYPES.map((type) => {
+        const groupMethods = methods.value.filter(
+          (method) => method.type === type,
+        );
+        return [type, groupMethods];
+      }),
+    ) as Record<MethodType, Method[]>,
+);
 
 const availableMethods = computed(() =>
   methods.value.filter((method) =>
@@ -111,7 +133,7 @@ const inputTipLabel = computed(() => {
 
 .list {
   display: flex;
-  gap: var(--spacing-tiny);
+  gap: var(--spacing-normal);
   flex-direction: column;
 }
 
@@ -120,6 +142,24 @@ const inputTipLabel = computed(() => {
     overflow-x: auto;
     overflow-y: auto;
   }
+}
+
+.group {
+  display: flex;
+  gap: var(--spacing-small);
+  flex-direction: column;
+}
+
+.group-type {
+  margin: 0;
+  padding: 4px 8px;
+  font-size: var(--font-size-big);
+}
+
+.group-list {
+  display: flex;
+  gap: var(--spacing-tiny);
+  flex-direction: column;
 }
 
 .item {
