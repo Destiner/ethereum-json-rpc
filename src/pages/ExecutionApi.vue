@@ -24,7 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { useUrlSearchParams } from '@vueuse/core';
+import { onMounted, ref, watch } from 'vue';
 
 import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
@@ -32,11 +33,24 @@ import MethodList from '@/components/execution/MethodList.vue';
 import useMethods from '@/composables/useMethods';
 import { Method, Param, getArrayParamItem } from '@/utils/methods';
 
+const params = useUrlSearchParams('history');
 const { methods } = useMethods();
 
 onMounted(() => {
-  resetParamInputs();
+  init();
 });
+
+function init(): void {
+  const method = methods.value.find((method) => method.id === params.method);
+  if (method) {
+    selectedMethod.value = method;
+  }
+  try {
+    const urlInputs = JSON.parse(params.inputs as string);
+    inputs.value = urlInputs;
+    // eslint-disable-next-line no-empty
+  } catch (e) {}
+}
 
 function handleMethodSelect(method: Method): void {
   selectedMethod.value = method;
@@ -48,6 +62,13 @@ function handleMethodSelect(method: Method): void {
 const selectedMethod = ref<Method>(methods.value[0]);
 
 const inputs = ref<unknown[]>([]);
+
+watch(selectedMethod, () => {
+  params.method = selectedMethod.value.id;
+});
+watch(inputs, () => {
+  params.inputs = JSON.stringify(inputs.value);
+});
 
 function resetParamInputs(): void {
   const newInputs = [];
