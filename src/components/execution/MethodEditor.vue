@@ -9,6 +9,10 @@
   <div class="description">
     {{ method.description }}
   </div>
+  <BannerCustomMethod
+    v-if="method.type !== 'standard'"
+    :type="method.type"
+  />
   <MethodForm
     v-if="hasParams"
     :inputs="inputs"
@@ -20,6 +24,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import BannerCustomMethod from '@/components/execution/BannerCustomMethod.vue';
 import { Method } from '@/utils/methods';
 
 import MethodForm from './MethodForm.vue';
