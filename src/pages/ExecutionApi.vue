@@ -24,7 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { useUrlSearchParams } from '@vueuse/core';
+import { onMounted, ref, watch } from 'vue';
 
 import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
@@ -32,9 +33,14 @@ import MethodList from '@/components/execution/MethodList.vue';
 import useMethods from '@/composables/useMethods';
 import { Method, Param, getArrayParamItem } from '@/utils/methods';
 
+const params = useUrlSearchParams('history');
 const { methods } = useMethods();
 
 onMounted(() => {
+  const method = methods.value.find((method) => method.id === params.method);
+  if (method) {
+    selectedMethod.value = method;
+  }
   resetParamInputs();
 });
 
@@ -46,6 +52,9 @@ function handleMethodSelect(method: Method): void {
 }
 
 const selectedMethod = ref<Method>(methods.value[0]);
+watch(selectedMethod, () => {
+  params.method = selectedMethod.value.id;
+});
 
 const inputs = ref<unknown[]>([]);
 
