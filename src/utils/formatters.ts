@@ -5,7 +5,7 @@ function formatMethodType(type: MethodType): string {
     case 'standard':
       return 'Standard';
     case 'debug':
-      return 'Debug (geth)';
+      return 'Debug (Geth)';
     case 'trace':
       return 'Trace (Parity)';
   }
