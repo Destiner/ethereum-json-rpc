@@ -250,7 +250,8 @@ function getMethodList(defaults: Defaults): Method[] {
         {
           type: 'int',
           name: 'slot',
-          isRequired: false,
+          isRequired: true,
+          default: '0',
           description: 'Position (index) of the memory slot',
         },
         {
