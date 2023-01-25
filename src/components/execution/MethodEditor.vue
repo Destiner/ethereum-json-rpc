@@ -2,7 +2,7 @@
   <div class="header">
     <h1 class="title">{{ method.name }}</h1>
     <div class="meta">
-      <div class="type">Standard</div>
+      <div class="type">{{ method.type }}</div>
       <div class="id">{{ method.id }}</div>
     </div>
   </div>
