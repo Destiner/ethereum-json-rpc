@@ -94,12 +94,19 @@ const inputTipLabel = computed(() => {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-normal);
+  overflow-y: auto;
 }
 
 .filter {
-  display: flex;
-  position: relative;
-  align-items: center;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .filter {
+    display: flex;
+    position: relative;
+    align-items: center;
+  }
 }
 
 .filter-input {
@@ -119,12 +126,13 @@ const inputTipLabel = computed(() => {
 
 .list {
   display: flex;
-  gap: var(--spacing-tiny);
+  gap: var(--spacing-small);
   flex-direction: column;
 }
 
 @media (min-width: 768px) {
   .list {
+    gap: var(--spacing-tiny);
     overflow-x: auto;
     overflow-y: auto;
   }
@@ -135,7 +143,7 @@ const inputTipLabel = computed(() => {
   overflow-x: hidden;
   border-radius: var(--border-radius-medium);
   color: var(--color-text-primary);
-  font-size: var(--font-size-normal);
+  font-size: var(--font-size-big);
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -147,6 +155,7 @@ const inputTipLabel = computed(() => {
 @media (min-width: 768px) {
   .item {
     overflow-x: initial;
+    font-size: var(--font-size-normal);
   }
 }
 

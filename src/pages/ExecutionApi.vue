@@ -1,10 +1,29 @@
 <template>
   <main>
     <nav class="methods">
+      <EthModal
+        v-if="isPhone"
+        :is-open="isModalOpen"
+        @close="handleModalClose"
+      >
+        <MethodList
+          :selected="selectedMethod"
+          @select="handleMethodSelect"
+        />
+      </EthModal>
       <MethodList
+        v-else
         :selected="selectedMethod"
         @select="handleMethodSelect"
       />
+      <div
+        v-if="isPhone"
+        class="method-button"
+        @click="openModal"
+      >
+        {{ selectedMethod.id }}
+        <IconChevronDown class="dropdown-icon" />
+      </div>
     </nav>
     <article class="method">
       <MethodEditor
@@ -24,15 +43,21 @@
 </template>
 
 <script setup lang="ts">
-import { useUrlSearchParams } from '@vueuse/core';
+import { useBreakpoints, useUrlSearchParams } from '@vueuse/core';
 import { onMounted, ref, watch } from 'vue';
 
+import EthModal from '@/components/__common/EthModal.vue';
+import IconChevronDown from '@/components/__common/icon/ChevronDown.vue';
 import MethodEditor from '@/components/execution/MethodEditor.vue';
 import MethodExecution from '@/components/execution/MethodExecution.vue';
 import MethodList from '@/components/execution/MethodList.vue';
 import useMethods from '@/composables/useMethods';
 import { Method, Param, getArrayParamItem } from '@/utils/methods';
 
+const breakpoints = useBreakpoints({
+  tablet: 640,
+});
+const isPhone = breakpoints.smaller('tablet');
 const params = useUrlSearchParams('history');
 const { methods } = useMethods();
 
@@ -44,10 +69,19 @@ onMounted(() => {
   resetParamInputs();
 });
 
+const isModalOpen = ref(false);
+function openModal(): void {
+  isModalOpen.value = true;
+}
+function handleModalClose(): void {
+  isModalOpen.value = false;
+}
+
 function handleMethodSelect(method: Method): void {
   selectedMethod.value = method;
   isShown.value = false;
   isError.value = false;
+  isModalOpen.value = false;
   resetParamInputs();
 }
 
@@ -100,7 +134,7 @@ main {
   --section-padding: 8px 12px;
 
   display: flex;
-  gap: var(--spacing-large);
+  gap: var(--spacing-normal);
   flex-direction: column;
   min-height: calc(100vh - 64px);
 }
@@ -120,7 +154,7 @@ main {
   flex: 1;
   flex-direction: column;
   max-height: 220px;
-  padding: var(--section-padding);
+  padding: 8px;
   overflow-x: auto;
   overflow-y: auto;
 }
@@ -131,6 +165,23 @@ main {
     max-height: calc(100vh - var(--header-height));
     padding: 15px 20px 10px;
   }
+}
+
+.method-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-medium);
+  font-size: var(--font-size-normal);
+  cursor: pointer;
+}
+
+.dropdown-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .method {
