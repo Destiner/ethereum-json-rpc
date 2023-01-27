@@ -1,24 +1,26 @@
 <template>
-  <div class="filter">
-    <EthInput
-      ref="inputEl"
-      v-model="methodQuery"
-      class="filter-input"
-      placeholder="Filter"
-      @keydown.up.prevent="handleUp"
-      @keydown.down.prevent="handleDown"
-    />
-    <span class="filter-tip">{{ inputTipLabel }}</span>
-  </div>
-  <div class="list">
-    <div
-      v-for="method in availableMethods"
-      :key="method.id"
-      class="item"
-      :class="{ selected: method.id === selected.id }"
-      @click="emit('select', method)"
-    >
-      {{ method.id }}
+  <div class="wrapper">
+    <div class="filter">
+      <EthInput
+        ref="inputEl"
+        v-model="methodQuery"
+        class="filter-input"
+        placeholder="Filter"
+        @keydown.up.prevent="handleUp"
+        @keydown.down.prevent="handleDown"
+      />
+      <span class="filter-tip">{{ inputTipLabel }}</span>
+    </div>
+    <div class="list">
+      <div
+        v-for="method in availableMethods"
+        :key="method.id"
+        class="item"
+        :class="{ selected: method.id === selected.id }"
+        @click="emit('select', method)"
+      >
+        {{ method.id }}
+      </div>
     </div>
   </div>
 </template>
@@ -88,6 +90,12 @@ const inputTipLabel = computed(() => {
 </script>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-normal);
+}
+
 .filter {
   display: flex;
   position: relative;
