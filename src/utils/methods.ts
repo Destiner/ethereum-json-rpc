@@ -198,6 +198,7 @@ export {
   ArrayParam,
   Method,
   MethodId,
+  MethodType,
   Param,
   PrimitiveParam,
   getArrayParamItem,
