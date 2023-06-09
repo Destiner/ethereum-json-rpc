@@ -1,25 +1,23 @@
 import { useStorage } from '@vueuse/core';
-import { providers } from 'ethers';
+import { PublicClient, createPublicClient, http } from 'viem';
 import { Ref, computed, onMounted, ref, watch } from 'vue';
 
-const STORAGE_KEY_PROVIDER = 'provider';
+import {
+  ARBITRUM,
+  CHAINS,
+  ETHEREUM,
+  OPTIMISM,
+  POLYGON,
+  getChainId,
+  getChainData,
+} from '@/utils/chains';
+import type { Chain } from '@/utils/chains';
 
-const ETHEREUM = 'ethereum';
-const OPTIMISM = 'optimism';
-const POLYGON = 'polygon';
-const ARBITRUM = 'arbitrum';
+const STORAGE_KEY_PROVIDER = 'provider';
 
 const ALCHEMY = 'alchemy';
 const INFURA = 'infura';
 const ANKR = 'ankr';
-
-type Chain =
-  | typeof ETHEREUM
-  | typeof OPTIMISM
-  | typeof POLYGON
-  | typeof ARBITRUM;
-
-const CHAINS: Chain[] = [ETHEREUM, POLYGON, ARBITRUM, OPTIMISM];
 
 interface AutomaticProviderOptions {
   type: 'automatic';
@@ -50,18 +48,20 @@ const DEFAULT_OPTIONS: Options = {
   chain: ETHEREUM,
 };
 
-interface UseProvider {
-  provider: Ref<providers.BaseProvider>;
+interface UseChain {
+  client: Ref<PublicClient>;
   options: Ref<Options>;
   url: Ref<string>;
   chain: Ref<Chain | null>;
 }
 
-function useProvider(): UseProvider {
+function useChain(): UseChain {
   const options = useStorage(STORAGE_KEY_PROVIDER, DEFAULT_OPTIONS);
-  const provider = computed(() => getProvider(options.value));
-  const url = computed(
-    () => (provider.value as providers.JsonRpcProvider).connection.url,
+  const url = computed(() => getUrlByOptions(options.value));
+  const client = computed(() =>
+    createPublicClient({
+      transport: http(url.value),
+    }),
   );
 
   const chain = ref<Chain | null>(null);
@@ -70,7 +70,7 @@ function useProvider(): UseProvider {
     updateChain();
   });
 
-  watch(provider, async () => {
+  watch(client, async () => {
     updateChain();
   });
 
@@ -81,8 +81,8 @@ function useProvider(): UseProvider {
         break;
       }
       case 'custom': {
-        const network = await provider.value.getNetwork();
-        chain.value = getChain(network.chainId);
+        const chainId = await client.value.getChainId();
+        chain.value = getChain(chainId);
         break;
       }
       case 'preset': {
@@ -92,42 +92,40 @@ function useProvider(): UseProvider {
     }
   }
 
-  return { provider, options, url, chain };
+  return { client, options, url, chain };
 }
 
-function getProvider(options: Options): providers.BaseProvider {
+function getUrlByOptions(options: Options): string {
   if (options.type === 'automatic') {
-    const chainId = getChainId(options.chain);
-    return new providers.InfuraProvider(chainId);
+    const chainData = getChainData(options.chain);
+    return (
+      chainData.rpcUrls.infura.http[0] + '/84842078b09946638c03157f83405213'
+    );
   }
   if (options.type === 'custom') {
-    return new providers.JsonRpcProvider(options.url);
+    return options.url;
   }
-  const chainId = getChainId(options.chain);
+  const chainData = getChainData(options.chain);
   const key = options.key === '' ? undefined : options.key;
   if (options.preset === 'alchemy') {
-    return new providers.AlchemyProvider(chainId, key);
+    return chainData.rpcUrls.alchemy.http[0] + `/${key}`;
   }
   if (options.preset === 'infura') {
-    return new providers.InfuraProvider(chainId, key);
+    return chainData.rpcUrls.infura.http[0] + `/${key}`;
   }
   if (options.preset === 'ankr') {
-    return new providers.AnkrProvider(chainId, key);
+    switch (options.chain) {
+      case ETHEREUM:
+        return 'https://rpc.ankr.com/eth';
+      case OPTIMISM:
+        return 'https://rpc.ankr.com/optimism';
+      case POLYGON:
+        return 'https://rpc.ankr.com/polygon';
+      case ARBITRUM:
+        return 'https://rpc.ankr.com/arbitrum';
+    }
   }
-  return new providers.InfuraProvider();
-}
-
-function getChainId(chain: Chain): number {
-  switch (chain) {
-    case ETHEREUM:
-      return 1;
-    case OPTIMISM:
-      return 10;
-    case POLYGON:
-      return 137;
-    case ARBITRUM:
-      return 42161;
-  }
+  return chainData.rpcUrls.infura.http[0];
 }
 
 function getChain(chainId: number): Chain | null {
@@ -135,17 +133,5 @@ function getChain(chainId: number): Chain | null {
   return chain || null;
 }
 
-export default useProvider;
-export {
-  ALCHEMY,
-  ANKR,
-  ARBITRUM,
-  CHAINS,
-  ETHEREUM,
-  INFURA,
-  OPTIMISM,
-  POLYGON,
-  Chain,
-  Preset,
-  PresetProviderOptions,
-};
+export default useChain;
+export { ALCHEMY, ANKR, CHAINS, INFURA, Chain, Preset, PresetProviderOptions };

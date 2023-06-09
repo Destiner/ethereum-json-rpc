@@ -46,13 +46,14 @@
           <div class="chain">
             <EthSelect
               v-if="providerType !== 'custom'"
-              v-model="chain"
+              :model-value="getChainTagById(chain)"
               :options="chainOptions"
               :label="'Chain'"
+              @update:model-value="handleChainUpdate"
             />
             <EthSelect
               v-else
-              :model-value="providerChain || 'unknown'"
+              :model-value="getChainTagById(providerChain || UNKNOWN_CHAIN as ChainOrUnknown)"
               :options="readableChainOptions"
               :label="'Chain'"
               disabled
@@ -98,19 +99,26 @@ import { computed, onMounted, ref, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
 import EthSelect, { Option } from '@/components/__common/EthSelect.vue';
-import useProvider, {
+import useChain, {
   ALCHEMY,
   ANKR,
-  ARBITRUM,
   CHAINS,
-  ETHEREUM,
   INFURA,
-  OPTIMISM,
-  POLYGON,
   Preset as PresetType,
   Chain,
-} from '@/composables/useProvider';
+} from '@/composables/useChain';
+import {
+  ETHEREUM,
+  OPTIMISM,
+  POLYGON,
+  ARBITRUM,
+  UNKNOWN_CHAIN,
+  getChainName,
+} from '@/utils/chains';
 import { isValidUrl } from '@/utils/validation';
+
+type ChainTag = 'ethereum' | 'optimism' | 'polygon' | 'arbitrum';
+type ChainOrUnknown = Chain | typeof UNKNOWN_CHAIN;
 
 const PING_INTERVAL = 10000;
 
@@ -121,12 +129,35 @@ const label = computed(() =>
 const el = ref<HTMLElement | null>(null);
 const isVisible = useElementVisibility(el);
 
-const {
-  options,
-  provider,
-  chain: providerChain,
-  url: providerUrl,
-} = useProvider();
+const { options, client, chain: providerChain, url: providerUrl } = useChain();
+
+function getChainTagById(id: ChainOrUnknown): ChainTag | 'unknown' {
+  switch (id) {
+    case ETHEREUM:
+      return 'ethereum';
+    case OPTIMISM:
+      return 'optimism';
+    case POLYGON:
+      return 'polygon';
+    case ARBITRUM:
+      return 'arbitrum';
+    case UNKNOWN_CHAIN:
+      return 'unknown';
+  }
+}
+
+function getChainIdByTag(tag: ChainTag): Chain {
+  switch (tag) {
+    case 'ethereum':
+      return ETHEREUM;
+    case 'optimism':
+      return OPTIMISM;
+    case 'polygon':
+      return POLYGON;
+    case 'arbitrum':
+      return ARBITRUM;
+  }
+}
 
 const AUTOMATIC_PROVIDER = 'automatic';
 const CUSTOM_PROVIDER = 'custom';
@@ -209,30 +240,19 @@ function updateOptions(): void {
 
 const chain = ref<Chain>(ETHEREUM);
 
-const UNKNOWN_CHAIN = 'unknown';
 const chainOptions = getChainOptions(CHAINS);
 const readableChainOptions = getChainOptions([...CHAINS, UNKNOWN_CHAIN]);
 
-function getChainName(chain: Chain | typeof UNKNOWN_CHAIN): string {
-  switch (chain) {
-    case ETHEREUM:
-      return 'Ethereum';
-    case POLYGON:
-      return 'Polygon';
-    case OPTIMISM:
-      return 'Optimism';
-    case ARBITRUM:
-      return 'Arbitrum';
-    case UNKNOWN_CHAIN:
-      return 'Unknown';
-  }
+function handleChainUpdate(chainName: string): void {
+  chain.value = getChainIdByTag(chainName as ChainTag);
+  updateOptions();
 }
 
 function getChainOptions(chains: (Chain | typeof UNKNOWN_CHAIN)[]): Option[] {
   return chains.map((chain) => {
     return {
       label: getChainName(chain),
-      value: chain,
+      value: getChainTagById(chain),
     };
   });
 }
@@ -295,7 +315,7 @@ function fill(): void {
   }
 }
 
-watch(provider, () => {
+watch(client, () => {
   ping();
 });
 
@@ -326,7 +346,7 @@ watch(isVisible, (value) => {
 async function ping(): Promise<void> {
   isLoading.value = true;
   try {
-    latestBlock.value = await provider.value.getBlockNumber();
+    latestBlock.value = await client.value.getBlockNumber();
     isError.value = false;
   } catch (e) {
     isError.value = true;
@@ -336,7 +356,7 @@ async function ping(): Promise<void> {
 
 const isError = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
-const latestBlock = ref<number>(-1);
+const latestBlock = ref<bigint>(-1n);
 </script>
 
 <style scoped>

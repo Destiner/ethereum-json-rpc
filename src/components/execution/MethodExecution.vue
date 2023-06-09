@@ -42,13 +42,12 @@
 
 <script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core';
-import { providers } from 'ethers';
 import { computed, ref, watch } from 'vue';
 
 import CodeView from '@/components/__common/CodeView.vue';
 import EthLabel from '@/components/__common/EthLabel.vue';
 import EthRadio, { Option } from '@/components/__common/EthRadio.vue';
-import useProvider from '@/composables/useProvider';
+import useChain from '@/composables/useChain';
 import useTarget from '@/composables/useTarget';
 import { Method, Param, getArrayParamItem } from '@/utils/methods';
 import {
@@ -92,7 +91,7 @@ const emit = defineEmits<{
 }>();
 
 const { cmd_enter } = useMagicKeys();
-const { provider } = useProvider();
+const { client } = useChain();
 const { target } = useTarget();
 
 const targetLanguage = computed<TargetLanguage>(() => target.value.language);
@@ -211,10 +210,14 @@ async function execute(): Promise<void> {
   emit('update:is-error', false);
   isLoading.value = true;
   try {
-    result.value = await (provider.value as providers.JsonRpcProvider).send(
-      props.method.id,
-      formattedInputs.value,
-    );
+    result.value = await client.value.request({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      method: props.method.id,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      params: formattedInputs.value,
+    });
   } catch (e) {
     const error = e as Error;
     // Prettify

@@ -1,5 +1,6 @@
 import { Ref, computed } from 'vue';
 
+import { ARBITRUM, ETHEREUM, OPTIMISM, POLYGON } from '@/utils/chains';
 import {
   CHAIN_ID,
   BLOCK_NUMBER,
@@ -46,13 +47,7 @@ import {
   Method,
 } from '@/utils/methods';
 
-import useProvider, {
-  ARBITRUM,
-  ETHEREUM,
-  OPTIMISM,
-  POLYGON,
-  Chain,
-} from './useProvider';
+import useChain, { Chain } from './useChain';
 
 interface Defaults {
   blockHash: string;
@@ -67,7 +62,7 @@ interface UseMethods {
 }
 
 function useMethods(): UseMethods {
-  const { chain } = useProvider();
+  const { chain } = useChain();
 
   const defaults = computed(() => getDefaults(chain.value));
   const methods = computed(() => getMethodList(defaults.value));
