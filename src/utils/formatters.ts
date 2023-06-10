@@ -14,7 +14,7 @@ function formatProviderTier(tier: Tier): string {
 function formatProviderFeature(feature: Feature): string {
   switch (feature) {
     case 'websocket':
-      return 'WS';
+      return 'Websocket';
     case 'archive_node':
       return 'Archive Data';
     case 'debug':
