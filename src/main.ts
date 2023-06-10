@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 
 import App from './App.vue';
 import ExecutionApi from './pages/ExecutionApi.vue';
+import ProviderChain from './pages/ProviderChain.vue';
 import Providers from './pages/Providers.vue';
 
 const routerHistory = createWebHistory();
@@ -11,6 +12,11 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'reference', component: ExecutionApi },
     { path: '/providers', name: 'providers', component: Providers },
+    {
+      path: '/provider/:provider-on-:chain',
+      name: 'provider-chain',
+      component: ProviderChain,
+    },
   ],
 });
 
