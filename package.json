@@ -37,7 +37,7 @@
     "eslint": "8.31.0",
     "eslint-import-resolver-typescript": "3.5.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-vue": "9.3.0",
+    "eslint-plugin-vue": "^9.14.1",
     "prettier": "2.8.1",
     "stylelint": "^14.16.1",
     "stylelint-config-property-sort-order-smacss": "9.0.0",
