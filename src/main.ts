@@ -9,8 +9,8 @@ const routerHistory = createWebHistory();
 const router = createRouter({
   history: routerHistory,
   routes: [
-    { path: '/', component: ExecutionApi },
-    { path: '/providers', component: Providers },
+    { path: '/', name: 'reference', component: ExecutionApi },
+    { path: '/providers', name: 'providers', component: Providers },
   ],
 });
 
