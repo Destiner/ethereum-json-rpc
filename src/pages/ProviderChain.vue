@@ -48,7 +48,7 @@ const chain = ref<Chain | null>(null);
 const chainOptions = computed(() => {
   const { endpoints } = getProviderData(provider.value);
   return Object.entries(endpoints)
-    .filter(([_, value]) => !!value)
+    .filter(([, value]) => !!value)
     .map(([chain]) => ({
       value: chain,
       label: getChainName(chain as Chain),
