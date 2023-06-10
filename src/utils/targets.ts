@@ -43,6 +43,7 @@ import {
   TRACE_TRANSACTION,
   MethodId,
 } from './methods';
+import { isBlockNumber, isBlockTag } from './validation';
 
 const LANGUAGE_JSON = 'json';
 const LANGUAGE_JAVASCRIPT = 'javascript';
@@ -54,6 +55,7 @@ type Language =
 
 const LIBRARY_VANILLA = 'vanilla';
 const LIBRARY_ETHERS = 'ethers';
+const LIBRARY_VIEM = 'viem';
 const LIBRARY_FETCH = 'fetch';
 const LIBRARY_AXIOS = 'axios';
 const LIBRARY_WEB3_PY = 'web3py';
@@ -61,13 +63,19 @@ const LIBRARY_REQUESTS = 'requests';
 type Library =
   | typeof LIBRARY_VANILLA
   | typeof LIBRARY_ETHERS
+  | typeof LIBRARY_VIEM
   | typeof LIBRARY_FETCH
   | typeof LIBRARY_AXIOS
   | typeof LIBRARY_WEB3_PY
   | typeof LIBRARY_REQUESTS;
 
 interface Call {
+  from?: string;
+  gas?: string;
   nonce?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
 }
 
 interface LogFilter {
@@ -110,6 +118,8 @@ function getJavascriptRequest(
   switch (library) {
     case LIBRARY_ETHERS:
       return getJavascriptEthersRequest(method, params);
+    case LIBRARY_VIEM:
+      return getJavascriptViemRequest(method, params);
     case LIBRARY_FETCH:
       return getJavascriptBrowserRequest(method, params);
     case LIBRARY_AXIOS:
@@ -204,6 +214,252 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX:
     case GET_UNCLE_BY_BLOCK_HASH_AND_INDEX:
     case ACCOUNTS:
+    case COINBASE:
+    case SYNCING:
+    case MINING:
+    case HASHRATE:
+    case GET_WORK:
+    case DEBUG_TRACE_CALL:
+    case DEBUG_TRACE_TRANSACTION:
+    case DEBUG_TRACE_BLOCK_BY_NUMBER:
+    case DEBUG_TRACE_BLOCK_BY_HASH:
+    case TRACE_BLOCK:
+    case TRACE_CALL:
+    case TRACE_FILTER:
+    case TRACE_RAW_TRANSACTION:
+    case TRACE_REPLAY_BLOCK_TRANSACTIONS:
+    case TRACE_REPLAY_TRANSACTION:
+    case TRACE_TRANSACTION:
+      return '';
+  }
+}
+
+function getJavascriptViemRequest(method: MethodId, params: unknown[]): string {
+  function getBlock(blockParam: string | null): {
+    blockTag?: string;
+    blockNumber?: number;
+  } {
+    return {
+      blockTag:
+        blockParam === null
+          ? undefined
+          : isBlockTag(blockParam as string)
+          ? (blockParam as string)
+          : undefined,
+      blockNumber:
+        blockParam === null
+          ? undefined
+          : isBlockNumber(blockParam as string)
+          ? parseInt(blockParam as string)
+          : undefined,
+    };
+  }
+  switch (method) {
+    case CHAIN_ID:
+      return `const block = await publicClient.getChainId()`;
+    case BLOCK_NUMBER:
+      return `const block = await publicClient.getBlockNumber()`;
+    case GAS_PRICE:
+      return `const gasPrice = await publicClient.getGasPrice()`;
+    case FEE_HISTORY: {
+      const formattedParams = JSON.stringify(
+        {
+          blockCount: params[0],
+          ...getBlock(params[1] as string | null),
+          rewardPercentiles: params[2],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const transaction = await publicClient.getFeeHistory(${formattedParams})`;
+    }
+    case GET_BALANCE: {
+      const formattedParams = JSON.stringify(
+        {
+          address: params[0],
+          ...getBlock(params[1] as string | null),
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const balance = await publicClient.getBalance(${formattedParams})`;
+    }
+    case GET_CODE: {
+      const formattedParams = JSON.stringify(
+        {
+          address: params[0],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getBytecode(${formattedParams})`;
+    }
+    case GET_STORAGE_AT: {
+      const formattedParams = JSON.stringify(
+        {
+          address: params[0],
+          slot: params[1],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const data = await publicClient.getStorageAt(${formattedParams})`;
+    }
+    case CALL: {
+      const from = (params[0] as Call).from;
+      const gasPrice = (params[0] as Call).gasPrice;
+      const maxFeePerGas = (params[0] as Call).maxFeePerGas;
+      const maxPriorityFeePerGas = (params[0] as Call).maxPriorityFeePerGas;
+      const nonce = (params[0] as Call).nonce;
+
+      const formattedParams = JSON.stringify(
+        {
+          account: from ? from : undefined,
+          ...(params[0] as object),
+          from: undefined,
+          gas: undefined,
+          ...getBlock(params[1] as string | null),
+          nonce: nonce ? parseInt(nonce) : undefined,
+          gasPrice: gasPrice ? parseInt(gasPrice) : undefined,
+          maxFeePerGas: maxFeePerGas ? parseInt(maxFeePerGas) : undefined,
+          maxPriorityFeePerGas: maxPriorityFeePerGas
+            ? parseInt(maxPriorityFeePerGas)
+            : undefined,
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const data = await publicClient.call(${formattedParams})`;
+    }
+    case ESTIMATE_GAS: {
+      const from = (params[0] as Call).from;
+      const gasPrice = (params[0] as Call).gasPrice;
+      const maxFeePerGas = (params[0] as Call).maxFeePerGas;
+      const maxPriorityFeePerGas = (params[0] as Call).maxPriorityFeePerGas;
+      const nonce = (params[0] as Call).nonce;
+
+      const formattedParams = JSON.stringify(
+        {
+          account: from ? from : undefined,
+          ...(params[0] as object),
+          from: undefined,
+          gas: undefined,
+          ...getBlock(params[1] as string | null),
+          nonce: nonce ? parseInt(nonce) : undefined,
+          gasPrice: gasPrice ? parseInt(gasPrice) : undefined,
+          maxFeePerGas: maxFeePerGas ? parseInt(maxFeePerGas) : undefined,
+          maxPriorityFeePerGas: maxPriorityFeePerGas
+            ? parseInt(maxPriorityFeePerGas)
+            : undefined,
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const gasEstimate = await publicClient.estimateGas(${formattedParams})`;
+    }
+    case GET_TRANSACTION_COUNT: {
+      const formattedParams = JSON.stringify(
+        {
+          address: params[0],
+          ...getBlock(params[1] as string | null),
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getTransactionCount(${formattedParams})`;
+    }
+    case GET_BLOCK_BY_NUMBER: {
+      const formattedParams = JSON.stringify(
+        {
+          ...getBlock(params[0] as string | null),
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getBlock(${formattedParams})`;
+    }
+    case GET_BLOCK_BY_HASH: {
+      const formattedParams = JSON.stringify(
+        {
+          blockHash: params[0],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getBlock(${formattedParams})`;
+    }
+    case GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER: {
+      const formattedParams = JSON.stringify(
+        {
+          ...getBlock(params[0] as string | null),
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getBlockTransactionCount(${formattedParams})`;
+    }
+    case GET_BLOCK_TRANSACTION_COUNT_BY_HASH: {
+      const formattedParams = JSON.stringify(
+        {
+          blockHash: params[0],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getBlockTransactionCount(${formattedParams})`;
+    }
+    case GET_TRANSACTION_BY_HASH: {
+      const formattedParams = JSON.stringify(
+        {
+          hash: params[0],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const transaction = await publicClient.getTransaction(${formattedParams})`;
+    }
+    case GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX: {
+      const formattedParams = JSON.stringify(
+        {
+          ...getBlock(params[0] as string | null),
+          index: parseInt(params[1] as string),
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getTransaction(${formattedParams})`;
+    }
+    case GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX: {
+      const formattedParams = JSON.stringify(
+        {
+          blockHash: params[0],
+          index: parseInt(params[1] as string),
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const code = await publicClient.getTransaction(${formattedParams})`;
+    }
+    case GET_TRANSACTION_RECEIPT: {
+      const formattedParams = JSON.stringify(
+        {
+          hash: params[0],
+        },
+        null,
+        2,
+      ).replace(/"/g, "'");
+      return `const transaction = await publicClient.getTransactionReceipt(${formattedParams})`;
+    }
+    case ACCOUNTS: {
+      return `const code = await walletClient.getAddresses()`;
+    }
+    case MAX_PRIORITY_FEE_PER_GAS:
+    case GET_LOGS:
+    case GET_PROOF:
+    case GET_UNCLE_COUNT_BY_BLOCK_NUMBER:
+    case GET_UNCLE_COUNT_BY_BLOCK_HASH:
+    case GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX:
+    case GET_UNCLE_BY_BLOCK_HASH_AND_INDEX:
     case COINBASE:
     case SYNCING:
     case MINING:
@@ -413,6 +669,7 @@ export {
   LANGUAGE_PYTHON,
   LIBRARY_VANILLA,
   LIBRARY_ETHERS,
+  LIBRARY_VIEM,
   LIBRARY_FETCH,
   LIBRARY_AXIOS,
   LIBRARY_WEB3_PY,

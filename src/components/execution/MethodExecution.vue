@@ -58,6 +58,7 @@ import {
   LANGUAGE_PYTHON,
   LIBRARY_VANILLA,
   LIBRARY_ETHERS,
+  LIBRARY_VIEM,
   LIBRARY_FETCH,
   LIBRARY_AXIOS,
   LIBRARY_WEB3_PY,
@@ -132,6 +133,7 @@ function getTargetLibraryOptions(language: TargetLanguage): Option[] {
     case LANGUAGE_JAVASCRIPT:
       return [
         { label: 'ethers', value: LIBRARY_ETHERS },
+        { label: 'viem', value: LIBRARY_VIEM },
         { label: 'Fetch', value: LIBRARY_FETCH },
         { label: 'Axios', value: LIBRARY_AXIOS },
       ];

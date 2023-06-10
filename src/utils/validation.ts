@@ -53,13 +53,10 @@ function validatePrimitiveParam(
     case 'bytes':
       return isBytes(input);
     case 'block': {
-      if (
-        ['earliest', 'finalized', 'safe', 'latest', 'pending'].includes(input)
-      ) {
+      if (isBlockTag(input)) {
         return true;
       } else {
-        const val = parseInt(input);
-        return !isNaN(val) && val >= 0 && val < 1e9;
+        return isBlockNumber(input);
       }
     }
     case 'trace':
@@ -83,6 +80,15 @@ function isBytes(value: string): boolean {
   return !!value.match(hashRegex) && hasEvenByteNum;
 }
 
+function isBlockNumber(value: string): boolean {
+  const val = parseInt(value);
+  return !isNaN(val) && val >= 0 && val < 1e9;
+}
+
+function isBlockTag(value: string): boolean {
+  return ['earliest', 'finalized', 'safe', 'latest', 'pending'].includes(value);
+}
+
 function isValidUrl(value: string): boolean {
   const urlRegex = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -96,4 +102,4 @@ function isValidUrl(value: string): boolean {
   return !!value.match(urlRegex);
 }
 
-export { validateParam, validateParams, isValidUrl };
+export { validateParam, validateParams, isBlockNumber, isBlockTag, isValidUrl };
