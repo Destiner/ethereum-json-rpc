@@ -41,26 +41,26 @@ function handleItemClick(chain: Chain): void {
 
 .list {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-normal);
 }
 
 .item {
   display: flex;
-  gap: 4px;
-  padding: 4px 8px;
+  gap: var(--spacing-small);
+  padding: 6px 10px;
   transition: all 0.25s ease-in-out;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border-primary);
   border-radius: 16px;
-  opacity: 0.6;
+  font-size: var(--font-size-normal);
   cursor: pointer;
 }
 
 .item:hover {
-  opacity: 1;
+  border-color: var(--color-border-secondary);
 }
 
 .item.active {
-  border-color: var(--color-accent-secondary);
-  opacity: 1;
+  border-color: var(--color-border-secondary);
+  background: var(--color-bg-secondary);
 }
 </style>
