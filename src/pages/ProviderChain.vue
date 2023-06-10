@@ -58,9 +58,7 @@ const chainOptions = computed(() => {
 watch(
   () => chainName.value,
   (value) => {
-    chain.value =
-      CHAINS.find((chain) => getChainName(chain).toLowerCase() === value) ||
-      null;
+    chain.value = CHAINS.find((chain) => chain === value) || null;
   },
   {
     immediate: true,
