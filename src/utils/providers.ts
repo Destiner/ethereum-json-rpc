@@ -53,10 +53,10 @@ function getProviderData(provider: Provider): ProviderData {
         tiers: ['free_key', 'paid_key'],
         features: ['websocket', 'archive_node', 'debug', 'traces'],
         endpoints: {
-          ethereum: 'https://eth-mainnet.g.alchemy.com/v2',
-          polygon: 'https://polygon-mainnet.g.alchemy.com/v2',
-          optimism: 'https://opt-mainnet.g.alchemy.com/v2',
-          arbitrum: 'https://arb-mainnet.g.alchemy.com/v2',
+          ethereum: 'https://eth-mainnet.g.alchemy.com/v2/<API_KEY>',
+          polygon: 'https://polygon-mainnet.g.alchemy.com/v2/<API_KEY>',
+          optimism: 'https://opt-mainnet.g.alchemy.com/v2/<API_KEY>',
+          arbitrum: 'https://arb-mainnet.g.alchemy.com/v2/<API_KEY>',
         },
       };
     case INFURA:
@@ -67,10 +67,10 @@ function getProviderData(provider: Provider): ProviderData {
         tiers: ['free_key', 'paid_key'],
         features: ['websocket', 'archive_node', 'debug'],
         endpoints: {
-          ethereum: 'https://mainnet.infura.io/v3',
-          polygon: 'https://polygon-mainnet.infura.io/v3',
-          optimism: 'https://optimism-mainnet.infura.io/v3',
-          arbitrum: 'https://arbitrum-mainnet.infura.io/v3',
+          ethereum: 'https://mainnet.infura.io/v3/<API_KEY>',
+          polygon: 'https://polygon-mainnet.infura.io/v3/<API_KEY>',
+          optimism: 'https://optimism-mainnet.infura.io/v3/<API_KEY>',
+          arbitrum: 'https://arbitrum-mainnet.infura.io/v3/<API_KEY>',
         },
       };
     case ANKR:
@@ -95,10 +95,11 @@ function getProviderData(provider: Provider): ProviderData {
         tiers: [],
         features: [],
         endpoints: {
-          ethereum: '',
-          polygon: '',
-          optimism: '',
-          arbitrum: '',
+          ethereum: 'https://<PROJECT_ID>.discover.quiknode.pro/<API_KEY>',
+          polygon: 'https://<PROJECT_ID>.matic.quiknode.pro/<API_KEY>',
+          optimism: 'https://<PROJECT_ID>.optimism.quiknode.pro/<API_KEY>',
+          arbitrum:
+            'https://<PROJECT_ID>.arbitrum-mainnet.quiknode.pro/<API_KEY>',
         },
       };
     case CLOUDFLARE:
@@ -123,8 +124,8 @@ function getProviderData(provider: Provider): ProviderData {
         tiers: [],
         features: [],
         endpoints: {
-          ethereum: 'https://eth.llamarpc.com/rpc',
-          polygon: 'https://polygon.llamarpc.com/rpc',
+          ethereum: 'https://eth.llamarpc.com/rpc/<API_KEY>',
+          polygon: 'https://polygon.llamarpc.com/rpc/<API_KEY>',
           optimism: null,
           arbitrum: null,
         },
@@ -137,10 +138,11 @@ function getProviderData(provider: Provider): ProviderData {
         tiers: [],
         features: [],
         endpoints: {
-          ethereum: 'https://eth-mainnet.gateway.pokt.network/v1/lb',
-          polygon: 'https://poly-mainnet.gateway.pokt.network/v1/lb',
-          optimism: 'https://optimism-mainnet.gateway.pokt.network/v1/lb',
-          arbitrum: 'https://arbitrum-one.gateway.pokt.network/v1/lb',
+          ethereum: 'https://eth-mainnet.gateway.pokt.network/v1/lb/<API_KEY>',
+          polygon: 'https://poly-mainnet.gateway.pokt.network/v1/lb/<API_KEY>',
+          optimism:
+            'https://optimism-mainnet.gateway.pokt.network/v1/lb/<API_KEY>',
+          arbitrum: 'https://arbitrum-one.gateway.pokt.network/v1/lb/<API_KEY>',
         },
       };
     case BLAST:
@@ -151,10 +153,10 @@ function getProviderData(provider: Provider): ProviderData {
         tiers: [],
         features: [],
         endpoints: {
-          ethereum: 'https://eth-mainnet.blastapi.io/',
-          polygon: 'https://polygon-mainnet.blastapi.io/',
-          optimism: 'https://optimism-mainnet.blastapi.io/',
-          arbitrum: 'https://arbitrum-one.blastapi.io/',
+          ethereum: 'https://eth-mainnet.blastapi.io/<API_KEY>',
+          polygon: 'https://polygon-mainnet.blastapi.io/<API_KEY>',
+          optimism: 'https://optimism-mainnet.blastapi.io/<API_KEY>',
+          arbitrum: 'https://arbitrum-one.blastapi.io/<API_KEY>',
         },
       };
   }
