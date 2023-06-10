@@ -1,46 +1,66 @@
 <template>
-  <div class="card">
-    <div class="header">
-      <IconProvider
-        class="icon"
-        :provider="provider.id"
-      />
-      <div class="name">{{ provider.name }}</div>
-    </div>
-    <div class="data">
-      <div class="tiers">
-        <div
-          v-for="tier in provider.tiers"
-          :key="tier"
-          class="tier"
-        >
-          {{ formatProviderTier(tier) }}
+  <RouterLink
+    :to="{
+      name: 'provider-chain',
+      params: {
+        provider: provider.id,
+        chain: chain,
+      },
+    }"
+  >
+    <div class="card">
+      <div class="header">
+        <IconProvider
+          class="icon"
+          :provider="provider.id"
+        />
+        <div class="name">{{ provider.name }}</div>
+      </div>
+      <div class="data">
+        <div class="tiers">
+          <div
+            v-for="tier in provider.tiers"
+            :key="tier"
+            class="tier"
+          >
+            {{ formatProviderTier(tier) }}
+          </div>
+        </div>
+        <div class="features">
+          <div
+            v-for="feature in provider.features"
+            :key="feature"
+            class="feature"
+          >
+            {{ formatProviderFeature(feature) }}
+          </div>
         </div>
       </div>
-      <div class="features">
-        <div
-          v-for="feature in provider.features"
-          :key="feature"
-          class="feature"
-        >
-          {{ formatProviderFeature(feature) }}
-        </div>
-      </div>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+
 import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
+import { Chain } from '@/utils/chains';
 import { formatProviderFeature, formatProviderTier } from '@/utils/formatters';
 import { ProviderData } from '@/utils/providers';
 
 defineProps<{
   provider: ProviderData;
+  chain: Chain;
 }>();
 </script>
 
 <style scoped>
+a {
+  display: flex;
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .card {
   display: flex;
   gap: 24px;

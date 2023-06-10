@@ -9,6 +9,7 @@
             v-for="provider in availableProviders"
             :key="provider"
             :provider="getProviderData(provider)"
+            :chain="chain"
           />
         </div>
       </div>
@@ -42,7 +43,7 @@ const availableProviders = computed<Provider[]>(() =>
 
 .content {
   display: flex;
-  gap: 32px;
+  gap: var(--spacing-large);
   flex-direction: column;
   width: 100%;
   margin-top: 32px;
@@ -62,12 +63,12 @@ h1 {
 .providers {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-big);
 }
 
 .cards {
   display: flex;
-  gap: 16px;
+  gap: var(--spacing-big);
   flex-wrap: wrap;
 }
 </style>
