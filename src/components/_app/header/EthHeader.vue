@@ -1,8 +1,10 @@
 <template>
   <header>
-    <div class="side">
-      <BrandLogo class="icon" />
-      <div class="label">Ethereum JSON-RPC</div>
+    <div class="side left">
+      <div class="brand">
+        <BrandLogo class="icon" />
+        <div class="label">Ethereum JSON-RPC</div>
+      </div>
       <div class="pages">
         <RouterLink
           class="page"
@@ -18,7 +20,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="side">
+    <div class="side right">
       <ProviderSelector />
       <LinkGithub class="icon-github" />
     </div>
@@ -51,13 +53,27 @@ header {
 
 .side {
   display: flex;
+  align-items: center;
+  height: calc(100% + 1px);
+}
+
+.left {
+  gap: var(--spacing-large);
+}
+
+.right {
   gap: var(--spacing-big);
+}
+
+.brand {
+  display: flex;
+  gap: var(--spacing-normal);
   align-items: center;
 }
 
 .icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   padding: 4px;
   border-radius: 50%;
   background: white;
@@ -71,17 +87,27 @@ header {
 .pages {
   display: flex;
   gap: var(--spacing-big);
+  align-items: center;
+  height: 100%;
 }
 
 .page {
+  height: 100%;
   padding-bottom: 2px;
+  opacity: 0.6;
   color: inherit;
   font-size: var(--font-size-normal);
+  line-height: calc(var(--header-height) - 1px);
   text-decoration: inherit;
 }
 
+.page:hover {
+  opacity: 1;
+}
+
 .page.router-link-active {
-  border-bottom: 1px solid var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-accent-primary);
+  opacity: 1;
 }
 
 @media (min-width: 768px) {

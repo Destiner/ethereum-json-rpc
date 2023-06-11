@@ -79,7 +79,7 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
 }
 
 body {
-  --header-height: 64px;
+  --header-height: 58px;
 
   margin: 0;
   background: var(--color-bg-primary);
