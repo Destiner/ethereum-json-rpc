@@ -45,7 +45,7 @@ h2 {
 
 .item {
   display: flex;
-  gap: var(--spacing-small);
+  gap: var(--spacing-normal);
   align-items: center;
 }
 
@@ -53,8 +53,8 @@ h2 {
   width: 16px;
   height: 16px;
   padding: 2px;
-  border: 1px solid var(--color-success);
+  border: 1px solid var(--color-accent-primary);
   border-radius: 50%;
-  color: var(--color-success);
+  color: var(--color-accent-primary);
 }
 </style>
