@@ -47,7 +47,13 @@
     "import/no-mutable-exports": "error",
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["vite.config.ts", "test/**/*.test.ts"] }
+      {
+        "devDependencies": [
+          "vite.config.ts",
+          "scripts/**/*.ts",
+          "test/**/*.test.ts"
+        ]
+      }
     ],
     "@typescript-eslint/explicit-function-return-type": "error",
     "vue/component-api-style": ["error", ["script-setup"]],
