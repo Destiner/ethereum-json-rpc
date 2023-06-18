@@ -13,16 +13,22 @@ function formatProviderTier(tier: Tier): string {
 
 function formatProviderFeature(feature: Feature): string {
   switch (feature) {
-    case 'websocket':
+    case 'websockets':
       return 'Websocket';
-    case 'archive_node':
+    case 'latestState':
+      return 'Latest State';
+    case 'latestEvents':
+      return 'Recent Events';
+    case 'historicalState':
       return 'Archive Data';
-    case 'debug':
+    case 'historicalEvents':
+      return 'Archive Events';
+    case 'debugMethods':
       return 'Debug Methods';
-    case 'traces':
+    case 'traceMethods':
       return 'Trace Methods';
-    case 'erigon':
-      return 'Erigon Node';
+    case 'erigonMethods':
+      return 'Erigon Methods';
   }
 }
 

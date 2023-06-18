@@ -32,14 +32,59 @@ const PROVIDERS: Provider[] = [
 
 type Tier = 'no_key' | 'free_key' | 'paid_key';
 
-type Feature = 'websocket' | 'archive_node' | 'debug' | 'traces' | 'erigon';
+interface Features {
+  websockets: boolean;
+  latestState: boolean;
+  latestEvents: boolean;
+  historicalState: boolean;
+  historicalEvents: boolean;
+  debugMethods: {
+    traceCall: boolean;
+    traceTransaction: boolean;
+    traceBlock: boolean;
+  };
+  traceMethods: {
+    block: boolean;
+    call: boolean;
+    filter: boolean;
+    rawTransaction: boolean;
+    replayBlockTransactions: boolean;
+    replayTransaction: boolean;
+    transaction: boolean;
+  };
+  erigonMethods: {
+    getHeaderByHash: boolean;
+    getBlockReceiptsByBlockHash: boolean;
+    getHeaderByNumber: boolean;
+  };
+}
+type Feature = keyof Features;
+
+type FeatureSupportType = 'full' | 'partial' | 'none';
+
+function getFeatureSupportType(
+  features: Features,
+  feature: Feature,
+): FeatureSupportType {
+  const featureValue = features[feature];
+  if (typeof featureValue === 'boolean') {
+    return featureValue ? 'full' : 'none';
+  }
+  if (Object.values(featureValue).every((value) => value)) {
+    return 'full';
+  }
+  if (Object.values(featureValue).some((value) => value)) {
+    return 'partial';
+  }
+  return 'none';
+}
 
 interface ProviderData {
   id: Provider;
   name: string;
   latency: number;
   tiers: Tier[];
-  features: Feature[];
+  features: Features;
   endpoints: Record<Chain, string | null>;
 }
 
@@ -51,7 +96,32 @@ function getProviderData(provider: Provider): ProviderData {
         name: 'Alchemy',
         latency: 123,
         tiers: ['free_key', 'paid_key'],
-        features: ['websocket', 'archive_node', 'debug', 'traces'],
+        features: {
+          websockets: true,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: false,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: false,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: false,
+          },
+          erigonMethods: {
+            getHeaderByHash: true,
+            getBlockReceiptsByBlockHash: false,
+            getHeaderByNumber: true,
+          },
+        },
         endpoints: {
           ethereum: 'https://eth-mainnet.g.alchemy.com/v2/<API_KEY>',
           polygon: 'https://polygon-mainnet.g.alchemy.com/v2/<API_KEY>',
@@ -65,7 +135,32 @@ function getProviderData(provider: Provider): ProviderData {
         name: 'Infura',
         latency: 132,
         tiers: ['free_key', 'paid_key'],
-        features: ['websocket', 'archive_node', 'debug'],
+        features: {
+          websockets: false,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: false,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: false,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: false,
+          },
+          erigonMethods: {
+            getHeaderByHash: false,
+            getBlockReceiptsByBlockHash: false,
+            getHeaderByNumber: false,
+          },
+        },
         endpoints: {
           ethereum: 'https://mainnet.infura.io/v3/<API_KEY>',
           polygon: 'https://polygon-mainnet.infura.io/v3/<API_KEY>',
@@ -78,8 +173,33 @@ function getProviderData(provider: Provider): ProviderData {
         id: 'ankr',
         name: 'Ankr',
         latency: 999,
-        tiers: [],
-        features: [],
+        tiers: ['no_key', 'free_key', 'paid_key'],
+        features: {
+          websockets: false,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: false,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: true,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: true,
+          },
+          erigonMethods: {
+            getHeaderByHash: true,
+            getBlockReceiptsByBlockHash: false,
+            getHeaderByNumber: false,
+          },
+        },
         endpoints: {
           ethereum: 'https://rpc.ankr.com/eth',
           polygon: 'https://rpc.ankr.com/polygon',
@@ -92,8 +212,33 @@ function getProviderData(provider: Provider): ProviderData {
         id: 'quicknode',
         name: 'QuickNode',
         latency: 999,
-        tiers: [],
-        features: [],
+        tiers: ['free_key', 'paid_key'],
+        features: {
+          websockets: true,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: false,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: false,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: false,
+          },
+          erigonMethods: {
+            getHeaderByHash: true,
+            getBlockReceiptsByBlockHash: true,
+            getHeaderByNumber: true,
+          },
+        },
         endpoints: {
           ethereum: 'https://<PROJECT_ID>.discover.quiknode.pro/<API_KEY>',
           polygon: 'https://<PROJECT_ID>.matic.quiknode.pro/<API_KEY>',
@@ -107,8 +252,33 @@ function getProviderData(provider: Provider): ProviderData {
         id: 'cloudflare',
         name: 'Cloudflare',
         latency: 999,
-        tiers: [],
-        features: [],
+        tiers: ['no_key', 'free_key', 'paid_key'],
+        features: {
+          websockets: false,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: false,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: false,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: false,
+          },
+          erigonMethods: {
+            getHeaderByHash: false,
+            getBlockReceiptsByBlockHash: false,
+            getHeaderByNumber: false,
+          },
+        },
         endpoints: {
           ethereum: 'https://cloudflare-eth.com',
           polygon: null,
@@ -121,8 +291,33 @@ function getProviderData(provider: Provider): ProviderData {
         id: 'llama',
         name: 'LlamaNodes',
         latency: 999,
-        tiers: [],
-        features: [],
+        tiers: ['free_key', 'paid_key'],
+        features: {
+          websockets: false,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: true,
+            traceBlock: true,
+          },
+          traceMethods: {
+            block: true,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: true,
+          },
+          erigonMethods: {
+            getHeaderByHash: true,
+            getBlockReceiptsByBlockHash: true,
+            getHeaderByNumber: true,
+          },
+        },
         endpoints: {
           ethereum: 'https://eth.llamarpc.com/rpc/<API_KEY>',
           polygon: 'https://polygon.llamarpc.com/rpc/<API_KEY>',
@@ -135,8 +330,33 @@ function getProviderData(provider: Provider): ProviderData {
         id: 'pokt',
         name: 'Pokt',
         latency: 999,
-        tiers: [],
-        features: [],
+        tiers: ['free_key', 'paid_key'],
+        features: {
+          websockets: false,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: true,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: true,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: false,
+          },
+          erigonMethods: {
+            getHeaderByHash: true,
+            getBlockReceiptsByBlockHash: false,
+            getHeaderByNumber: true,
+          },
+        },
         endpoints: {
           ethereum: 'https://eth-mainnet.gateway.pokt.network/v1/lb/<API_KEY>',
           polygon: 'https://poly-mainnet.gateway.pokt.network/v1/lb/<API_KEY>',
@@ -150,8 +370,33 @@ function getProviderData(provider: Provider): ProviderData {
         id: 'blast',
         name: 'BlastAPI',
         latency: 999,
-        tiers: [],
-        features: [],
+        tiers: ['free_key', 'paid_key'],
+        features: {
+          websockets: true,
+          latestState: true,
+          latestEvents: true,
+          historicalState: true,
+          historicalEvents: true,
+          debugMethods: {
+            traceCall: false,
+            traceTransaction: false,
+            traceBlock: false,
+          },
+          traceMethods: {
+            block: false,
+            call: false,
+            filter: false,
+            rawTransaction: false,
+            replayBlockTransactions: false,
+            replayTransaction: false,
+            transaction: false,
+          },
+          erigonMethods: {
+            getHeaderByHash: false,
+            getBlockReceiptsByBlockHash: false,
+            getHeaderByNumber: false,
+          },
+        },
         endpoints: {
           ethereum: 'https://eth-mainnet.blastapi.io/<API_KEY>',
           polygon: 'https://polygon-mainnet.blastapi.io/<API_KEY>',
@@ -174,7 +419,10 @@ export {
   PROVIDERS,
   Tier,
   Feature,
+  Features,
+  FeatureSupportType,
   Provider,
   ProviderData,
   getProviderData,
+  getFeatureSupportType,
 };
