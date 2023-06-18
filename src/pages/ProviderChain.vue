@@ -24,6 +24,7 @@
           :endpoint="endpoint"
         />
       </div>
+      <BannerLimitedSupport />
       <Features :features="data.features" />
     </div>
   </div>
@@ -35,6 +36,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import EthSelect from '@/components/__common/EthSelect.vue';
 import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
+import BannerLimitedSupport from '@/components/provider-chain/BannerLimitedSupport.vue';
 import EndpointUrl from '@/components/provider-chain/EndpointUrl.vue';
 import Features from '@/components/provider-chain/Features.vue';
 import { CHAINS, Chain, getChainName } from '@/utils/chains';
