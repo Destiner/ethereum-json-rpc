@@ -39,6 +39,7 @@ const availableProviders = computed<Provider[]>(() =>
 .page {
   display: flex;
   justify-content: center;
+  padding: 32px 0;
 }
 
 .content {
@@ -46,7 +47,6 @@ const availableProviders = computed<Provider[]>(() =>
   gap: var(--spacing-large);
   flex-direction: column;
   width: 100%;
-  margin-top: 32px;
 }
 
 @media (min-width: 768px) {

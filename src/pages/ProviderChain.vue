@@ -85,6 +85,7 @@ function handleChainUpdate(value: string): void {
 .page {
   display: flex;
   justify-content: center;
+  padding: 32px 0;
 }
 
 .content {
@@ -92,7 +93,6 @@ function handleChainUpdate(value: string): void {
   gap: var(--spacing-large);
   flex-direction: column;
   width: 100%;
-  margin-top: 32px;
 }
 
 @media (min-width: 768px) {
