@@ -3,25 +3,47 @@
     <h2>Features</h2>
     <div class="list">
       <div
-        v-for="feature in features"
-        :key="feature"
+        v-for="featureType in supportedFeatureTypes"
+        :key="featureType"
         class="item"
       >
-        <IconSuccess class="icon" />
-        {{ formatProviderFeature(feature) }}
+        <IconSuccess
+          class="icon"
+          :class="{
+            dimmed: getFeatureSupportType(features, featureType) === 'partial',
+          }"
+        />
+        <div>
+          {{ formatProviderFeature(featureType) }}
+          <span
+            v-if="getFeatureSupportType(features, featureType) === 'partial'"
+            class="label-partial"
+          >
+            partial
+          </span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import IconSuccess from '@/components/__common/icon/Success.vue';
 import { formatProviderFeature } from '@/utils/formatters';
-import { Feature } from '@/utils/providers';
+import { Feature, Features, getFeatureSupportType } from '@/utils/providers';
 
-defineProps<{
-  features: Feature[];
+const props = defineProps<{
+  features: Features;
 }>();
+
+const featureTypes = computed(() => Object.keys(props.features) as Feature[]);
+const supportedFeatureTypes = computed(() =>
+  featureTypes.value.filter(
+    (feature) => getFeatureSupportType(props.features, feature) !== 'none',
+  ),
+);
 </script>
 
 <style scoped>
@@ -56,5 +78,14 @@ h2 {
   border: 1px solid var(--color-accent-primary);
   border-radius: 50%;
   color: var(--color-accent-primary);
+}
+
+.icon.dimmed {
+  opacity: 0.4;
+}
+
+.label-partial {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
 }
 </style>

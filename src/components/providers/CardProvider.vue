@@ -28,7 +28,7 @@
         </div>
         <div class="features">
           <div
-            v-for="feature in provider.features"
+            v-for="feature in supportedFeatureTypes"
             :key="feature"
             class="feature"
           >
@@ -41,17 +41,32 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 
 import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
 import { Chain } from '@/utils/chains';
 import { formatProviderFeature, formatProviderTier } from '@/utils/formatters';
-import { ProviderData } from '@/utils/providers';
+import {
+  Feature,
+  ProviderData,
+  getFeatureSupportType,
+} from '@/utils/providers';
 
-defineProps<{
+const props = defineProps<{
   provider: ProviderData;
   chain: Chain;
 }>();
+
+const featureTypes = computed(
+  () => Object.keys(props.provider.features) as Feature[],
+);
+const supportedFeatureTypes = computed(() =>
+  featureTypes.value.filter(
+    (feature) =>
+      getFeatureSupportType(props.provider.features, feature) !== 'none',
+  ),
+);
 </script>
 
 <style scoped>
