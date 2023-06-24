@@ -34,7 +34,7 @@ const props = defineProps<{
   stats: Stats;
 }>();
 
-const metric = ref<StatMetric>('throughput');
+const metric = ref<StatMetric>('success_rate');
 const metricOptions: {
   value: StatMetric;
   label: string;
@@ -46,7 +46,7 @@ const metricOptions: {
   { value: 'latency_p90', label: 'Latency, p90' },
 ];
 
-const method = ref<StatMethod>('eth_getBalance');
+const method = ref<StatMethod>('eth_call');
 const methodOptions: {
   value: StatMethod;
   label: string;
