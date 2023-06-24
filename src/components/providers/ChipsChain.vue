@@ -41,6 +41,7 @@ function handleItemClick(chain: Chain): void {
 
 .list {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-normal);
 }
 

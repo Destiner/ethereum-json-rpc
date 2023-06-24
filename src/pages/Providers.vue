@@ -39,7 +39,13 @@ const availableProviders = computed<Provider[]>(() =>
 .page {
   display: flex;
   justify-content: center;
-  padding: 32px 0;
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px 0;
+  }
 }
 
 .content {

@@ -89,7 +89,13 @@ function handleChainUpdate(value: string): void {
 .page {
   display: flex;
   justify-content: center;
-  padding: 32px 0;
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px 0;
+  }
 }
 
 .content {
@@ -124,6 +130,7 @@ h1 {
 
 .chain {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-big);
 }
 

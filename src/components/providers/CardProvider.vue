@@ -80,12 +80,18 @@ a {
   display: flex;
   gap: 24px;
   flex-direction: column;
-  width: 300px;
+  width: 100%;
   padding: 20px 24px;
   transition: all 200ms ease-in-out;
   border: 1px solid var(--color-border-secondary);
   border-radius: 12px;
   cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .card {
+    width: 300px;
+  }
 }
 
 .card:hover {
