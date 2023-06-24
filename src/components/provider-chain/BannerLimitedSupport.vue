@@ -1,11 +1,17 @@
 <template>
-  <div class="banner">
-    At the moment, all profiling and feature support evaluation is done on
-    Ethereum only using free/no API keys.
+  <div class="wrapper">
+    <div class="banner">
+      At the moment, all profiling and feature support evaluation is done on
+      Ethereum only using free/no API keys.
+    </div>
   </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+}
+
 .banner {
   padding: 8px;
   border: 1px solid var(--color-border-info);
