@@ -25,6 +25,7 @@
   "dependencies": {
     "@fontsource/inter": "^4.5.14",
     "@headlessui/vue": "^1.7.7",
+    "@observablehq/plot": "^0.6.8",
     "@vueuse/core": "^9.10.0",
     "ts-node": "^10.9.1",
     "viem": "^1.0.2",
