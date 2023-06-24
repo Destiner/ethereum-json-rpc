@@ -26,6 +26,7 @@
       </div>
       <BannerLimitedSupport />
       <Features :features="data.features" />
+      <ChartStats :stats="data.stats" />
     </div>
   </div>
 </template>
@@ -37,6 +38,7 @@ import { useRoute, useRouter } from 'vue-router';
 import EthSelect from '@/components/__common/EthSelect.vue';
 import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
 import BannerLimitedSupport from '@/components/provider-chain/BannerLimitedSupport.vue';
+import ChartStats from '@/components/provider-chain/ChartStats.vue';
 import EndpointUrl from '@/components/provider-chain/EndpointUrl.vue';
 import Features from '@/components/provider-chain/Features.vue';
 import { CHAINS, Chain, getChainName } from '@/utils/chains';
