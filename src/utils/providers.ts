@@ -107,7 +107,6 @@ type Stats = Record<StatMethod, MethodStatsRow[]>;
 interface ProviderData {
   id: Provider;
   name: string;
-  latency: number;
   tiers: Tier[];
   features: Features;
   endpoints: Record<Chain, string | null>;
@@ -120,7 +119,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'alchemy',
         name: 'Alchemy',
-        latency: 123,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: true,
@@ -471,7 +469,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'infura',
         name: 'Infura',
-        latency: 132,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -822,7 +819,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'ankr',
         name: 'Ankr',
-        latency: 999,
         tiers: ['no_key', 'free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -1173,7 +1169,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'quicknode',
         name: 'QuickNode',
-        latency: 999,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: true,
@@ -1525,7 +1520,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'cloudflare',
         name: 'Cloudflare',
-        latency: 999,
         tiers: ['no_key', 'free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -1876,7 +1870,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'llama',
         name: 'LlamaNodes',
-        latency: 999,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -2227,7 +2220,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'pokt',
         name: 'Pokt',
-        latency: 999,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -2579,7 +2571,6 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'blast',
         name: 'BlastAPI',
-        latency: 999,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: true,
