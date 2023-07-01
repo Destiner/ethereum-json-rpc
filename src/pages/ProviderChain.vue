@@ -23,6 +23,10 @@
           v-if="endpoint"
           :endpoint="endpoint"
         />
+        <NodeMetadata
+          v-if="data.node"
+          :metadata="data.node"
+        />
       </div>
       <BannerLimitedSupport />
       <Features :features="data.features" />
@@ -41,6 +45,7 @@ import BannerLimitedSupport from '@/components/provider-chain/BannerLimitedSuppo
 import ChartStats from '@/components/provider-chain/ChartStats.vue';
 import EndpointUrl from '@/components/provider-chain/EndpointUrl.vue';
 import Features from '@/components/provider-chain/Features.vue';
+import NodeMetadata from '@/components/provider-chain/NodeMetadata.vue';
 import { CHAINS, Chain, getChainName } from '@/utils/chains';
 import { Provider, getProviderData } from '@/utils/providers';
 
