@@ -107,6 +107,7 @@ type Stats = Record<StatMethod, MethodStatsRow[]>;
 interface ProviderData {
   id: Provider;
   name: string;
+  node: string | null;
   tiers: Tier[];
   features: Features;
   endpoints: Record<Chain, string | null>;
@@ -119,6 +120,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'alchemy',
         name: 'Alchemy',
+        node: 'Geth/v1.11.5-stable-a38f4108/linux-amd64/go1.20.2',
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: true,
@@ -469,6 +471,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'infura',
         name: 'Infura',
+        node: 'Geth/v1.11.6-omnibus-f83e1598/linux-amd64/go1.20.3',
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -819,6 +822,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'ankr',
         name: 'Ankr',
+        node: 'erigon/2.47.0/linux-amd64/go1.20.5',
         tiers: ['no_key', 'free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -1169,6 +1173,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'quicknode',
         name: 'QuickNode',
+        node: 'Geth/v1.12.0-stable-e501b3b0/linux-amd64/go1.20.3',
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: true,
@@ -1520,6 +1525,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'cloudflare',
         name: 'Cloudflare',
+        node: null,
         tiers: ['no_key', 'free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -1870,6 +1876,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'llama',
         name: 'LlamaNodes',
+        node: null,
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -2220,6 +2227,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'pokt',
         name: 'Pokt',
+        node: 'erigon/2.47.0/linux-amd64/go1.20.5',
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: false,
@@ -2571,6 +2579,7 @@ function getProviderData(provider: Provider): ProviderData {
       return {
         id: 'blast',
         name: 'BlastAPI',
+        node: 'Geth/v1.11.5-stable-a38f4108/linux-amd64/go1.19.4',
         tiers: ['free_key', 'paid_key'],
         features: {
           websockets: true,
