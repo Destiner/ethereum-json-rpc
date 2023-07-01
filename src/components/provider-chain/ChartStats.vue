@@ -55,6 +55,7 @@ const methodOptions: {
   { value: 'eth_getBalance', label: 'eth_getBalance' },
   { value: 'eth_getBlockByNumber', label: 'eth_getBlockByNumber' },
   { value: 'eth_getCode', label: 'eth_getCode' },
+  { value: 'eth_getStorageAt', label: 'eth_getStorageAt' },
 ];
 
 const plotOptions = computed<Plot.PlotOptions>(() => {
