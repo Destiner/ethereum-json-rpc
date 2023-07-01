@@ -29,7 +29,7 @@
         />
       </div>
       <BannerLimitedSupport />
-      <Features :features="data.features" />
+      <FeatureList :features="data.features" />
       <ChartStats :stats="data.stats" />
     </div>
   </div>
@@ -44,7 +44,7 @@ import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
 import BannerLimitedSupport from '@/components/provider-chain/BannerLimitedSupport.vue';
 import ChartStats from '@/components/provider-chain/ChartStats.vue';
 import EndpointUrl from '@/components/provider-chain/EndpointUrl.vue';
-import Features from '@/components/provider-chain/Features.vue';
+import FeatureList from '@/components/provider-chain/FeatureList.vue';
 import NodeMetadata from '@/components/provider-chain/NodeMetadata.vue';
 import { CHAINS, Chain, getChainName } from '@/utils/chains';
 import { Provider, getProviderData } from '@/utils/providers';
