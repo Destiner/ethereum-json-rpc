@@ -172,8 +172,6 @@ function getMethodList(defaults: Defaults): Method[] {
           type: 'array',
           itemType: 'int',
           name: 'reward percentiles',
-          isRequired: true,
-          default: address,
           description:
             'A monotonically increasing list of percentile values. For each block in the requested range, the transactions will be sorted in ascending order by effective tip per gas and the coresponding effective tip for the percentile will be determined, accounting for gas consumed.',
         },
@@ -967,7 +965,6 @@ function getMethodList(defaults: Defaults): Method[] {
             fromaddress: {
               type: 'array',
               name: 'from addresses',
-              isRequired: false,
               itemType: 'addr',
               description: 'Sender address list',
             },
