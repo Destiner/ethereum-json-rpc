@@ -23,7 +23,7 @@
     "typecheck": "npx tsc --noEmit && npx vue-tsc --noEmit"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.0.16",
+    "@fontsource-variable/inter": "^5.0.16",
     "@headlessui/vue": "^1.7.16",
     "@observablehq/plot": "^0.6.12",
     "@vueuse/core": "^10.7.0",
