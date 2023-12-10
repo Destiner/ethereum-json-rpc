@@ -194,7 +194,7 @@ function getMethodList(defaults: Defaults): Method[] {
       description: 'Returns the current price per gas in wei.',
       params: [
         {
-          type: 'addr',
+          type: 'address',
           name: 'account',
           isRequired: true,
           default: address,
@@ -214,7 +214,7 @@ function getMethodList(defaults: Defaults): Method[] {
       description: 'Returns code at a given address.',
       params: [
         {
-          type: 'addr',
+          type: 'address',
           name: 'contract',
           isRequired: true,
           default: contract,
@@ -235,7 +235,7 @@ function getMethodList(defaults: Defaults): Method[] {
         'Returns the value from a storage position at a given address.',
       params: [
         {
-          type: 'addr',
+          type: 'address',
           name: 'contract',
           isRequired: true,
           default: contract,
@@ -267,14 +267,14 @@ function getMethodList(defaults: Defaults): Method[] {
           name: 'transaction',
           items: {
             from: {
-              type: 'addr',
+              type: 'address',
               name: 'from',
               isRequired: false,
               description:
                 'Source of the transaction call. Useful to impersonate another account.',
             },
             to: {
-              type: 'addr',
+              type: 'address',
               name: 'to',
               isRequired: true,
               default: contract,
@@ -344,14 +344,14 @@ function getMethodList(defaults: Defaults): Method[] {
           name: 'transaction',
           items: {
             from: {
-              type: 'addr',
+              type: 'address',
               name: 'from',
               isRequired: false,
               description:
                 'Source of the transaction call. Useful to impersonate another account.',
             },
             to: {
-              type: 'addr',
+              type: 'address',
               name: 'to',
               isRequired: false,
               description: 'Target contract',
@@ -431,7 +431,7 @@ function getMethodList(defaults: Defaults): Method[] {
               description: 'End of the fetching window',
             },
             address: {
-              type: 'addr',
+              type: 'address',
               name: 'contract',
               isRequired: false,
               description:
@@ -455,7 +455,7 @@ function getMethodList(defaults: Defaults): Method[] {
         'Returns the merkle proof for a given account and optionally some storage keys.',
       params: [
         {
-          type: 'addr',
+          type: 'address',
           name: 'account',
           isRequired: true,
           default: address,
@@ -490,7 +490,7 @@ function getMethodList(defaults: Defaults): Method[] {
       description: 'Returns the number of transactions sent from an address.',
       params: [
         {
-          type: 'addr',
+          type: 'address',
           name: 'account',
           isRequired: true,
           default: address,
@@ -779,14 +779,14 @@ function getMethodList(defaults: Defaults): Method[] {
           name: 'transaction',
           items: {
             from: {
-              type: 'addr',
+              type: 'address',
               name: 'from',
               isRequired: false,
               description:
                 'Source of the transaction call. Useful to impersonate another account.',
             },
             to: {
-              type: 'addr',
+              type: 'address',
               name: 'to',
               isRequired: true,
               default: contract,
@@ -891,14 +891,14 @@ function getMethodList(defaults: Defaults): Method[] {
           name: 'block',
           items: {
             from: {
-              type: 'addr',
+              type: 'address',
               name: 'from',
               isRequired: false,
               description:
                 'Source of the transaction call. Useful to impersonate another account.',
             },
             to: {
-              type: 'addr',
+              type: 'address',
               name: 'to',
               isRequired: false,
               description: 'Target contract',
@@ -965,11 +965,11 @@ function getMethodList(defaults: Defaults): Method[] {
             fromaddress: {
               type: 'array',
               name: 'from addresses',
-              itemType: 'addr',
+              itemType: 'address',
               description: 'Sender address list',
             },
             toaddress: {
-              type: 'addr',
+              type: 'address',
               name: 'to address',
               isRequired: false,
               description: 'Receiver address',

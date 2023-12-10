@@ -44,7 +44,7 @@ function validatePrimitiveParam(
       const val = parseInt(input);
       return !isNaN(val) && val >= 0;
     }
-    case 'addr':
+    case 'address':
       return isAddress(input);
     case 'hash':
       return isBytes32(input);

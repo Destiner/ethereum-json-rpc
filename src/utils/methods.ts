@@ -1,5 +1,5 @@
 type PrimitiveParamType =
-  | 'addr'
+  | 'address'
   | 'hash'
   | 'bytes32'
   | 'bytes'
