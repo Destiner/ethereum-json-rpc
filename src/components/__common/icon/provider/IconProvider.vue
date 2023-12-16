@@ -8,9 +8,9 @@
     <IconLlama v-if="provider === LLAMA" />
     <IconPokt v-if="provider === POKT" />
     <IconQuicknode v-if="provider === QUICKNODE" />
+    <IconBlockpi v-if="provider === BLOCKPI" />
   </div>
 </template>
-
 <script setup lang="ts">
 import {
   ALCHEMY,
@@ -21,9 +21,9 @@ import {
   LLAMA,
   POKT,
   QUICKNODE,
+  BLOCKPI,
   Provider,
 } from '@/utils/providers';
-
 import IconAlchemy from './Alchemy.vue';
 import IconAnkr from './Ankr.vue';
 import IconBlast from './Blast.vue';
@@ -32,7 +32,7 @@ import IconInfura from './Infura.vue';
 import IconLlama from './Llama.vue';
 import IconPokt from './Pokt.vue';
 import IconQuicknode from './Quicknode.vue';
-
+import IconBlockpi from './Blockpi.vue';
 defineProps<{
   provider: Provider;
 }>();
