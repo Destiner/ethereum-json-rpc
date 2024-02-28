@@ -13,26 +13,22 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        node-version: [ 16.x, 18.x ]
 
     steps:
-    - name: Use Node ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
 
-    - name: Clean install
-      run: npm ci
+      - name: Clean install
+        run: bun install
 
-    - name: Lint
-      run: npm run lint
+      - name: Lint
+        run: bun run lint
 
-    - name: Type checking
-      run: npm run typecheck
+      - name: Type checking
+        run: bun run typecheck
 
-    - name: Build
-      run: npm run build
+      - name: Build
+        run: bun run build
