@@ -1,21 +1,14 @@
-import path from 'path';
-
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import VueDevTools from 'vite-plugin-vue-devtools';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  build: {
-    target: 'es2020',
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      target: 'esnext',
-    },
-  },
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
+  plugins: [
+    tsconfigPaths({
+      loose: true,
+    }),
+    vue(),
+    VueDevTools(),
+  ],
 });
