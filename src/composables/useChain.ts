@@ -98,9 +98,7 @@ function useChain(): UseChain {
 function getUrlByOptions(options: Options): string {
   if (options.type === 'automatic') {
     const chainData = getChainData(options.chain);
-    return (
-      chainData.rpcUrls.infura.http[0] + '/84842078b09946638c03157f83405213'
-    );
+    return chainData.rpcUrls.default.http[0] as string;
   }
   if (options.type === 'custom') {
     return options.url;
