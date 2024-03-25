@@ -27,6 +27,7 @@
     "@headlessui/vue": "^1.7.16",
     "@observablehq/plot": "^0.6.12",
     "@vueuse/core": "^10.7.0",
+    "evm-providers": "^0.4.1",
     "ts-node": "^10.9.2",
     "viem": "^2.9.0",
     "vue": "^3.3.11",
