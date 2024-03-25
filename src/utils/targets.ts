@@ -244,14 +244,14 @@ function getJavascriptViemRequest(method: MethodId, params: unknown[]): string {
         blockParam === null
           ? undefined
           : isBlockTag(blockParam as string)
-          ? (blockParam as string)
-          : undefined,
+            ? (blockParam as string)
+            : undefined,
       blockNumber:
         blockParam === null
           ? undefined
           : isBlockNumber(blockParam as string)
-          ? parseInt(blockParam as string)
-          : undefined,
+            ? parseInt(blockParam as string)
+            : undefined,
     };
   }
   switch (method) {

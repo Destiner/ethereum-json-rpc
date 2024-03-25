@@ -90,7 +90,9 @@ button.active {
   border-radius: 100%;
   outline: 0;
   background-color: white;
-  box-shadow: 0 4px 6px #0000001a, 0 2px 4px #0000000f;
+  box-shadow:
+    0 4px 6px #0000001a,
+    0 2px 4px #0000000f;
   pointer-events: none;
 }
 

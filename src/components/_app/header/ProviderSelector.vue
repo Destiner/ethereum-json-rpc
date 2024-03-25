@@ -53,7 +53,11 @@
             />
             <EthSelect
               v-else
-              :model-value="getChainTagById(providerChain || UNKNOWN_CHAIN as ChainOrUnknown)"
+              :model-value="
+                getChainTagById(
+                  providerChain || (UNKNOWN_CHAIN as ChainOrUnknown),
+                )
+              "
               :options="readableChainOptions"
               :label="'Chain'"
               disabled

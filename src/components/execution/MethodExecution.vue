@@ -241,15 +241,15 @@ const response = computed(() => {
   return isLoading.value || !props.isShown
     ? ''
     : props.isError
-    ? result.value
-    : JSON.stringify(
-        {
-          jsonrpc: '2.0',
-          result: result.value,
-        },
-        null,
-        4,
-      );
+      ? result.value
+      : JSON.stringify(
+          {
+            jsonrpc: '2.0',
+            result: result.value,
+          },
+          null,
+          4,
+        );
 });
 </script>
 
