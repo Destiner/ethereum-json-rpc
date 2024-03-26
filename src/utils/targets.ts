@@ -3,6 +3,7 @@ import {
   BLOCK_NUMBER,
   GAS_PRICE,
   MAX_PRIORITY_FEE_PER_GAS,
+  BLOB_BASE_FEE,
   GET_BALANCE,
   GET_CODE,
   GET_STORAGE_AT,
@@ -144,6 +145,8 @@ const chainId = network.chainId`;
     case MAX_PRIORITY_FEE_PER_GAS:
       return `const feeData = await provider.getFeeData()
 const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
+    case BLOB_BASE_FEE:
+      return '';
     case GET_BALANCE:
       return `const balance = await provider.getBalance('${params[0]}', '${params[1]}')`;
     case GET_CODE:
@@ -261,6 +264,10 @@ function getJavascriptViemRequest(method: MethodId, params: unknown[]): string {
       return `const block = await publicClient.getBlockNumber()`;
     case GAS_PRICE:
       return `const gasPrice = await publicClient.getGasPrice()`;
+    case MAX_PRIORITY_FEE_PER_GAS:
+      return `const maxPriorityFeePerGas = await publicClient.estimateMaxPriorityFeePerGas()`;
+    case BLOB_BASE_FEE:
+      return `const baseFee = await publicClient.getBlobBaseFee()`;
     case FEE_HISTORY: {
       const formattedParams = JSON.stringify(
         {
@@ -453,7 +460,6 @@ function getJavascriptViemRequest(method: MethodId, params: unknown[]): string {
     case ACCOUNTS: {
       return `const code = await walletClient.getAddresses()`;
     }
-    case MAX_PRIORITY_FEE_PER_GAS:
     case GET_LOGS:
     case GET_PROOF:
     case GET_UNCLE_COUNT_BY_BLOCK_NUMBER:
@@ -547,6 +553,8 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
       return `gas_price = w3.eth.gas_price`;
     case MAX_PRIORITY_FEE_PER_GAS:
       return `max_priority_fee = w3.eth.max_priority_fee`;
+    case BLOB_BASE_FEE:
+      return '';
     case GET_BALANCE:
       return `balance = w3.eth.get_balance('${params[0]}', '${params[1]}')`;
     case GET_CODE:

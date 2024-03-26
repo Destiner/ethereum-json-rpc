@@ -6,6 +6,7 @@ import {
   BLOCK_NUMBER,
   GAS_PRICE,
   MAX_PRIORITY_FEE_PER_GAS,
+  BLOB_BASE_FEE,
   FEE_HISTORY,
   GET_BALANCE,
   GET_CODE,
@@ -144,6 +145,13 @@ function getMethodList(defaults: Defaults): Method[] {
       name: 'Get maximum priority fee',
       type: 'standard',
       description: 'Returns the current maxPriorityFeePerGas per gas in wei.',
+      params: [],
+    },
+    {
+      id: BLOB_BASE_FEE,
+      name: 'Get blob base fee',
+      type: 'standard',
+      description: 'Returns the base fee per blob gas in wei.',
       params: [],
     },
     {

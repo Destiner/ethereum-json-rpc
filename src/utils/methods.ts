@@ -57,6 +57,7 @@ const CHAIN_ID = 'eth_chainId';
 const BLOCK_NUMBER = 'eth_blockNumber';
 const GAS_PRICE = 'eth_gasPrice';
 const MAX_PRIORITY_FEE_PER_GAS = 'eth_maxPriorityFeePerGas';
+const BLOB_BASE_FEE = 'eth_blobBaseFee';
 const FEE_HISTORY = 'eth_feeHistory';
 const GET_BALANCE = 'eth_getBalance';
 const GET_CODE = 'eth_getCode';
@@ -105,6 +106,7 @@ type MethodId =
   | typeof BLOCK_NUMBER
   | typeof GAS_PRICE
   | typeof MAX_PRIORITY_FEE_PER_GAS
+  | typeof BLOB_BASE_FEE
   | typeof FEE_HISTORY
   | typeof GET_BALANCE
   | typeof GET_CODE
@@ -157,6 +159,7 @@ export {
   BLOCK_NUMBER,
   GAS_PRICE,
   MAX_PRIORITY_FEE_PER_GAS,
+  BLOB_BASE_FEE,
   FEE_HISTORY,
   GET_BALANCE,
   GET_CODE,
