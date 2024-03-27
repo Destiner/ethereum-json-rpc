@@ -261,7 +261,20 @@ async function getMethods(endpointUrl: string): Promise<Record<string, Status>> 
   methods['trace_replayTransaction'] = await tryRequest(client, 'trace_replayTransaction', [zeroHash, ['trace']]);
   // trace_transaction
   methods['trace_transaction'] = await tryRequest(client, 'trace_transaction', [zeroHash]);
-
+  // erigon_blockNumber
+  methods['erigon_blockNumber'] = await tryRequest(client, 'erigon_blockNumber', []);
+  // erigon_getHeaderByNumber
+  methods['erigon_getHeaderByNumber'] = await tryRequest(client, 'erigon_getHeaderByNumber', ['0x0']);
+  // erigon_getHeaderByHash
+  methods['erigon_getHeaderByHash'] = await tryRequest(client, 'erigon_getHeaderByHash', [blockHash]);
+  // erigon_getLogsByHash
+  methods['erigon_getLogsByHash'] = await tryRequest(client, 'erigon_getLogsByHash', [blockHash]);
+  // erigon_getBlockByTimestamp
+  methods['erigon_getBlockByTimestamp'] = await tryRequest(client, 'erigon_getBlockByTimestamp', ['0', false]);
+  // erigon_getLatestLogs
+  methods['erigon_getLatestLogs'] = await tryRequest(client, 'erigon_getLatestLogs', [{}, {logCount: 1}]);
+  // erigon_getBlockReceiptsByBlockHash
+  methods['erigon_getBlockReceiptsByBlockHash'] = await tryRequest(client, 'erigon_getBlockReceiptsByBlockHash', [blockHash]);
   return methods;
 }
 
