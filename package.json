@@ -26,7 +26,7 @@
     "@fontsource-variable/inter": "^5.0.16",
     "@headlessui/vue": "^1.7.16",
     "@vueuse/core": "^10.7.0",
-    "evm-providers": "^0.4.1",
+    "evm-providers": "^0.4.2",
     "viem": "^2.9.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
