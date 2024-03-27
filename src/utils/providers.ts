@@ -1,4 +1,10 @@
-import { alchemy, ankr, cloudflare, drpc } from 'evm-providers';
+import {
+  CloudflareChain,
+  alchemy,
+  ankr,
+  cloudflare,
+  drpc,
+} from 'evm-providers';
 
 import providers from '@/data/providers.json';
 
@@ -93,7 +99,7 @@ function getEndpoint(provider: Provider, chain: ChainId): string | null {
     case ANKR:
       return ankr(chain);
     case CLOUDFLARE:
-      return cloudflare(chain as 1);
+      return cloudflare(chain as CloudflareChain);
     case DRPC:
       return drpc(chain);
   }
