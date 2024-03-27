@@ -5,7 +5,7 @@
     "stylelint-config-property-sort-order-smacss"
   ],
   "rules": {
-    "media-feature-name-allowed-list": ["min-width", "prefers-color-scheme"],
+    "media-feature-name-allowed-list": ["min-width", "width", "prefers-color-scheme"],
     "property-no-vendor-prefix": [
       true,
       {
