@@ -16,7 +16,7 @@
           class="trigger"
           :class="{ disabled }"
         >
-          <div>{{ selectedOption.label }}</div>
+          <div class="label">{{ selectedOption.label }}</div>
           <IconChevronDown class="trigger-icon" />
         </ListboxButton>
 
@@ -126,6 +126,12 @@ export { Option };
 .trigger-icon {
   width: 20px;
   height: 20px;
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .list-enter-active {
