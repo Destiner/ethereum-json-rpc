@@ -5,7 +5,7 @@
       class="box"
       @click="copy"
     >
-      {{ endpoint }}
+      <span class="value">{{ endpoint }}</span>
       <IconClipboard
         v-if="ready"
         class="icon"
@@ -67,6 +67,12 @@ function copy(): void {
 .box:hover {
   border: 1px solid var(--color-border-secondary);
   color: var(--color-text-primary);
+}
+
+.value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icon {
