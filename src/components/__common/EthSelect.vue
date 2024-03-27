@@ -164,8 +164,10 @@ export { Option };
   z-index: 2;
   gap: var(--spacing-small);
   flex-direction: column;
+  max-height: 60vh;
   margin-top: var(--spacing-small);
   padding: 2px;
+  overflow-y: auto;
   border: 1px solid var(--color-border-secondary);
   border-radius: var(--border-radius-medium);
   background: var(--color-bg-primary);
@@ -173,7 +175,6 @@ export { Option };
 
 .item {
   padding: 4px 16px;
-  overflow: hidden;
   border-radius: var(--border-radius-medium);
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
