@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <div class="banner">
-      At the moment, all profiling and feature support evaluation is done on
-      Ethereum only using free/no API keys.
+      At the moment, feature and method support evaluation is done using free/no
+      API keys.
     </div>
   </div>
 </template>
