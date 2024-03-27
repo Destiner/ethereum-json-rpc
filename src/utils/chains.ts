@@ -13,7 +13,14 @@ type Chain =
   | typeof POLYGON
   | typeof ARBITRUM;
 
+type ChainId = 
+  | typeof mainnet.id
+  | typeof optimism.id
+  | typeof polygon.id
+  | typeof arbitrum.id;
+
 const CHAINS: Chain[] = [ETHEREUM, OPTIMISM, POLYGON, ARBITRUM];
+const CHAIN_IDS: ChainId[] = [mainnet.id, optimism.id, polygon.id, arbitrum.id];
 
 function getChainName(chain: Chain | typeof UNKNOWN_CHAIN): string {
   switch (chain) {
@@ -30,9 +37,22 @@ function getChainName(chain: Chain | typeof UNKNOWN_CHAIN): string {
   }
 }
 
-function getChainId(chainId: Chain): number {
-  const data = getChainData(chainId);
-  return data.id;
+function getChainById(chainId: ChainId): Chain {
+  switch (chainId) {
+    case mainnet.id:
+      return ETHEREUM;
+    case optimism.id:
+      return OPTIMISM;
+    case polygon.id:
+      return POLYGON;
+    case arbitrum.id:
+      return ARBITRUM;
+  }
+}
+
+function getChainId(chain: Chain): ChainId {
+  const data = getChainData(chain);
+  return data.id as ChainId;
 }
 
 function getChainData(chain: Chain): ChainData {
@@ -50,13 +70,15 @@ function getChainData(chain: Chain): ChainData {
 
 export {
   CHAINS,
+  CHAIN_IDS,
   ETHEREUM,
   OPTIMISM,
   POLYGON,
   ARBITRUM,
   UNKNOWN_CHAIN,
   getChainData,
+  getChainById,
   getChainId,
   getChainName,
 };
-export type { Chain };
+export type { Chain, ChainId };

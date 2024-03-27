@@ -3,7 +3,7 @@
     :to="{
       name: 'provider-chain',
       params: {
-        provider: provider.id,
+        provider: provider,
         chain: chain,
       },
     }"
@@ -12,27 +12,27 @@
       <div class="header">
         <IconProvider
           class="icon"
-          :provider="provider.id"
+          :provider="provider"
         />
-        <div class="name">{{ provider.name }}</div>
+        <div class="name">{{ getProviderName(provider) }}</div>
       </div>
       <div class="data">
-        <div class="tiers">
-          <div
-            v-for="tier in provider.tiers"
-            :key="tier"
-            class="tier"
-          >
-            {{ formatProviderTier(tier) }}
-          </div>
-        </div>
         <div class="features">
           <div
-            v-for="feature in supportedFeatureTypes"
+            v-for="feature in supportedFeatures"
             :key="feature"
             class="feature"
           >
             {{ formatProviderFeature(feature) }}
+          </div>
+        </div>
+        <div class="methods">
+          <div
+            v-for="methodGroup in supportedMethodGroups"
+            :key="methodGroup"
+            class="method"
+          >
+            {{ formatMethodGroup(methodGroup) }}
           </div>
         </div>
       </div>
@@ -46,27 +46,52 @@ import { RouterLink } from 'vue-router';
 
 import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
 import { Chain } from '@/utils/chains';
-import { formatProviderFeature, formatProviderTier } from '@/utils/formatters';
+import { formatProviderFeature, formatMethodGroup } from '@/utils/formatters';
+import { MethodId, getSupportedMethodGroups } from '@/utils/methods';
 import {
   Feature,
-  ProviderData,
-  getFeatureSupportType,
+  Provider,
+  ProviderChainData,
+  getProviderName,
 } from '@/utils/providers';
 
 const props = defineProps<{
-  provider: ProviderData;
+  provider: Provider;
+  providerData: ProviderChainData | null;
   chain: Chain;
 }>();
 
-const featureTypes = computed(
-  () => Object.keys(props.provider.features) as Feature[],
-);
-const supportedFeatureTypes = computed(() =>
-  featureTypes.value.filter(
-    (feature) =>
-      getFeatureSupportType(props.provider.features, feature) !== 'none',
-  ),
-);
+const supportedFeatures = computed(() => {
+  const providerData = props.providerData;
+  if (!providerData) {
+    return [];
+  }
+  const providerFeatures = providerData.features;
+  if (!providerFeatures) {
+    return [];
+  }
+  const features = Object.keys(providerFeatures) as Feature[];
+  const supportedFeatures = features.filter(
+    (feature) => providerFeatures[feature] === 'supported',
+  );
+  return supportedFeatures;
+});
+
+const supportedMethodGroups = computed(() => {
+  const providerData = props.providerData;
+  if (!providerData) {
+    return [];
+  }
+  const providerMethods = providerData.methods;
+  if (!providerMethods) {
+    return [];
+  }
+  const allMethodIds = Object.keys(providerMethods) as MethodId[];
+  const supportedMethodIds = allMethodIds.filter(
+    (methodId) => providerMethods[methodId] === 'supported',
+  );
+  return getSupportedMethodGroups(supportedMethodIds);
+});
 </script>
 
 <style scoped>
@@ -88,7 +113,7 @@ a {
   cursor: pointer;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .card {
     width: 300px;
   }
@@ -109,19 +134,19 @@ a {
   height: 48px;
 }
 
+.name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .data {
   display: flex;
   gap: 12px;
   flex-direction: column;
 }
 
-.name {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.tiers,
-.features {
+.features,
+.methods {
   --item-gap: 4px;
 
   display: flex;
@@ -129,13 +154,13 @@ a {
   flex-wrap: wrap;
 }
 
-.tier,
-.feature {
+.feature,
+.method {
   font-size: 12px;
 }
 
-.tiers .tier:not(:last-child)::after,
-.features .feature:not(:last-child)::after {
+.features .feature:not(:last-child)::after,
+.methods .method:not(:last-child)::after {
   content: '·';
   margin-left: var(--item-gap);
 }

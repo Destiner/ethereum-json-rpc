@@ -1,35 +1,36 @@
 <template>
   <div class="list">
     <div
-      v-for="chain in CHAINS"
-      :key="chain"
+      v-for="feature in FEATURES"
+      :key="feature"
       class="item"
-      :class="{ active: modelValue === chain }"
-      @click="handleItemClick(chain)"
+      :class="{ active: modelValue.includes(feature) }"
+      @click="handleItemClick(feature)"
     >
-      <IconChain
-        class="icon"
-        :chain="chain"
-      />
-      {{ getChainName(chain) }}
+      {{ formatProviderFeature(feature) }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import IconChain from '@/components/__common/icon/chain/IconChain.vue';
-import { CHAINS, Chain, getChainName } from '@/utils/chains';
+import { formatProviderFeature } from '@/utils/formatters';
+import { FEATURES, Feature } from '@/utils/providers';
 
-defineProps<{
-  modelValue: Chain;
+const props = defineProps<{
+  modelValue: Feature[];
 }>();
 
 const emit = defineEmits<{
-  'update:modelValue': [chain: Chain];
+  'update:modelValue': [features: Feature[]];
 }>();
 
-function handleItemClick(chain: Chain): void {
-  emit('update:modelValue', chain);
+function handleItemClick(feature: Feature): void {
+  const selectedValues = props.modelValue;
+  if (selectedValues.includes(feature)) {
+    emit('update:modelValue', selectedValues.filter((item) => item !== feature));
+    return;
+  }
+  emit('update:modelValue', [...selectedValues, feature]);
 }
 </script>
 

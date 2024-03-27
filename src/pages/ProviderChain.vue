@@ -6,79 +6,92 @@
           class="icon"
           :provider="provider"
         />
-        <h1>{{ data.name }}</h1>
+        <h1>{{ getProviderName(provider) }}</h1>
       </div>
       <div
         v-if="chain"
         class="chain"
       >
-        <EthSelect
-          :model-value="chain"
-          class="select"
-          :options="chainOptions"
-          :label="'Chain'"
-          @update:model-value="handleChainUpdate"
-        />
-        <EndpointUrl
-          v-if="endpoint"
-          :endpoint="endpoint"
-        />
-        <NodeMetadata
-          v-if="data.node"
-          :metadata="data.node"
-        />
+        <div class="chain-block">
+          <EthSelect
+            :model-value="chain"
+            class="select"
+            :options="chainOptions"
+            :label="'Chain'"
+            @update:model-value="handleChainUpdate"
+          />
+          <EndpointUrl
+            v-if="endpoint"
+            :endpoint="endpoint"
+          />
+        </div>
+        <div class="chain-block">
+          <div class="last-update-label">
+            Last update: {{ lastUpdateLabel }}
+          </div>
+        </div>
       </div>
       <BannerLimitedSupport />
-      <FeatureList :features="data.features" />
-      <ChartStats :stats="data.stats" />
+      <FeatureList
+        v-if="features"
+        :features="features"
+      />
+      <MethodList
+        v-if="methods"
+        :methods="methods"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 import EthSelect from '@/components/__common/EthSelect.vue';
 import IconProvider from '@/components/__common/icon/provider/IconProvider.vue';
 import BannerLimitedSupport from '@/components/provider-chain/BannerLimitedSupport.vue';
-import ChartStats from '@/components/provider-chain/ChartStats.vue';
 import EndpointUrl from '@/components/provider-chain/EndpointUrl.vue';
 import FeatureList from '@/components/provider-chain/FeatureList.vue';
-import NodeMetadata from '@/components/provider-chain/NodeMetadata.vue';
-import { CHAINS, Chain, getChainName } from '@/utils/chains';
-import { Provider, getProviderData } from '@/utils/providers';
+import MethodList from '@/components/provider-chain/MethodList.vue';
+import {
+  Chain,
+  ChainId,
+  getChainById,
+  getChainId,
+  getChainName,
+} from '@/utils/chains';
+import { formatRelativeTime } from '@/utils/formatters';
+import {
+  Features,
+  Provider,
+  Methods,
+  getProviderName,
+  getProviderRegistry,
+  getEndpoint,
+} from '@/utils/providers';
 
-const route = useRoute();
 const router = useRouter();
+const route = useRoute();
 
 const provider = computed(() => route.params.provider as Provider);
-const chainName = computed(() => route.params.chain as string);
+const chain = computed(() => route.params.chain as Chain);
 
-const chain = ref<Chain | null>(null);
 const chainOptions = computed(() => {
-  const { endpoints } = getProviderData(provider.value);
-  return Object.entries(endpoints)
-    .filter(([, value]) => !!value)
-    .map(([chain]) => ({
+  const registry = getProviderRegistry();
+  const providerChainIds = Object.keys(registry[provider.value]).map(
+    (key) => parseInt(key) as ChainId,
+  );
+  return providerChainIds.map((chainId) => {
+    const chain = getChainById(chainId);
+    return {
       value: chain,
-      label: getChainName(chain as Chain),
-    }));
+      label: getChainName(chain),
+    };
+  });
 });
 
-watch(
-  () => chainName.value,
-  (value) => {
-    chain.value = CHAINS.find((chain) => chain === value) || null;
-  },
-  {
-    immediate: true,
-  },
-);
-
-const data = computed(() => getProviderData(provider.value));
-const endpoint = computed(() => data.value.endpoints[chain.value as Chain]);
-
+const chainId = computed(() => getChainId(chain.value));
 function handleChainUpdate(value: string): void {
   router.push({
     name: 'provider-chain',
@@ -88,6 +101,38 @@ function handleChainUpdate(value: string): void {
     },
   });
 }
+
+const endpoint = computed(() => {
+  return getEndpoint(provider.value, chainId.value);
+});
+
+const lastUpdateLabel = computed<string>(() => {
+  const registry = getProviderRegistry();
+  const providerChainData = registry[provider.value][chainId.value];
+  if (!providerChainData) {
+    return 'never';
+  }
+  const updateTimestamp = providerChainData.timestamp;
+  return formatRelativeTime(new Date(updateTimestamp));
+});
+
+const features = computed<Features | null>(() => {
+  const registry = getProviderRegistry();
+  const providerChainData = registry[provider.value][chainId.value];
+  if (!providerChainData) {
+    return null;
+  }
+  return providerChainData.features;
+});
+
+const methods = computed<Methods | null>(() => {
+  const registry = getProviderRegistry();
+  const providerChainData = registry[provider.value][chainId.value];
+  if (!providerChainData) {
+    return null;
+  }
+  return providerChainData.methods;
+});
 </script>
 
 <style scoped>
@@ -97,7 +142,7 @@ function handleChainUpdate(value: string): void {
   padding: 16px;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .page {
     padding: 32px 0;
   }
@@ -110,7 +155,7 @@ function handleChainUpdate(value: string): void {
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .content {
     width: 960px;
   }
@@ -135,11 +180,31 @@ h1 {
 
 .chain {
   display: flex;
+  gap: var(--spacing-big);
+  flex-direction: column-reverse;
+  align-items: start;
+}
+
+@media (width >= 768px) {
+  .chain {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.chain-block {
+  display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-big);
 }
 
 .select {
   width: 140px;
+}
+
+.last-update-label {
+  color: var(--color-text-secondary);
+  font-size: 14px;
 }
 </style>

@@ -146,12 +146,97 @@ type MethodId =
   | typeof TRACE_REPLAY_TRANSACTION
   | typeof TRACE_TRANSACTION;
 
+const METHODS: MethodId[] = [
+  CHAIN_ID,
+  BLOCK_NUMBER,
+  GAS_PRICE,
+  MAX_PRIORITY_FEE_PER_GAS,
+  BLOB_BASE_FEE,
+  FEE_HISTORY,
+  GET_BALANCE,
+  GET_CODE,
+  GET_STORAGE_AT,
+  CALL,
+  ESTIMATE_GAS,
+  GET_LOGS,
+  GET_PROOF,
+  GET_TRANSACTION_COUNT,
+  GET_BLOCK_BY_NUMBER,
+  GET_BLOCK_BY_HASH,
+  GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
+  GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
+  GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
+  GET_UNCLE_COUNT_BY_BLOCK_HASH,
+  GET_TRANSACTION_BY_HASH,
+  GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
+  GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
+  GET_TRANSACTION_RECEIPT,
+  GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
+  GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  ACCOUNTS,
+  COINBASE,
+  SYNCING,
+  MINING,
+  HASHRATE,
+  GET_WORK,
+  DEBUG_TRACE_CALL,
+  DEBUG_TRACE_TRANSACTION,
+  DEBUG_TRACE_BLOCK_BY_NUMBER,
+  DEBUG_TRACE_BLOCK_BY_HASH,
+  TRACE_BLOCK,
+  TRACE_CALL,
+  TRACE_FILTER,
+  TRACE_RAW_TRANSACTION,
+  TRACE_REPLAY_BLOCK_TRANSACTIONS,
+  TRACE_REPLAY_TRANSACTION,
+  TRACE_TRANSACTION,
+]
+
+type MethodGroup = 'reading' | 'writing' | 'trace' | 'debug' | 'erigon';
+
 function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
   return {
     type: param.itemType,
     name: index.toString(),
     isRequired: false,
   };
+}
+
+function getSupportedMethodGroups(methods: MethodId[]): MethodGroup[] {
+  const methodsByGroup: Record<MethodGroup, MethodId[]> = {
+    reading: [
+      CHAIN_ID,
+      BLOCK_NUMBER,
+      GET_BALANCE,
+      GET_CODE,
+      GET_STORAGE_AT,
+      CALL,
+      GET_LOGS,
+    ],
+    writing: [],
+    trace: [
+      TRACE_BLOCK,
+      TRACE_CALL,
+      TRACE_FILTER,
+      TRACE_RAW_TRANSACTION,
+      TRACE_REPLAY_BLOCK_TRANSACTIONS,
+      TRACE_REPLAY_TRANSACTION,
+      TRACE_TRANSACTION,
+    ],
+    debug: [
+      DEBUG_TRACE_CALL,
+      DEBUG_TRACE_TRANSACTION,
+      DEBUG_TRACE_BLOCK_BY_NUMBER,
+      DEBUG_TRACE_BLOCK_BY_HASH,
+    ],
+    erigon: [],
+  }
+  // A method group is supported if at least one of its methods is supported
+  const groups = Object.keys(methodsByGroup) as MethodGroup[];
+  const supportedGroups = groups.filter((group) =>
+    methodsByGroup[group].some((method) => methods.includes(method))
+  );
+  return supportedGroups;
 }
 
 export {
@@ -198,11 +283,14 @@ export {
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
+  METHODS,
   ArrayParam,
   Method,
   MethodId,
   MethodType,
+  MethodGroup,
   Param,
   PrimitiveParam,
   getArrayParamItem,
+  getSupportedMethodGroups,
 };

@@ -3,23 +3,23 @@
     <h2>Features</h2>
     <div class="list">
       <div
-        v-for="featureType in supportedFeatureTypes"
-        :key="featureType"
+        v-for="(supportStatus, feature) in supportedFeatures"
+        :key="feature"
         class="item"
       >
         <IconSuccess
           class="icon"
           :class="{
-            dimmed: getFeatureSupportType(features, featureType) === 'partial',
+            dimmed: isSupportUnknown(feature),
           }"
         />
         <div>
-          {{ formatProviderFeature(featureType) }}
+          {{ formatProviderFeature(feature) }}
           <span
-            v-if="getFeatureSupportType(features, featureType) === 'partial'"
-            class="label-partial"
+            v-if="isSupportUnknown(feature)"
+            class="label-unknown"
           >
-            partial
+            unknown
           </span>
         </div>
       </div>
@@ -32,18 +32,33 @@ import { computed } from 'vue';
 
 import IconSuccess from '@/components/__common/icon/Success.vue';
 import { formatProviderFeature } from '@/utils/formatters';
-import { Feature, Features, getFeatureSupportType } from '@/utils/providers';
+import { Feature, Features } from '@/utils/providers';
 
 const props = defineProps<{
   features: Features;
 }>();
 
-const featureTypes = computed(() => Object.keys(props.features) as Feature[]);
-const supportedFeatureTypes = computed(() =>
-  featureTypes.value.filter(
-    (feature) => getFeatureSupportType(props.features, feature) !== 'none',
-  ),
-);
+const supportedFeatures = computed<Partial<Features>>(() => {
+  // Filter out non-supported features and sort by support type
+  const supportedFeatures: Partial<Features> = {};
+  for (const featureKey in props.features) {
+    const feature = featureKey as Feature;
+    if (props.features[feature] === 'supported') {
+      supportedFeatures[feature] = 'supported';
+    }
+  }
+  for (const featureKey in props.features) {
+    const feature = featureKey as Feature;
+    if (props.features[feature] === 'unknown') {
+      supportedFeatures[feature] = 'unknown';
+    }
+  }
+  return supportedFeatures;
+});
+
+function isSupportUnknown(feature: Feature): boolean {
+  return supportedFeatures.value[feature] === 'unknown';
+}
 </script>
 
 <style scoped>
@@ -84,7 +99,7 @@ h2 {
   opacity: 0.4;
 }
 
-.label-partial {
+.label-unknown {
   color: var(--color-text-secondary);
   font-size: var(--font-size-small);
 }

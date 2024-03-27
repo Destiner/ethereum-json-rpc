@@ -3,13 +3,28 @@
     <div class="content">
       <h1>Providers</h1>
       <div class="providers">
-        <ChipsChain v-model="chain" />
+        <div class="filters">
+          <EthSelect
+            v-model="chainSelected"
+            class="select"
+            :options="chainOptions"
+            label="Chain"
+          />
+          <EthSelect
+            v-model="methodSelected"
+            class="select"
+            :options="methodOptions"
+            label="Method Support"
+          />
+          <FeatureChips v-model="selectedFeatures" />
+        </div>
         <div class="cards">
           <CardProvider
             v-for="provider in availableProviders"
             :key="provider"
-            :provider="getProviderData(provider)"
-            :chain="chain"
+            :provider="provider"
+            :provider-data="getProviderData(provider)"
+            :chain="getChainById(chainId)"
           />
         </div>
       </div>
@@ -20,19 +35,81 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import EthSelect, { Option } from '@/components/__common/EthSelect.vue';
 import CardProvider from '@/components/providers/CardProvider.vue';
-import ChipsChain from '@/components/providers/ChipsChain.vue';
-import { Chain } from '@/utils/chains';
-import { PROVIDERS, Provider, getProviderData } from '@/utils/providers';
+import FeatureChips from '@/components/providers/FeatureChips.vue';
+import {
+  CHAINS,
+  Chain,
+  ETHEREUM,
+  getChainById,
+  getChainId,
+  getChainName,
+} from '@/utils/chains';
+import { METHODS, MethodId } from '@/utils/methods';
+import {
+  Feature,
+  Provider,
+  ProviderChainData,
+  getProviderRegistry,
+} from '@/utils/providers';
 
-const chain = ref<Chain>('ethereum');
+const chainId = computed(() => getChainId(chainSelected.value));
 
-const availableProviders = computed<Provider[]>(() =>
-  PROVIDERS.filter((provider) => {
-    const { endpoints } = getProviderData(provider);
-    return endpoints[chain.value] !== null;
-  }),
-);
+const availableProviders = computed<Provider[]>(() => {
+  const registry = getProviderRegistry();
+  const providers = Object.keys(registry) as Provider[];
+  return providers.filter((provider) => {
+    const providerChain = registry[provider][chainId.value];
+    if (!providerChain) {
+      return false;
+    }
+    if (
+      methodSelected.value !== METHOD_ANY &&
+      providerChain.methods[methodSelected.value] !== 'supported'
+    ) {
+      return false;
+    }
+    const supportsAllSelectedFeatures = selectedFeatures.value.every(
+      (feature) => {
+        return providerChain.features[feature] === 'supported';
+      },
+    );
+    return supportsAllSelectedFeatures;
+  });
+});
+
+function getProviderData(provider: Provider): ProviderChainData | null {
+  const registry = getProviderRegistry();
+  return registry[provider][chainId.value] || null;
+}
+
+const chainSelected = ref<Chain>(ETHEREUM);
+const chainOptions = computed(() => {
+  return CHAINS.map((chain) => ({
+    value: chain,
+    label: getChainName(chain),
+  }));
+});
+
+const METHOD_ANY = 'any';
+const methodSelected = ref<MethodId | typeof METHOD_ANY>(METHOD_ANY);
+const methodOptions = computed(() => {
+  const options: Option[] = [
+    {
+      value: METHOD_ANY,
+      label: 'Any',
+    },
+  ];
+  const methodOptions = METHODS.map((method) => ({
+    value: method,
+    label: method,
+  }));
+  options.push(...methodOptions);
+  return options;
+});
+
+const selectedFeatures = ref<Feature[]>([]);
 </script>
 
 <style scoped>
@@ -42,7 +119,7 @@ const availableProviders = computed<Provider[]>(() =>
   padding: 16px;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .page {
     padding: 32px 0;
   }
@@ -55,7 +132,7 @@ const availableProviders = computed<Provider[]>(() =>
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .content {
     width: 960px;
   }
@@ -69,7 +146,18 @@ h1 {
 .providers {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-large);
+}
+
+.filters {
+  display: flex;
   gap: var(--spacing-big);
+  flex-direction: column;
+}
+
+.select {
+  width: 100%;
+  max-width: 220px;
 }
 
 .cards {
