@@ -27,7 +27,10 @@ const emit = defineEmits<{
 function handleItemClick(feature: Feature): void {
   const selectedValues = props.modelValue;
   if (selectedValues.includes(feature)) {
-    emit('update:modelValue', selectedValues.filter((item) => item !== feature));
+    emit(
+      'update:modelValue',
+      selectedValues.filter((item) => item !== feature),
+    );
     return;
   }
   emit('update:modelValue', [...selectedValues, feature]);

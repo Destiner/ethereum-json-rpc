@@ -8,13 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ALCHEMY,
-  ANKR,
-  CLOUDFLARE,
-  DRPC,
-  Provider,
-} from '@/utils/providers';
+import { ALCHEMY, ANKR, CLOUDFLARE, DRPC, Provider } from '@/utils/providers';
 
 import IconAlchemy from './Alchemy.vue';
 import IconAnkr from './Ankr.vue';

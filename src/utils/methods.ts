@@ -190,7 +190,7 @@ const METHODS: MethodId[] = [
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
-]
+];
 
 type MethodGroup = 'reading' | 'writing' | 'trace' | 'debug' | 'erigon';
 
@@ -230,11 +230,11 @@ function getSupportedMethodGroups(methods: MethodId[]): MethodGroup[] {
       DEBUG_TRACE_BLOCK_BY_HASH,
     ],
     erigon: [],
-  }
+  };
   // A method group is supported if at least one of its methods is supported
   const groups = Object.keys(methodsByGroup) as MethodGroup[];
   const supportedGroups = groups.filter((group) =>
-    methodsByGroup[group].some((method) => methods.includes(method))
+    methodsByGroup[group].some((method) => methods.includes(method)),
   );
   return supportedGroups;
 }

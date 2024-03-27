@@ -13,7 +13,7 @@ type Chain =
   | typeof POLYGON
   | typeof ARBITRUM;
 
-type ChainId = 
+type ChainId =
   | typeof mainnet.id
   | typeof optimism.id
   | typeof polygon.id
