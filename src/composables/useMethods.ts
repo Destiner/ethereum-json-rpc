@@ -45,6 +45,13 @@ import {
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
+  ERIGON_BLOCK_NUMBER,
+  ERIGON_HEADER_BY_NUMBER,
+  ERIGON_HEADER_BY_HASH,
+  ERIGON_LOGS_BY_HASH,
+  ERIGON_BLOCK_BY_TIMESTAMP,
+  ERIGON_LATEST_LOGS,
+  ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
   Method,
 } from '@/utils/methods';
 
@@ -1072,6 +1079,154 @@ function getMethodList(defaults: Defaults): Method[] {
           name: 'hash',
           isRequired: true,
           default: transactionHash,
+        },
+      ],
+    },
+    {
+      id: ERIGON_BLOCK_NUMBER,
+      name: 'Erigon: get block number',
+      type: 'erigon',
+      description: 'Returns the latest executed block number.',
+      params: [],
+    },
+    {
+      id: ERIGON_HEADER_BY_NUMBER,
+      name: 'Erigon: get block header, by number',
+      type: 'erigon',
+      description:
+        "Given a block number, returns the block's header. May be faster if the block's transaction and uncle list is ignored.",
+      params: [
+        {
+          type: 'block',
+          name: 'block',
+          isRequired: true,
+          default: 'latest',
+        },
+      ],
+    },
+    {
+      id: ERIGON_HEADER_BY_HASH,
+      name: 'Erigon: get block header, by hash',
+      type: 'erigon',
+      description:
+        "Given a block hash, returns the block's header. May be faster if the block's transaction and uncle list is ignored.",
+      params: [
+        {
+          type: 'hash',
+          name: 'block',
+          isRequired: true,
+          default: blockHash,
+        },
+      ],
+    },
+    {
+      id: ERIGON_LOGS_BY_HASH,
+      name: 'Erigon: get logs by block hash',
+      type: 'erigon',
+      description:
+        "Returns an array of arrays of logs produced by the block's transactions.",
+      params: [
+        {
+          type: 'hash',
+          name: 'block',
+          isRequired: true,
+          default: blockHash,
+        },
+      ],
+    },
+    {
+      id: ERIGON_BLOCK_BY_TIMESTAMP,
+      name: 'Erigon: get block by timestamp',
+      type: 'erigon',
+      description: 'Returns the block with the given timestamp.',
+      params: [
+        {
+          type: 'int',
+          name: 'timestamp',
+          isRequired: true,
+          default: '0',
+          description: 'Block timestamp',
+        },
+        {
+          type: 'boolean',
+          name: 'is full',
+          isRequired: false,
+          description:
+            'Whether to fetch the full block. If false, will only fetch the header and the list of transaction hashes.',
+        },
+      ],
+    },
+    {
+      id: ERIGON_LATEST_LOGS,
+      name: 'Erigon: get latest logs',
+      type: 'erigon',
+      description: 'Returns the latest logs for a given filtering criteria.',
+      params: [
+        {
+          type: 'object',
+          name: 'filter',
+          items: {
+            address: {
+              type: 'add​ress',
+              name: 'address',
+              isRequired: false,
+            },
+            topics: {
+              type: 'array',
+              name: 'topics',
+              itemType: 'bytes32',
+            },
+            fromBlock: {
+              type: 'block',
+              name: 'from block',
+              isRequired: false,
+              description: 'Starting block number',
+            },
+            toBlock: {
+              type: 'block',
+              name: 'to add​ress',
+              isRequired: false,
+              description: 'Ending block number',
+            },
+          },
+        },
+        {
+          type: 'object',
+          name: 'options',
+          items: {
+            logCount: {
+              type: 'int',
+              name: 'log count',
+              isRequired: false,
+              description: 'Number of logs to return',
+            },
+            blockCount: {
+              type: 'int',
+              name: 'block count',
+              isRequired: false,
+              description: 'Number of blocks to search for logs',
+            },
+            ignoreTopicsOrder: {
+              type: 'boolean',
+              name: 'ignore topics order',
+              isRequired: false,
+              description: 'Ignore the order of topics',
+            },
+          },
+        },
+      ],
+    },
+    {
+      id: ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
+      name: 'Erigon: get receipts by block hash',
+      type: 'erigon',
+      description: 'Returns the receipts of a block by block hash.',
+      params: [
+        {
+          type: 'hash',
+          name: 'block',
+          isRequired: true,
+          default: blockHash,
         },
       ],
     },

@@ -19,6 +19,8 @@ const text = computed(() => {
       return 'This method is not a part of the API specification and may be unavailable on some nodes. It was originally implemented in Geth only, but since then was adopted by other clients. Additionally, many hosted node providers will require a paid plan for access.';
     case 'trace':
       return 'This method is not a part of the API specification and may be unavailable on some nodes. It was originally implemented in Parity only, but since then was adopted by other clients. Additionally, many hosted node providers will require a paid plan for access.';
+    case 'erigon':
+      return 'This method is not a part of the API specification and may be unavailable on some nodes. It was implemented in Erigon, which was adopted by some providers. Additionally, many hosted node providers will require a paid plan for access.';
     default:
       return '';
   }

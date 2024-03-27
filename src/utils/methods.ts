@@ -42,7 +42,7 @@ type ObjectParam = {
 
 type Param = PrimitiveParam | ArrayParam | ObjectParam;
 
-type MethodType = 'standard' | 'debug' | 'trace';
+type MethodType = 'standard' | 'debug' | 'trace' | 'erigon';
 
 interface Method {
   id: MethodId;
@@ -100,6 +100,14 @@ const TRACE_RAW_TRANSACTION = 'trace_rawTransaction';
 const TRACE_REPLAY_BLOCK_TRANSACTIONS = 'trace_replayBlockTransactions';
 const TRACE_REPLAY_TRANSACTION = 'trace_replayTransaction';
 const TRACE_TRANSACTION = 'trace_transaction';
+const ERIGON_BLOCK_NUMBER = 'erigon_blockNumber';
+const ERIGON_HEADER_BY_NUMBER = 'erigon_getHeaderByNumber';
+const ERIGON_HEADER_BY_HASH = 'erigon_getHeaderByHash';
+const ERIGON_LOGS_BY_HASH = 'erigon_getLogsByHash';
+const ERIGON_BLOCK_BY_TIMESTAMP = 'erigon_getBlockByTimestamp';
+const ERIGON_LATEST_LOGS = 'erigon_getLatestLogs';
+const ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH =
+  'erigon_getBlockReceiptsByBlockHash';
 
 type MethodId =
   | typeof CHAIN_ID
@@ -144,7 +152,14 @@ type MethodId =
   | typeof TRACE_RAW_TRANSACTION
   | typeof TRACE_REPLAY_BLOCK_TRANSACTIONS
   | typeof TRACE_REPLAY_TRANSACTION
-  | typeof TRACE_TRANSACTION;
+  | typeof TRACE_TRANSACTION
+  | typeof ERIGON_BLOCK_NUMBER
+  | typeof ERIGON_HEADER_BY_NUMBER
+  | typeof ERIGON_HEADER_BY_HASH
+  | typeof ERIGON_LOGS_BY_HASH
+  | typeof ERIGON_BLOCK_BY_TIMESTAMP
+  | typeof ERIGON_LATEST_LOGS
+  | typeof ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH;
 
 const METHODS: MethodId[] = [
   CHAIN_ID,
@@ -190,6 +205,13 @@ const METHODS: MethodId[] = [
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
+  ERIGON_BLOCK_NUMBER,
+  ERIGON_HEADER_BY_NUMBER,
+  ERIGON_HEADER_BY_HASH,
+  ERIGON_LOGS_BY_HASH,
+  ERIGON_BLOCK_BY_TIMESTAMP,
+  ERIGON_LATEST_LOGS,
+  ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
 ];
 
 type MethodGroup = 'reading' | 'writing' | 'trace' | 'debug' | 'erigon';
@@ -229,7 +251,15 @@ function getSupportedMethodGroups(methods: MethodId[]): MethodGroup[] {
       DEBUG_TRACE_BLOCK_BY_NUMBER,
       DEBUG_TRACE_BLOCK_BY_HASH,
     ],
-    erigon: [],
+    erigon: [
+      ERIGON_BLOCK_NUMBER,
+      ERIGON_HEADER_BY_NUMBER,
+      ERIGON_HEADER_BY_HASH,
+      ERIGON_LOGS_BY_HASH,
+      ERIGON_BLOCK_BY_TIMESTAMP,
+      ERIGON_LATEST_LOGS,
+      ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
+    ],
   };
   // A method group is supported if at least one of its methods is supported
   const groups = Object.keys(methodsByGroup) as MethodGroup[];
@@ -283,6 +313,13 @@ export {
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
+  ERIGON_BLOCK_NUMBER,
+  ERIGON_HEADER_BY_NUMBER,
+  ERIGON_HEADER_BY_HASH,
+  ERIGON_LOGS_BY_HASH,
+  ERIGON_BLOCK_BY_TIMESTAMP,
+  ERIGON_LATEST_LOGS,
+  ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
   METHODS,
   ArrayParam,
   Method,

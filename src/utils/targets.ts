@@ -42,6 +42,13 @@ import {
   TRACE_REPLAY_BLOCK_TRANSACTIONS,
   TRACE_REPLAY_TRANSACTION,
   TRACE_TRANSACTION,
+  ERIGON_BLOCK_NUMBER,
+  ERIGON_HEADER_BY_NUMBER,
+  ERIGON_HEADER_BY_HASH,
+  ERIGON_LOGS_BY_HASH,
+  ERIGON_BLOCK_BY_TIMESTAMP,
+  ERIGON_LATEST_LOGS,
+  ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
   MethodId,
 } from './methods';
 import { isBlockNumber, isBlockTag } from './validation';
@@ -233,6 +240,13 @@ const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas`;
     case TRACE_REPLAY_BLOCK_TRANSACTIONS:
     case TRACE_REPLAY_TRANSACTION:
     case TRACE_TRANSACTION:
+    case ERIGON_BLOCK_NUMBER:
+    case ERIGON_HEADER_BY_NUMBER:
+    case ERIGON_HEADER_BY_HASH:
+    case ERIGON_LOGS_BY_HASH:
+    case ERIGON_BLOCK_BY_TIMESTAMP:
+    case ERIGON_LATEST_LOGS:
+    case ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH:
       return '';
   }
 }
@@ -482,6 +496,13 @@ function getJavascriptViemRequest(method: MethodId, params: unknown[]): string {
     case TRACE_REPLAY_BLOCK_TRANSACTIONS:
     case TRACE_REPLAY_TRANSACTION:
     case TRACE_TRANSACTION:
+    case ERIGON_BLOCK_NUMBER:
+    case ERIGON_HEADER_BY_NUMBER:
+    case ERIGON_HEADER_BY_HASH:
+    case ERIGON_LOGS_BY_HASH:
+    case ERIGON_BLOCK_BY_TIMESTAMP:
+    case ERIGON_LATEST_LOGS:
+    case ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH:
       return '';
   }
 }
@@ -634,6 +655,13 @@ function getPythonWeb3Request(method: MethodId, params: unknown[]): string {
     case TRACE_REPLAY_BLOCK_TRANSACTIONS:
     case TRACE_REPLAY_TRANSACTION:
     case TRACE_TRANSACTION:
+    case ERIGON_BLOCK_NUMBER:
+    case ERIGON_HEADER_BY_NUMBER:
+    case ERIGON_HEADER_BY_HASH:
+    case ERIGON_LOGS_BY_HASH:
+    case ERIGON_BLOCK_BY_TIMESTAMP:
+    case ERIGON_LATEST_LOGS:
+    case ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH:
       return '';
   }
 }
