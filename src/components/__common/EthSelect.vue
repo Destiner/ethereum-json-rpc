@@ -7,49 +7,49 @@
       :disabled="disabled"
     />
     <div>
-      <Listbox
-        :model-value="selectedOption"
+      <Select.Root
+        :model-value="selectedOption.value"
         @update:model-value="handleUpdate"
       >
-        <ListboxButton
+        <Select.Trigger
           :id="id"
           class="trigger"
           :class="{ disabled }"
         >
-          <div class="label">{{ selectedOption.label }}</div>
+          <Select.Value placeholder="Select…" />
           <IconChevronDown class="trigger-icon" />
-        </ListboxButton>
+        </Select.Trigger>
 
-        <transition name="list">
-          <ListboxOptions class="list">
-            <ListboxOption
-              v-for="option in options"
-              v-slot="{ active, selected }"
-              :key="option.value"
-              :value="option.value"
-              as="template"
-            >
-              <li
-                class="item"
-                :class="{ active, selected }"
-              >
-                {{ option.label }}
-              </li>
-            </ListboxOption>
-          </ListboxOptions>
-        </transition>
-      </Listbox>
+        <Select.Portal>
+          <Select.Content
+            :side-offset="4"
+            :position="'popper'"
+          >
+            <div class="pane">
+              <Select.Viewport>
+                <Select.Group>
+                  <Select.Item
+                    v-for="(option, index) in options"
+                    :key="index"
+                    class="item"
+                    :value="option.value"
+                  >
+                    <Select.ItemText>
+                      {{ option.label }}
+                    </Select.ItemText>
+                  </Select.Item>
+                </Select.Group>
+              </Select.Viewport>
+            </div>
+          </Select.Content>
+        </Select.Portal>
+      </Select.Root>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from '@headlessui/vue';
+import { Select } from 'radix-vue/namespaced';
 import { computed } from 'vue';
 
 import IconChevronDown from '@/components/__common/icon/ChevronDown.vue';
@@ -134,31 +134,7 @@ export { Option };
   white-space: nowrap;
 }
 
-.list-enter-active {
-  transition: all 200ms ease-out;
-}
-
-.list-enter-from {
-  opacity: 0;
-}
-
-.list-enter-to {
-  opacity: 1;
-}
-
-.list-leave-active {
-  transition: all 150ms ease-in;
-}
-
-.list-leave-form {
-  opacity: 1;
-}
-
-.list-leave-to {
-  opacity: 0;
-}
-
-.list {
+.pane {
   display: flex;
   position: absolute;
   z-index: 2;
@@ -173,8 +149,36 @@ export { Option };
   background: var(--color-bg-primary);
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+div[data-state='open'] .pane {
+  animation: fade-in 0.25s ease-out;
+}
+
+div[data-state='closed'] .pane {
+  animation: fade-out 0.25s ease-in;
+}
+
 .item {
-  padding: 4px 16px;
+  padding: 6px 16px;
   border-radius: var(--border-radius-medium);
   color: var(--color-text-primary);
   font-size: var(--font-size-normal);
@@ -187,7 +191,8 @@ export { Option };
   user-select: none;
 }
 
-.item.active {
+.item[data-highlighted] {
+  outline: none;
   background: var(--color-bg-secondary);
 }
 </style>
