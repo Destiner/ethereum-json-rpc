@@ -1,19 +1,29 @@
 import 'dotenv/config';
 import {
+  AlchemyChain,
+  AnkrChain,
+  BlastChain,
+  CloudflareChain,
+  DrpcChain,
+  InfuraChain,
+  LlamaNodesChain,
+  OneRpcChain,
+  PublicNodeChain,
+  TenderlyChain,
   alchemy,
   ankr,
-  // blast,
+  blast,
   // chainstack,
   cloudflare,
   drpc,
   // gatewayFm,
   infura,
-  // llamaNodes,
+  llamaNodes,
   oneRpc,
   publicNode,
   // quicknode,
   // stackup,
-  // tenderly,
+  tenderly,
 } from 'evm-providers';
 import {
   PublicClient,
@@ -23,10 +33,62 @@ import {
   zeroAddress,
   zeroHash,
 } from 'viem';
-import { mainnet, optimism, polygon, arbitrum } from 'viem/chains';
+import {
+  arbitrum,
+  arbitrumGoerli,
+  arbitrumNova,
+  arbitrumSepolia,
+  avalanche,
+  avalancheFuji,
+  base,
+  baseGoerli,
+  baseSepolia,
+  blastSepolia,
+  bsc,
+  bscTestnet,
+  celo,
+  celoAlfajores,
+  fantom,
+  fantomTestnet,
+  flare,
+  gnosis,
+  gnosisChiado,
+  goerli,
+  holesky,
+  linea,
+  lineaTestnet,
+  mainnet,
+  mantle,
+  mantleTestnet,
+  mode,
+  modeTestnet,
+  moonbaseAlpha,
+  moonbeam,
+  moonriver,
+  optimism,
+  optimismGoerli,
+  optimismSepolia,
+  polygon,
+  polygonAmoy,
+  polygonMumbai,
+  polygonZkEvm,
+  polygonZkEvmTestnet,
+  scroll,
+  scrollSepolia,
+  scrollTestnet,
+  sepolia,
+  zkSync,
+  zkSyncSepoliaTestnet,
+  zkSyncTestnet,
+  zora,
+  zoraSepolia,
+} from 'viem/chains';
 
 const alchemyApiKey = process.env.ALCHEMY_KEY as string;
 const infuraApiKey = process.env.INFURA_KEY as string;
+const llamaNodesProjectId = process.env.LLAMA_NODES_PROJECT_ID as string;
+const blastProjectId = process.env.BLAST_PROJECT_ID as string;
+const tenderlyAccessKey = process.env.TENDERLY_ACCESS_KEY as string;
 
 type Status = 'supported' | 'unsupported' | 'unknown';
 
@@ -46,21 +108,164 @@ interface Features {
 }
 
 const ETHEREUM = mainnet.id;
-const OP_MAINNET = optimism.id;
-const POLYGON = polygon.id;
+const GOERLI = goerli.id;
+const SEPOLIA = sepolia.id;
+const HOLESKY = holesky.id;
 const ARBITRUM = arbitrum.id;
+const ARBITRUM_NOVA = arbitrumNova.id;
+const ARBITRUM_GOERLI = arbitrumGoerli.id;
+const ARBITRUM_SEPOLIA = arbitrumSepolia.id;
+const OPTIMISM = optimism.id;
+const OPTIMISM_GOERLI = optimismGoerli.id;
+const OPTIMISM_SEPOLIA = optimismSepolia.id;
+const BASE = base.id;
+const BASE_GOERLI = baseGoerli.id;
+const BASE_SEPOLIA = baseSepolia.id;
+const ZORA = zora.id;
+const ZORA_SEPOLIA = zoraSepolia.id;
+const POLYGON = polygon.id;
+const POLYGON_MUMBAI = polygonMumbai.id;
+const POLYGON_AMOY = polygonAmoy.id;
+const POLYGON_ZKEVM = polygonZkEvm.id;
+const POLYGON_ZKEVM_TESTNET = polygonZkEvmTestnet.id;
+const AVALANCHE_C = avalanche.id;
+const AVALANCHE_FUJI = avalancheFuji.id;
+const GNOSIS = gnosis.id;
+const GNOSIS_CHIADO = gnosisChiado.id;
+const SCROLL = scroll.id;
+const SCROLL_ALPHA = scrollTestnet.id;
+const SCROLL_SEPOLIA = scrollSepolia.id;
+const ZKSYNC_ERA = zkSync.id;
+const ZKSYNC_ERA_SEPOLIA = zkSyncSepoliaTestnet.id;
+const ZKSYNC_ERA_GOERLI = zkSyncTestnet.id;
+const CELO = celo.id;
+const CELO_ALFAJORES = celoAlfajores.id;
+const LINEA = linea.id;
+const LINEA_GOERLI = lineaTestnet.id;
+const BLAST = 81457;
+const BLAST_SEPOLIA = blastSepolia.id;
+const MANTLE = mantle.id;
+const MANTLE_GOERLI = mantleTestnet.id;
+const MANTLE_SEPOLIA = 5003;
+const MODE = mode.id;
+const MODE_SEPOLIA = modeTestnet.id;
+const BSC = bsc.id;
+const BSC_TESTNET = bscTestnet.id;
+const FANTOM = fantom.id;
+const FANTOM_TESTNET = fantomTestnet.id;
+const MOONBASE_ALPHA = moonbaseAlpha.id;
+const MOONBEAM = moonbeam.id;
+const MOONRIVER = moonriver.id;
+const FLARE = flare.id;
 
 type Chain =
   | typeof ETHEREUM
-  | typeof OP_MAINNET
+  | typeof GOERLI
+  | typeof SEPOLIA
+  | typeof HOLESKY
+  | typeof ARBITRUM
+  | typeof ARBITRUM_NOVA
+  | typeof ARBITRUM_GOERLI
+  | typeof ARBITRUM_SEPOLIA
+  | typeof OPTIMISM
+  | typeof OPTIMISM_GOERLI
+  | typeof OPTIMISM_SEPOLIA
+  | typeof BASE
+  | typeof BASE_GOERLI
+  | typeof BASE_SEPOLIA
+  | typeof ZORA
+  | typeof ZORA_SEPOLIA
   | typeof POLYGON
-  | typeof ARBITRUM;
+  | typeof POLYGON_MUMBAI
+  | typeof POLYGON_AMOY
+  | typeof POLYGON_ZKEVM
+  | typeof POLYGON_ZKEVM_TESTNET
+  | typeof AVALANCHE_C
+  | typeof AVALANCHE_FUJI
+  | typeof GNOSIS
+  | typeof GNOSIS_CHIADO
+  | typeof SCROLL
+  | typeof SCROLL_ALPHA
+  | typeof SCROLL_SEPOLIA
+  | typeof ZKSYNC_ERA
+  | typeof ZKSYNC_ERA_SEPOLIA
+  | typeof ZKSYNC_ERA_GOERLI
+  | typeof CELO
+  | typeof CELO_ALFAJORES
+  | typeof LINEA
+  | typeof LINEA_GOERLI
+  | typeof BLAST
+  | typeof BLAST_SEPOLIA
+  | typeof MANTLE
+  | typeof MANTLE_GOERLI
+  | typeof MANTLE_SEPOLIA
+  | typeof MODE
+  | typeof MODE_SEPOLIA
+  | typeof BSC
+  | typeof BSC_TESTNET
+  | typeof FANTOM
+  | typeof FANTOM_TESTNET
+  | typeof MOONBASE_ALPHA
+  | typeof MOONBEAM
+  | typeof MOONRIVER
+  | typeof FLARE;
 
-const CHAINS: Chain[] = [ETHEREUM, OP_MAINNET, POLYGON, ARBITRUM];
+const CHAINS: Chain[] = [
+  ETHEREUM,
+  // GOERLI,
+  // SEPOLIA,
+  // HOLESKY,
+  ARBITRUM,
+  // ARBITRUM_NOVA,
+  // ARBITRUM_GOERLI,
+  // ARBITRUM_SEPOLIA,
+  OPTIMISM,
+  // OPTIMISM_GOERLI,
+  // OPTIMISM_SEPOLIA,
+  BASE,
+  // BASE_GOERLI,
+  // BASE_SEPOLIA,
+  ZORA,
+  // ZORA_SEPOLIA,
+  POLYGON,
+  // POLYGON_MUMBAI,
+  // POLYGON_AMOY,
+  // POLYGON_ZKEVM,
+  // POLYGON_ZKEVM_TESTNET,
+  // AVALANCHE_C,
+  // AVALANCHE_FUJI,
+  // GNOSIS,
+  // GNOSIS_CHIADO,
+  // SCROLL,
+  // SCROLL_ALPHA,
+  // SCROLL_SEPOLIA,
+  ZKSYNC_ERA,
+  // ZKSYNC_ERA_SEPOLIA,
+  // ZKSYNC_ERA_GOERLI,
+  // CELO,
+  // CELO_ALFAJORES,
+  // LINEA,
+  // LINEA_GOERLI,
+  // BLAST,
+  // BLAST_SEPOLIA,
+  // MANTLE,
+  // MANTLE_GOERLI,
+  // MANTLE_SEPOLIA,
+  // MODE,
+  // MODE_SEPOLIA,
+  // BSC,
+  // BSC_TESTNET,
+  // FANTOM,
+  // FANTOM_TESTNET,
+  // MOONBASE_ALPHA,
+  // MOONBEAM,
+  // MOONRIVER,
+  // FLARE,
+];
 
 const ALCHEMY = 'alchemy';
 const ANKR = 'ankr';
-const BLAST = 'blast';
+const BLAST_API = 'blast';
 const CHAINSTACK = 'chainstack';
 const CLOUDFLARE = 'cloudflare';
 const DRPC = 'drpc';
@@ -76,7 +281,7 @@ const TENDERLY = 'tenderly';
 type Provider =
   | typeof ALCHEMY
   | typeof ANKR
-  | typeof BLAST
+  | typeof BLAST_API
   | typeof CHAINSTACK
   | typeof CLOUDFLARE
   | typeof DRPC
@@ -92,43 +297,49 @@ type Provider =
 const PROVIDERS: Provider[] = [
   ALCHEMY,
   ANKR,
+  BLAST_API,
   CLOUDFLARE,
   DRPC,
-  // INFURA,
-  // ONE_RPC,
-  // PUBLIC_NODE,
+  INFURA,
+  LLAMA_NODES,
+  ONE_RPC,
+  PUBLIC_NODE,
+  TENDERLY,
 ];
 
-function getProviderRpcUrl(provider: Provider, chain: Chain): string {
+function getProviderRpcUrl(
+  provider: Provider,
+  chain: Chain,
+): string | undefined {
   switch (provider) {
     case ALCHEMY:
-      return alchemy(chain, alchemyApiKey);
+      return alchemy(chain as AlchemyChain, alchemyApiKey);
     case ANKR:
-      return ankr(chain);
-    // case BLAST:
-    //   return blast(chain);
+      return ankr(chain as AnkrChain);
+    case BLAST_API:
+      return blast(chain as BlastChain, blastProjectId);
     // case CHAINSTACK:
     //   return chainstack(chain);
     case CLOUDFLARE:
-      return cloudflare(chain as typeof ETHEREUM);
+      return cloudflare(chain as CloudflareChain);
     case DRPC:
-      return drpc(chain);
+      return drpc(chain as DrpcChain);
     // case GATEWAY_FM:
     //   return gatewayFm(chain);
     case INFURA:
-      return infura(chain, infuraApiKey);
-    // case LLAMA_NODES:
-    //   return llamaNodes(chain);
+      return infura(chain as InfuraChain, infuraApiKey);
+    case LLAMA_NODES:
+      return llamaNodes(chain as LlamaNodesChain, llamaNodesProjectId);
     case ONE_RPC:
-      return oneRpc(chain);
+      return oneRpc(chain as OneRpcChain);
     case PUBLIC_NODE:
-      return publicNode(chain);
+      return publicNode(chain as PublicNodeChain);
     // case QUICK_NODE:
     //   return quicknode(chain);
     // case STACKUP:
     //   return stackup();
-    // case TENDERLY:
-    //   return tenderly(chain);
+    case TENDERLY:
+      return tenderly(chain as TenderlyChain, tenderlyAccessKey);
     default:
       throw new Error(`Unknown provider: ${provider}`);
   }
@@ -446,27 +657,25 @@ async function getFeatures(endpointUrl: string): Promise<Features> {
 // @ts-ignore
 const mapping: Record<
   Provider,
-  Record<
-    Chain,
-    {
-      features: Features | null;
-      methods: Record<string, Status> | null;
-      timestamp: number;
-    }
+  Partial<
+    Record<
+      Chain,
+      {
+        features: Features | null;
+        methods: Record<string, Status> | null;
+        timestamp: number;
+      }
+    >
   >
 > = {};
-for (const provider of PROVIDERS) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  mapping[provider] = {};
-  for (const chain of CHAINS) {
+for (const chain of CHAINS) {
+  for (const provider of PROVIDERS) {
+    if (!mapping[provider]) {
+      mapping[provider] = {};
+    }
+    console.log(`Checking ${provider} ${chain}`);
     const endpointUrl = getProviderRpcUrl(provider, chain);
     if (!endpointUrl) {
-      mapping[provider][chain] = {
-        features: null,
-        methods: null,
-        timestamp: Date.now(),
-      };
       continue;
     }
     const features = await getFeatures(endpointUrl);

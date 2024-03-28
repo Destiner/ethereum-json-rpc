@@ -106,10 +106,10 @@ import EthSelect, { Option } from '@/components/__common/EthSelect.vue';
 import useChain, {
   ALCHEMY,
   ANKR,
-  CHAINS,
+  REFERENCE_CHAINS,
   INFURA,
   Preset as PresetType,
-  Chain,
+  ReferenceChain,
 } from '@/composables/useChain';
 import {
   ETHEREUM,
@@ -122,7 +122,7 @@ import {
 import { isValidUrl } from '@/utils/validation';
 
 type ChainTag = 'ethereum' | 'optimism' | 'polygon' | 'arbitrum';
-type ChainOrUnknown = Chain | typeof UNKNOWN_CHAIN;
+type ChainOrUnknown = ReferenceChain | typeof UNKNOWN_CHAIN;
 
 const PING_INTERVAL = 10000;
 
@@ -150,7 +150,7 @@ function getChainTagById(id: ChainOrUnknown): ChainTag | 'unknown' {
   }
 }
 
-function getChainIdByTag(tag: ChainTag): Chain {
+function getChainIdByTag(tag: ChainTag): ReferenceChain {
   switch (tag) {
     case 'ethereum':
       return ETHEREUM;
@@ -242,17 +242,22 @@ function updateOptions(): void {
   }
 }
 
-const chain = ref<Chain>(ETHEREUM);
+const chain = ref<ReferenceChain>(ETHEREUM);
 
-const chainOptions = getChainOptions(CHAINS);
-const readableChainOptions = getChainOptions([...CHAINS, UNKNOWN_CHAIN]);
+const chainOptions = getChainOptions(REFERENCE_CHAINS);
+const readableChainOptions = getChainOptions([
+  ...REFERENCE_CHAINS,
+  UNKNOWN_CHAIN,
+]);
 
 function handleChainUpdate(chainName: string): void {
   chain.value = getChainIdByTag(chainName as ChainTag);
   updateOptions();
 }
 
-function getChainOptions(chains: (Chain | typeof UNKNOWN_CHAIN)[]): Option[] {
+function getChainOptions(
+  chains: (ReferenceChain | typeof UNKNOWN_CHAIN)[],
+): Option[] {
   return chains.map((chain) => {
     return {
       label: getChainName(chain),

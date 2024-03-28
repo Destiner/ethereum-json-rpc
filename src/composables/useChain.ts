@@ -4,14 +4,14 @@ import { Ref, computed, onMounted, ref, watch } from 'vue';
 
 import {
   ARBITRUM,
-  CHAINS,
+  REFERENCE_CHAINS,
   ETHEREUM,
   OPTIMISM,
   POLYGON,
   getChainId,
   getChainData,
 } from '@/utils/chains';
-import type { Chain } from '@/utils/chains';
+import type { ReferenceChain } from '@/utils/chains';
 
 const STORAGE_KEY_PROVIDER = 'provider';
 
@@ -21,7 +21,7 @@ const ANKR = 'ankr';
 
 interface AutomaticProviderOptions {
   type: 'automatic';
-  chain: Chain;
+  chain: ReferenceChain;
 }
 
 interface CustomProviderOptions {
@@ -35,7 +35,7 @@ interface PresetProviderOptions {
   type: 'preset';
   key: string;
   preset: Preset;
-  chain: Chain;
+  chain: ReferenceChain;
 }
 
 type Options =
@@ -52,7 +52,7 @@ interface UseChain {
   client: Ref<PublicClient>;
   options: Ref<Options>;
   url: Ref<string>;
-  chain: Ref<Chain | null>;
+  chain: Ref<ReferenceChain | null>;
 }
 
 function useChain(): UseChain {
@@ -64,7 +64,7 @@ function useChain(): UseChain {
     }),
   );
 
-  const chain = ref<Chain | null>(null);
+  const chain = ref<ReferenceChain | null>(null);
 
   onMounted(() => {
     updateChain();
@@ -126,10 +126,18 @@ function getUrlByOptions(options: Options): string {
   return chainData.rpcUrls.infura.http[0];
 }
 
-function getChain(chainId: number): Chain | null {
-  const chain = CHAINS.find((chain) => getChainId(chain) === chainId);
+function getChain(chainId: number): ReferenceChain | null {
+  const chain = REFERENCE_CHAINS.find((chain) => getChainId(chain) === chainId);
   return chain || null;
 }
 
 export default useChain;
-export { ALCHEMY, ANKR, CHAINS, INFURA, Chain, Preset, PresetProviderOptions };
+export {
+  ALCHEMY,
+  ANKR,
+  REFERENCE_CHAINS,
+  INFURA,
+  ReferenceChain,
+  Preset,
+  PresetProviderOptions,
+};

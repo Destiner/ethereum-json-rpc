@@ -55,7 +55,7 @@ import {
   Method,
 } from '@/utils/methods';
 
-import useChain, { Chain } from './useChain';
+import useChain, { ReferenceChain } from './useChain';
 
 interface Defaults {
   blockHash: string;
@@ -80,8 +80,8 @@ function useMethods(): UseMethods {
   };
 }
 
-function getDefaults(chain: Chain | null): Defaults {
-  const blockHashMap: Record<Chain, string> = {
+function getDefaults(chain: ReferenceChain | null): Defaults {
+  const blockHashMap: Record<ReferenceChain, string> = {
     [ETHEREUM]:
       '0x21c3ac17a523528af506a37601fcb1c81d029f8b68dc63cd094f72767acdfd13',
     [OPTIMISM]:
@@ -91,7 +91,7 @@ function getDefaults(chain: Chain | null): Defaults {
     [ARBITRUM]:
       '0xd2bcb0ef42123206fc713a4570bbd7fbaeb92ee04a252f5b410a5b563937e2bc',
   };
-  const transactionHashMap: Record<Chain, string> = {
+  const transactionHashMap: Record<ReferenceChain, string> = {
     [ETHEREUM]:
       '0x05f71e1b2cb4f03e547739db15d080fd30c989eda04d37ce6264c5686e0722c9',
     [OPTIMISM]:
@@ -104,7 +104,7 @@ function getDefaults(chain: Chain | null): Defaults {
   const defaultTransactionInput =
     '0x02f8740181948459682f0085275c2c9f8b82520894885885521990b53fd00556c143ea056dd2f62a128808cc0c47d9477f9080c080a037437ba52140dbac1d7dc65cdb58531e038930c82314817f91cb8d8ea36a2bd0a001e134479d567b8595d77f61106cad34e62ed356d6971bc08fe0363a0696dd94';
   const defaultAddress = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
-  const contractMap: Record<Chain, string> = {
+  const contractMap: Record<ReferenceChain, string> = {
     [ETHEREUM]: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     [OPTIMISM]: '0x4200000000000000000000000000000000000006',
     [POLYGON]: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
