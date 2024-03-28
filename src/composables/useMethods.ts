@@ -286,6 +286,17 @@ function getMethodList(defaults: Defaults): Method[] {
           type: 'object',
           name: 'transaction',
           items: {
+            nonce: {
+              type: 'int',
+              name: 'nonce',
+              isRequired: false,
+            },
+            type: {
+              type: 'int',
+              name: 'type',
+              isRequired: false,
+              description: 'Transaction type',
+            },
             from: {
               type: 'add​ress',
               name: 'from',
@@ -304,11 +315,7 @@ function getMethodList(defaults: Defaults): Method[] {
               type: 'int',
               name: 'gas',
               isRequired: false,
-            },
-            gasPrice: {
-              type: 'int',
-              name: 'gas price',
-              isRequired: false,
+              description: 'Gas limit',
             },
             value: {
               type: 'int',
@@ -321,26 +328,33 @@ function getMethodList(defaults: Defaults): Method[] {
               isRequired: false,
               description: 'Transaction call input',
             },
+            gasPrice: {
+              type: 'int',
+              name: 'gas price',
+              isRequired: false,
+              description:
+                'The gas price willing to be paid by the sender in wei',
+            },
             maxFeePerGas: {
               type: 'int',
               name: 'max fee per gas',
               isRequired: false,
+              description:
+                'The maximum total fee per gas the sender is willing to pay (includes the network / base fee and miner / priority fee) in wei',
             },
             maxPriorityFeePerGas: {
               type: 'int',
               name: 'max priority fee per gas',
               isRequired: false,
+              description:
+                'Maximum fee per gas the sender is willing to pay to miners in wei',
             },
-            nonce: {
+            maxFeePerBlobGas: {
               type: 'int',
-              name: 'nonce',
+              name: 'max fee per blob gas',
               isRequired: false,
-            },
-            type: {
-              type: 'int',
-              name: 'type',
-              isRequired: false,
-              description: 'Transaction type',
+              description:
+                'The maximum total fee per gas the sender is willing to pay for blob gas in wei',
             },
           },
         },
