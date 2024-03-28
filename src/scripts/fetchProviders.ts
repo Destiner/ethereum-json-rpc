@@ -88,6 +88,7 @@ import {
   ERIGON_BLOCK_BY_TIMESTAMP,
   ERIGON_LATEST_LOGS,
   ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
+  MethodId,
 } from '@/utils/methods';
 import {
   PROVIDERS,
@@ -201,190 +202,69 @@ async function getMethods(
   const client = createPublicClient({
     transport: http(endpointUrl),
   });
-  const methods: Record<string, Status> = {};
-  methods[CHAIN_ID] = await tryRequest(client, CHAIN_ID, []);
-  methods[BLOCK_NUMBER] = await tryRequest(client, BLOCK_NUMBER, []);
-  methods[GAS_PRICE] = await tryRequest(client, GAS_PRICE, []);
-  methods[MAX_PRIORITY_FEE_PER_GAS] = await tryRequest(
-    client,
-    MAX_PRIORITY_FEE_PER_GAS,
-    [],
-  );
-  methods[BLOB_BASE_FEE] = await tryRequest(client, BLOB_BASE_FEE, []);
-  methods[FEE_HISTORY] = await tryRequest(client, FEE_HISTORY, [
-    '0x1',
-    'latest',
-    [],
-  ]);
-  methods[GET_BALANCE] = await tryRequest(client, GET_BALANCE, [zeroAddress]);
-  methods[GET_CODE] = await tryRequest(client, GET_CODE, [zeroAddress]);
-  methods[GET_STORAGE_AT] = await tryRequest(client, GET_STORAGE_AT, [
-    zeroAddress,
-    '0x0',
-    'latest',
-  ]);
-  methods[CALL] = await tryRequest(client, CALL, [{ to: zeroAddress }]);
-  methods[ESTIMATE_GAS] = await tryRequest(client, ESTIMATE_GAS, [
-    { to: zeroAddress },
-  ]);
-  methods[GET_LOGS] = await tryRequest(client, GET_LOGS, [
-    { fromBlock: 'latest', toBlock: 'latest' },
-  ]);
-  methods[GET_PROOF] = await tryRequest(client, GET_PROOF, [
-    zeroAddress,
-    [],
-    'latest',
-  ]);
-  methods[GET_TRANSACTION_COUNT] = await tryRequest(
-    client,
-    GET_TRANSACTION_COUNT,
-    [zeroAddress],
-  );
-  methods[GET_BLOCK_BY_NUMBER] = await tryRequest(client, GET_BLOCK_BY_NUMBER, [
-    'latest',
-    false,
-  ]);
-  methods[GET_BLOCK_BY_HASH] = await tryRequest(client, GET_BLOCK_BY_HASH, [
-    zeroHash,
-    false,
-  ]);
-  methods[GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER] = await tryRequest(
-    client,
-    GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
-    ['latest'],
-  );
-  methods[GET_BLOCK_TRANSACTION_COUNT_BY_HASH] = await tryRequest(
-    client,
-    GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
-    [zeroHash],
-  );
-  methods[GET_UNCLE_COUNT_BY_BLOCK_NUMBER] = await tryRequest(
-    client,
-    GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
-    ['latest'],
-  );
-  methods[GET_UNCLE_COUNT_BY_BLOCK_HASH] = await tryRequest(
-    client,
-    GET_UNCLE_COUNT_BY_BLOCK_HASH,
-    [zeroHash],
-  );
-  methods[GET_TRANSACTION_BY_HASH] = await tryRequest(
-    client,
-    GET_TRANSACTION_BY_HASH,
-    [zeroHash],
-  );
-  methods[GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX] = await tryRequest(
-    client,
-    GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
-    ['latest', '0x0'],
-  );
   const blockHash = await getBlockHash(endpointUrl);
-  methods[GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX] = await tryRequest(
-    client,
-    GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
-    [blockHash, '0x0'],
-  );
-  methods[GET_TRANSACTION_RECEIPT] = await tryRequest(
-    client,
-    GET_TRANSACTION_RECEIPT,
-    [zeroHash],
-  );
-  methods[GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX] = await tryRequest(
-    client,
-    GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
-    ['latest', '0x0'],
-  );
-  methods[GET_UNCLE_BY_BLOCK_HASH_AND_INDEX] = await tryRequest(
-    client,
-    GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
-    [blockHash, '0x0'],
-  );
-  methods[SYNCING] = await tryRequest(client, SYNCING, []);
-  methods[COINBASE] = await tryRequest(client, COINBASE, []);
-  methods[ACCOUNTS] = await tryRequest(client, ACCOUNTS, []);
-  methods[MINING] = await tryRequest(client, MINING, []);
-  methods[HASHRATE] = await tryRequest(client, HASHRATE, []);
-  methods[GET_WORK] = await tryRequest(client, GET_WORK, []);
-  methods[DEBUG_TRACE_CALL] = await tryRequest(client, DEBUG_TRACE_CALL, [
-    {
-      to: zeroAddress,
-    },
-    'latest',
-    { tracer: 'callTracer' },
-  ]);
-  methods[DEBUG_TRACE_TRANSACTION] = await tryRequest(
-    client,
-    DEBUG_TRACE_TRANSACTION,
-    [zeroHash, { tracer: 'callTracer' }],
-  );
-  methods[DEBUG_TRACE_BLOCK_BY_NUMBER] = await tryRequest(
-    client,
-    DEBUG_TRACE_BLOCK_BY_NUMBER,
-    ['latest', { tracer: 'callTracer' }],
-  );
-  methods[DEBUG_TRACE_BLOCK_BY_HASH] = await tryRequest(
-    client,
-    DEBUG_TRACE_BLOCK_BY_HASH,
-    [zeroHash, { tracer: 'callTracer' }],
-  );
-  methods[TRACE_BLOCK] = await tryRequest(client, TRACE_BLOCK, ['latest']);
-  methods[TRACE_CALL] = await tryRequest(client, TRACE_CALL, [
-    {},
-    ['trace'],
-    'latest',
-  ]);
-  methods[TRACE_FILTER] = await tryRequest(client, TRACE_FILTER, [{}]);
-  methods[TRACE_RAW_TRANSACTION] = await tryRequest(
-    client,
-    TRACE_RAW_TRANSACTION,
-    [zeroHash, ['trace']],
-  );
-  methods[TRACE_REPLAY_BLOCK_TRANSACTIONS] = await tryRequest(
-    client,
-    TRACE_REPLAY_BLOCK_TRANSACTIONS,
-    ['latest', ['trace']],
-  );
-  methods[TRACE_REPLAY_TRANSACTION] = await tryRequest(
-    client,
-    TRACE_REPLAY_TRANSACTION,
-    [zeroHash, ['trace']],
-  );
-  methods[TRACE_TRANSACTION] = await tryRequest(client, TRACE_TRANSACTION, [
-    zeroHash,
-  ]);
-  methods[ERIGON_BLOCK_NUMBER] = await tryRequest(
-    client,
-    ERIGON_BLOCK_NUMBER,
-    [],
-  );
-  methods[ERIGON_HEADER_BY_NUMBER] = await tryRequest(
-    client,
-    ERIGON_HEADER_BY_NUMBER,
-    ['0x0'],
-  );
-  methods[ERIGON_HEADER_BY_HASH] = await tryRequest(
-    client,
-    ERIGON_HEADER_BY_HASH,
-    [blockHash],
-  );
-  methods[ERIGON_LOGS_BY_HASH] = await tryRequest(client, ERIGON_LOGS_BY_HASH, [
-    blockHash,
-  ]);
-  methods[ERIGON_BLOCK_BY_TIMESTAMP] = await tryRequest(
-    client,
-    ERIGON_BLOCK_BY_TIMESTAMP,
-    ['0', false],
-  );
-  methods[ERIGON_LATEST_LOGS] = await tryRequest(client, ERIGON_LATEST_LOGS, [
-    {},
-    { logCount: 1 },
-  ]);
-  methods[ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH] = await tryRequest(
-    client,
-    ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
-    [blockHash],
-  );
-  return methods;
+  const methods: Record<MethodId, unknown[]> = {
+    [CHAIN_ID]: [],
+    [BLOCK_NUMBER]: [],
+    [GAS_PRICE]: [],
+    [MAX_PRIORITY_FEE_PER_GAS]: [],
+    [BLOB_BASE_FEE]: [],
+    [FEE_HISTORY]: ['0x1', 'latest', []],
+    [GET_BALANCE]: [zeroAddress, 'latest'],
+    [GET_CODE]: [zeroAddress, 'latest'],
+    [GET_STORAGE_AT]: [zeroAddress, '0x0', 'latest'],
+    [CALL]: [{ to: zeroAddress }, 'latest'],
+    [ESTIMATE_GAS]: [{ to: zeroAddress }],
+    [GET_LOGS]: [{ fromBlock: 'latest', toBlock: 'latest' }],
+    [GET_PROOF]: [zeroAddress, [], 'latest'],
+    [GET_TRANSACTION_COUNT]: [zeroAddress, 'latest'],
+    [GET_BLOCK_BY_NUMBER]: ['latest', false],
+    [GET_BLOCK_BY_HASH]: [blockHash, false],
+    [GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER]: ['latest'],
+    [GET_BLOCK_TRANSACTION_COUNT_BY_HASH]: [blockHash],
+    [GET_UNCLE_COUNT_BY_BLOCK_NUMBER]: ['latest'],
+    [GET_UNCLE_COUNT_BY_BLOCK_HASH]: [blockHash],
+    [GET_TRANSACTION_BY_HASH]: [zeroHash],
+    [GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX]: ['latest', '0x0'],
+    [GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX]: [blockHash, '0x0'],
+    [GET_TRANSACTION_RECEIPT]: [zeroHash],
+    [GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX]: ['latest', '0x0'],
+    [GET_UNCLE_BY_BLOCK_HASH_AND_INDEX]: [blockHash, '0x0'],
+    [SYNCING]: [],
+    [COINBASE]: [],
+    [ACCOUNTS]: [],
+    [MINING]: [],
+    [HASHRATE]: [],
+    [GET_WORK]: [],
+    [DEBUG_TRACE_CALL]: [
+      { to: zeroAddress },
+      'latest',
+      { tracer: 'callTracer' },
+    ],
+    [DEBUG_TRACE_TRANSACTION]: [zeroHash, { tracer: 'callTracer' }],
+    [DEBUG_TRACE_BLOCK_BY_NUMBER]: ['latest', { tracer: 'callTracer' }],
+    [DEBUG_TRACE_BLOCK_BY_HASH]: [blockHash, { tracer: 'callTracer' }],
+    [TRACE_BLOCK]: ['latest'],
+    [TRACE_CALL]: [{}, ['trace'], 'latest'],
+    [TRACE_FILTER]: [{}],
+    [TRACE_RAW_TRANSACTION]: [zeroHash, ['trace']],
+    [TRACE_REPLAY_BLOCK_TRANSACTIONS]: ['latest', ['trace']],
+    [TRACE_REPLAY_TRANSACTION]: [zeroHash, ['trace']],
+    [TRACE_TRANSACTION]: [zeroHash],
+    [ERIGON_BLOCK_NUMBER]: [],
+    [ERIGON_HEADER_BY_NUMBER]: ['0x0'],
+    [ERIGON_HEADER_BY_HASH]: [blockHash],
+    [ERIGON_LOGS_BY_HASH]: [blockHash],
+    [ERIGON_BLOCK_BY_TIMESTAMP]: ['0', false],
+    [ERIGON_LATEST_LOGS]: [{}, { logCount: 1 }],
+    [ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH]: [blockHash],
+  };
+  const methodSupport: Record<string, Status> = {};
+  for (const method in methods) {
+    const params = methods[method as MethodId];
+    methodSupport[method] = await tryRequest(client, method, params);
+  }
+  return methodSupport;
 }
 
 async function getBlockHash(endpointUrl: string): Promise<string> {
