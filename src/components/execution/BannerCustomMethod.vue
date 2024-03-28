@@ -5,15 +5,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { MethodType } from '@/utils/methods';
+import { MethodGroup } from '@/utils/methods';
 
 const props = defineProps<{
-  type: MethodType;
+  type: MethodGroup;
 }>();
 
 const text = computed(() => {
   switch (props.type) {
-    case 'standard':
+    case 'reading':
+    case 'writing':
       return '';
     case 'debug':
       return 'This method is not a part of the API specification and may be unavailable on some nodes. It was originally implemented in Geth only, but since then was adopted by other clients. Additionally, many hosted node providers will require a paid plan for access.';

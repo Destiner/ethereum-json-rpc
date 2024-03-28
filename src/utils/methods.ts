@@ -42,12 +42,12 @@ type ObjectParam = {
 
 type Param = PrimitiveParam | ArrayParam | ObjectParam;
 
-type MethodType = 'standard' | 'debug' | 'trace' | 'erigon';
+type MethodGroup = 'reading' | 'writing' | 'trace' | 'debug' | 'erigon';
 
 interface Method {
   id: MethodId;
   name: string;
-  type: MethodType;
+  type: MethodGroup;
   description: string;
   params: Param[];
   formatter?: (params: unknown[]) => unknown[];
@@ -214,8 +214,6 @@ const METHODS: MethodId[] = [
   ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
 ];
 
-type MethodGroup = 'reading' | 'writing' | 'trace' | 'debug' | 'erigon';
-
 function getArrayParamItem(param: ArrayParam, index: number): PrimitiveParam {
   return {
     type: param.itemType,
@@ -328,7 +326,6 @@ export type {
   ArrayParam,
   Method,
   MethodId,
-  MethodType,
   MethodGroup,
   Param,
   PrimitiveParam,

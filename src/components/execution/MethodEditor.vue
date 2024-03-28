@@ -10,7 +10,7 @@
     {{ method.description }}
   </div>
   <BannerCustomMethod
-    v-if="method.type !== 'standard'"
+    v-if="method.type !== 'reading' && method.type !== 'writing'"
     :type="method.type"
   />
   <MethodForm

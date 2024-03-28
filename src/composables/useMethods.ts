@@ -134,42 +134,42 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: CHAIN_ID,
       name: 'Get chain ID',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the chain ID of the current network.',
       params: [],
     },
     {
       id: BLOCK_NUMBER,
       name: 'Get block number',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the number of most recent block.',
       params: [],
     },
     {
       id: GAS_PRICE,
       name: 'Get gas price',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the current price per gas in wei.',
       params: [],
     },
     {
       id: MAX_PRIORITY_FEE_PER_GAS,
       name: 'Get maximum priority fee',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the current maxPriorityFeePerGas per gas in wei.',
       params: [],
     },
     {
       id: BLOB_BASE_FEE,
       name: 'Get blob base fee',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the base fee per blob gas in wei.',
       params: [],
     },
     {
       id: FEE_HISTORY,
       name: 'Transaction fee history',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns transaction base fee per gas and effective priority fee per gas for the requested/supported block range.',
       params: [
@@ -210,7 +210,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_BALANCE,
       name: 'Get balance',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the current price per gas in wei.',
       params: [
         {
@@ -230,7 +230,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_CODE,
       name: 'Get contract code',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns code at a given address.',
       params: [
         {
@@ -250,7 +250,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_STORAGE_AT,
       name: 'Get contract storage',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the value from a storage position at a given address.',
       params: [
@@ -278,7 +278,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: CALL,
       name: 'Call',
-      type: 'standard',
+      type: 'reading',
       description:
         'Executes a new message call immediately without creating a transaction on the block chain.',
       params: [
@@ -355,7 +355,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: ESTIMATE_GAS,
       name: 'Estimate gas',
-      type: 'standard',
+      type: 'reading',
       description:
         'Generates and returns an estimate of how much gas is necessary to allow the transaction to complete. The transaction will not be added to the blockchain. Note that the estimate may be significantly more than the amount of gas actually used by the transaction, for a variety of reasons including EVM mechanics and node performance.',
       params: [
@@ -430,7 +430,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_LOGS,
       name: 'Get logs',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns an array of all logs matching a given filter object.',
       params: [
@@ -470,7 +470,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_PROOF,
       name: 'Get proof',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the merkle proof for a given account and optionally some storage keys.',
       params: [
@@ -506,7 +506,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_TRANSACTION_COUNT,
       name: 'Get transaction count',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the number of transactions sent from an address.',
       params: [
         {
@@ -526,7 +526,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_BLOCK_BY_NUMBER,
       name: 'Get block, by number',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns information about a block by block number.',
       params: [
         {
@@ -547,7 +547,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_BLOCK_BY_HASH,
       name: 'Get block, by hash',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns information about a block by hash.',
       params: [
         {
@@ -568,7 +568,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
       name: 'Get transaction count, by number',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the number of transactions in a block matching the given block number.',
       params: [
@@ -583,7 +583,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
       name: 'Get transaction count, by hash',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the number of transactions in a block from a block matching the given block hash.',
       params: [
@@ -598,7 +598,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
       name: 'Get uncle count, by number',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the number of uncles in a block from a block matching the given block number.',
       params: [
@@ -613,7 +613,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_UNCLE_COUNT_BY_BLOCK_HASH,
       name: 'Get uncle count, by hash',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the number of uncles in a block from a block matching the given block hash.',
       params: [
@@ -628,7 +628,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_TRANSACTION_BY_HASH,
       name: 'Get transaction, by number',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the information about a transaction requested by transaction hash.',
       params: [
@@ -643,7 +643,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
       name: 'Get transaction, by block number and index',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns information about a transaction by block number and transaction index position.',
       params: [
@@ -665,7 +665,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
       name: 'Get transaction, by block hash and index',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns information about a transaction by block hash and transaction index position.',
       params: [
@@ -687,7 +687,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_TRANSACTION_RECEIPT,
       name: 'Get transaction receipt',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the receipt of a transaction by transaction hash.',
       params: [
         {
@@ -701,7 +701,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
       name: 'Get uncle, by block number and index',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns information about a uncle of a block by number and uncle index position.',
       params: [
@@ -723,7 +723,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
       name: 'Get uncle, by block hash and index',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns information about a uncle of a block by hash and uncle index position.',
       params: [
@@ -745,21 +745,21 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: ACCOUNTS,
       name: 'Accounts',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns a list of addresses owned by client.',
       params: [],
     },
     {
       id: COINBASE,
       name: 'Coinbase',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns the client coinbase address.',
       params: [],
     },
     {
       id: SYNCING,
       name: 'Syncing status',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns an object with data about the sync status or false.',
       params: [],
@@ -767,14 +767,14 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: MINING,
       name: 'Mining status',
-      type: 'standard',
+      type: 'reading',
       description: 'Returns whether the client is actively mining new blocks.',
       params: [],
     },
     {
       id: HASHRATE,
       name: 'Hashrate',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the number of hashes per second that the node is mining with.',
       params: [],
@@ -782,7 +782,7 @@ function getMethodList(defaults: Defaults): Method[] {
     {
       id: GET_WORK,
       name: 'Get work',
-      type: 'standard',
+      type: 'reading',
       description:
         'Returns the hash of the current block, the seedHash, and the boundary condition to be met ("target").',
       params: [],
