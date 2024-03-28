@@ -7,8 +7,10 @@
     "github": "https://github.com/Destiner"
   },
   "keywords": [
-    "vue",
-    "starter"
+    "ethereum",
+    "evm",
+    "json-rpc",
+    "devtools"
   ],
   "type": "module",
   "license": "MIT",
