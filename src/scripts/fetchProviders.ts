@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'dotenv/config';
+
 import {
   AlchemyChain,
   AnkrChain,
@@ -657,39 +659,43 @@ async function getFeatures(endpointUrl: string): Promise<Features> {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const mapping: Record<
-  Provider,
-  Partial<
-    Record<
-      Chain,
-      {
-        features: Features | null;
-        methods: Record<string, Status> | null;
-        timestamp: number;
-      }
+async function run(): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const mapping: Record<
+    Provider,
+    Partial<
+      Record<
+        Chain,
+        {
+          features: Features | null;
+          methods: Record<string, Status> | null;
+          timestamp: number;
+        }
+      >
     >
-  >
-> = {};
-for (const chain of CHAINS) {
-  for (const provider of PROVIDERS) {
-    if (!mapping[provider]) {
-      mapping[provider] = {};
+  > = {};
+  for (const chain of CHAINS) {
+    for (const provider of PROVIDERS) {
+      if (!mapping[provider]) {
+        mapping[provider] = {};
+      }
+      console.log(`Checking ${provider} ${chain}`);
+      const endpointUrl = getProviderRpcUrl(provider, chain);
+      if (!endpointUrl) {
+        continue;
+      }
+      const features = await getFeatures(endpointUrl);
+      const methods = await getMethods(endpointUrl);
+      mapping[provider][chain] = {
+        features,
+        methods,
+        timestamp: Date.now(),
+      };
     }
-    console.log(`Checking ${provider} ${chain}`);
-    const endpointUrl = getProviderRpcUrl(provider, chain);
-    if (!endpointUrl) {
-      continue;
-    }
-    const features = await getFeatures(endpointUrl);
-    const methods = await getMethods(endpointUrl);
-    mapping[provider][chain] = {
-      features,
-      methods,
-      timestamp: Date.now(),
-    };
   }
+
+  console.log(JSON.stringify(mapping, null, 2));
 }
 
-console.log(JSON.stringify(mapping, null, 2));
+run();
