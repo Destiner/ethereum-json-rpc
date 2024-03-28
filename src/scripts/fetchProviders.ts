@@ -38,6 +38,58 @@ import {
 
 import { CHAIN_IDS, ChainId } from '@/utils/chains';
 import {
+  CHAIN_ID,
+  BLOCK_NUMBER,
+  GAS_PRICE,
+  MAX_PRIORITY_FEE_PER_GAS,
+  BLOB_BASE_FEE,
+  FEE_HISTORY,
+  GET_BALANCE,
+  GET_CODE,
+  GET_STORAGE_AT,
+  CALL,
+  ESTIMATE_GAS,
+  GET_LOGS,
+  GET_PROOF,
+  GET_TRANSACTION_COUNT,
+  GET_BLOCK_BY_NUMBER,
+  GET_BLOCK_BY_HASH,
+  GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
+  GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
+  GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
+  GET_UNCLE_COUNT_BY_BLOCK_HASH,
+  GET_TRANSACTION_BY_HASH,
+  GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
+  GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
+  GET_TRANSACTION_RECEIPT,
+  GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
+  GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
+  SYNCING,
+  COINBASE,
+  ACCOUNTS,
+  MINING,
+  HASHRATE,
+  GET_WORK,
+  DEBUG_TRACE_CALL,
+  DEBUG_TRACE_TRANSACTION,
+  DEBUG_TRACE_BLOCK_BY_NUMBER,
+  DEBUG_TRACE_BLOCK_BY_HASH,
+  TRACE_BLOCK,
+  TRACE_CALL,
+  TRACE_FILTER,
+  TRACE_RAW_TRANSACTION,
+  TRACE_REPLAY_BLOCK_TRANSACTIONS,
+  TRACE_REPLAY_TRANSACTION,
+  TRACE_TRANSACTION,
+  ERIGON_BLOCK_NUMBER,
+  ERIGON_HEADER_BY_NUMBER,
+  ERIGON_HEADER_BY_HASH,
+  ERIGON_LOGS_BY_HASH,
+  ERIGON_BLOCK_BY_TIMESTAMP,
+  ERIGON_LATEST_LOGS,
+  ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
+} from '@/utils/methods';
+import {
   PROVIDERS,
   ALCHEMY,
   ANKR,
@@ -150,197 +202,186 @@ async function getMethods(
     transport: http(endpointUrl),
   });
   const methods: Record<string, Status> = {};
-  methods['eth_chainId'] = await tryRequest(client, 'eth_chainId', []);
-  methods['eth_blockNumber'] = await tryRequest(client, 'eth_blockNumber', []);
-  methods['eth_gasPrice'] = await tryRequest(client, 'eth_gasPrice', []);
-  methods['eth_maxPriorityFeePerGas'] = await tryRequest(
+  methods[CHAIN_ID] = await tryRequest(client, CHAIN_ID, []);
+  methods[BLOCK_NUMBER] = await tryRequest(client, BLOCK_NUMBER, []);
+  methods[GAS_PRICE] = await tryRequest(client, GAS_PRICE, []);
+  methods[MAX_PRIORITY_FEE_PER_GAS] = await tryRequest(
     client,
-    'eth_maxPriorityFeePerGas',
+    MAX_PRIORITY_FEE_PER_GAS,
     [],
   );
-  methods['eth_blobBaseFee'] = await tryRequest(client, 'eth_blobBaseFee', []);
-  methods['eth_feeHistory'] = await tryRequest(client, 'eth_feeHistory', [
+  methods[BLOB_BASE_FEE] = await tryRequest(client, BLOB_BASE_FEE, []);
+  methods[FEE_HISTORY] = await tryRequest(client, FEE_HISTORY, [
     '0x1',
     'latest',
     [],
   ]);
-  methods['eth_getBalance'] = await tryRequest(client, 'eth_getBalance', [
-    zeroAddress,
-  ]);
-  methods['eth_getCode'] = await tryRequest(client, 'eth_getCode', [
-    zeroAddress,
-  ]);
-  methods['eth_getStorageAt'] = await tryRequest(client, 'eth_getStorageAt', [
+  methods[GET_BALANCE] = await tryRequest(client, GET_BALANCE, [zeroAddress]);
+  methods[GET_CODE] = await tryRequest(client, GET_CODE, [zeroAddress]);
+  methods[GET_STORAGE_AT] = await tryRequest(client, GET_STORAGE_AT, [
     zeroAddress,
     '0x0',
     'latest',
   ]);
-  methods['eth_call'] = await tryRequest(client, 'eth_call', [
+  methods[CALL] = await tryRequest(client, CALL, [{ to: zeroAddress }]);
+  methods[ESTIMATE_GAS] = await tryRequest(client, ESTIMATE_GAS, [
     { to: zeroAddress },
   ]);
-  methods['eth_estimateGas'] = await tryRequest(client, 'eth_estimateGas', [
-    { to: zeroAddress },
-  ]);
-  methods['eth_getLogs'] = await tryRequest(client, 'eth_getLogs', [
+  methods[GET_LOGS] = await tryRequest(client, GET_LOGS, [
     { fromBlock: 'latest', toBlock: 'latest' },
   ]);
-  methods['eth_getProof'] = await tryRequest(client, 'eth_getProof', [
+  methods[GET_PROOF] = await tryRequest(client, GET_PROOF, [
     zeroAddress,
     [],
     'latest',
   ]);
-  methods['eth_getTransactionCount'] = await tryRequest(
+  methods[GET_TRANSACTION_COUNT] = await tryRequest(
     client,
-    'eth_getTransactionCount',
+    GET_TRANSACTION_COUNT,
     [zeroAddress],
   );
-  methods['eth_getBlockByNumber'] = await tryRequest(
+  methods[GET_BLOCK_BY_NUMBER] = await tryRequest(client, GET_BLOCK_BY_NUMBER, [
+    'latest',
+    false,
+  ]);
+  methods[GET_BLOCK_BY_HASH] = await tryRequest(client, GET_BLOCK_BY_HASH, [
+    zeroHash,
+    false,
+  ]);
+  methods[GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER] = await tryRequest(
     client,
-    'eth_getBlockByNumber',
-    ['latest', false],
-  );
-  methods['eth_getBlockByHash'] = await tryRequest(
-    client,
-    'eth_getBlockByHash',
-    [zeroHash, false],
-  );
-  methods['eth_getBlockTransactionCountByNumber'] = await tryRequest(
-    client,
-    'eth_getBlockTransactionCountByNumber',
+    GET_BLOCK_TRANSACTION_COUNT_BY_NUMBER,
     ['latest'],
   );
-  methods['eth_getBlockTransactionCountByHash'] = await tryRequest(
+  methods[GET_BLOCK_TRANSACTION_COUNT_BY_HASH] = await tryRequest(
     client,
-    'eth_getBlockTransactionCountByHash',
+    GET_BLOCK_TRANSACTION_COUNT_BY_HASH,
     [zeroHash],
   );
-  methods['eth_getUncleCountByBlockNumber'] = await tryRequest(
+  methods[GET_UNCLE_COUNT_BY_BLOCK_NUMBER] = await tryRequest(
     client,
-    'eth_getUncleCountByBlockNumber',
+    GET_UNCLE_COUNT_BY_BLOCK_NUMBER,
     ['latest'],
   );
-  methods['eth_getUncleCountByBlockHash'] = await tryRequest(
+  methods[GET_UNCLE_COUNT_BY_BLOCK_HASH] = await tryRequest(
     client,
-    'eth_getUncleCountByBlockHash',
+    GET_UNCLE_COUNT_BY_BLOCK_HASH,
     [zeroHash],
   );
-  methods['eth_getTransactionByHash'] = await tryRequest(
+  methods[GET_TRANSACTION_BY_HASH] = await tryRequest(
     client,
-    'eth_getTransactionByHash',
+    GET_TRANSACTION_BY_HASH,
     [zeroHash],
   );
-  methods['eth_getTransactionByBlockNumberAndIndex'] = await tryRequest(
+  methods[GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX] = await tryRequest(
     client,
-    'eth_getTransactionByBlockNumberAndIndex',
+    GET_TRANSACTION_BY_BLOCK_NUMBER_AND_INDEX,
     ['latest', '0x0'],
   );
   const blockHash = await getBlockHash(endpointUrl);
-  methods['eth_getTransactionByBlockHashAndIndex'] = await tryRequest(
+  methods[GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX] = await tryRequest(
     client,
-    'eth_getTransactionByBlockHashAndIndex',
+    GET_TRANSACTION_BY_BLOCK_HASH_AND_INDEX,
     [blockHash, '0x0'],
   );
-  methods['eth_getTransactionReceipt'] = await tryRequest(
+  methods[GET_TRANSACTION_RECEIPT] = await tryRequest(
     client,
-    'eth_getTransactionReceipt',
+    GET_TRANSACTION_RECEIPT,
     [zeroHash],
   );
-  methods['eth_getUncleByBlockNumberAndIndex'] = await tryRequest(
+  methods[GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX] = await tryRequest(
     client,
-    'eth_getUncleByBlockNumberAndIndex',
+    GET_UNCLE_BY_BLOCK_NUMBER_AND_INDEX,
     ['latest', '0x0'],
   );
-  methods['eth_getUncleByBlockHashAndIndex'] = await tryRequest(
+  methods[GET_UNCLE_BY_BLOCK_HASH_AND_INDEX] = await tryRequest(
     client,
-    'eth_getUncleByBlockHashAndIndex',
+    GET_UNCLE_BY_BLOCK_HASH_AND_INDEX,
     [blockHash, '0x0'],
   );
-  methods['eth_syncing'] = await tryRequest(client, 'eth_syncing', []);
-  methods['eth_coinbase'] = await tryRequest(client, 'eth_coinbase', []);
-  methods['eth_accounts'] = await tryRequest(client, 'eth_accounts', []);
-  methods['eth_mining'] = await tryRequest(client, 'eth_mining', []);
-  methods['eth_hashrate'] = await tryRequest(client, 'eth_hashrate', []);
-  methods['eth_getWork'] = await tryRequest(client, 'eth_getWork', []);
-  methods['debug_traceCall'] = await tryRequest(client, 'debug_traceCall', [
+  methods[SYNCING] = await tryRequest(client, SYNCING, []);
+  methods[COINBASE] = await tryRequest(client, COINBASE, []);
+  methods[ACCOUNTS] = await tryRequest(client, ACCOUNTS, []);
+  methods[MINING] = await tryRequest(client, MINING, []);
+  methods[HASHRATE] = await tryRequest(client, HASHRATE, []);
+  methods[GET_WORK] = await tryRequest(client, GET_WORK, []);
+  methods[DEBUG_TRACE_CALL] = await tryRequest(client, DEBUG_TRACE_CALL, [
     {
       to: zeroAddress,
     },
     'latest',
     { tracer: 'callTracer' },
   ]);
-  methods['debug_traceTransaction'] = await tryRequest(
+  methods[DEBUG_TRACE_TRANSACTION] = await tryRequest(
     client,
-    'debug_traceTransaction',
+    DEBUG_TRACE_TRANSACTION,
     [zeroHash, { tracer: 'callTracer' }],
   );
-  methods['debug_traceBlockByNumber'] = await tryRequest(
+  methods[DEBUG_TRACE_BLOCK_BY_NUMBER] = await tryRequest(
     client,
-    'debug_traceBlockByNumber',
+    DEBUG_TRACE_BLOCK_BY_NUMBER,
     ['latest', { tracer: 'callTracer' }],
   );
-  methods['debug_traceBlockByHash'] = await tryRequest(
+  methods[DEBUG_TRACE_BLOCK_BY_HASH] = await tryRequest(
     client,
-    'debug_traceBlockByHash',
+    DEBUG_TRACE_BLOCK_BY_HASH,
     [zeroHash, { tracer: 'callTracer' }],
   );
-  methods['trace_block'] = await tryRequest(client, 'trace_block', ['latest']);
-  methods['trace_call'] = await tryRequest(client, 'trace_call', [
+  methods[TRACE_BLOCK] = await tryRequest(client, TRACE_BLOCK, ['latest']);
+  methods[TRACE_CALL] = await tryRequest(client, TRACE_CALL, [
     {},
     ['trace'],
     'latest',
   ]);
-  methods['trace_filter'] = await tryRequest(client, 'trace_filter', [{}]);
-  methods['trace_rawTransaction'] = await tryRequest(
+  methods[TRACE_FILTER] = await tryRequest(client, TRACE_FILTER, [{}]);
+  methods[TRACE_RAW_TRANSACTION] = await tryRequest(
     client,
-    'trace_rawTransaction',
+    TRACE_RAW_TRANSACTION,
     [zeroHash, ['trace']],
   );
-  methods['trace_replayBlockTransactions'] = await tryRequest(
+  methods[TRACE_REPLAY_BLOCK_TRANSACTIONS] = await tryRequest(
     client,
-    'trace_replayBlockTransactions',
+    TRACE_REPLAY_BLOCK_TRANSACTIONS,
     ['latest', ['trace']],
   );
-  methods['trace_replayTransaction'] = await tryRequest(
+  methods[TRACE_REPLAY_TRANSACTION] = await tryRequest(
     client,
-    'trace_replayTransaction',
+    TRACE_REPLAY_TRANSACTION,
     [zeroHash, ['trace']],
   );
-  methods['trace_transaction'] = await tryRequest(client, 'trace_transaction', [
+  methods[TRACE_TRANSACTION] = await tryRequest(client, TRACE_TRANSACTION, [
     zeroHash,
   ]);
-  methods['erigon_blockNumber'] = await tryRequest(
+  methods[ERIGON_BLOCK_NUMBER] = await tryRequest(
     client,
-    'erigon_blockNumber',
+    ERIGON_BLOCK_NUMBER,
     [],
   );
-  methods['erigon_getHeaderByNumber'] = await tryRequest(
+  methods[ERIGON_HEADER_BY_NUMBER] = await tryRequest(
     client,
-    'erigon_getHeaderByNumber',
+    ERIGON_HEADER_BY_NUMBER,
     ['0x0'],
   );
-  methods['erigon_getHeaderByHash'] = await tryRequest(
+  methods[ERIGON_HEADER_BY_HASH] = await tryRequest(
     client,
-    'erigon_getHeaderByHash',
+    ERIGON_HEADER_BY_HASH,
     [blockHash],
   );
-  methods['erigon_getLogsByHash'] = await tryRequest(
+  methods[ERIGON_LOGS_BY_HASH] = await tryRequest(client, ERIGON_LOGS_BY_HASH, [
+    blockHash,
+  ]);
+  methods[ERIGON_BLOCK_BY_TIMESTAMP] = await tryRequest(
     client,
-    'erigon_getLogsByHash',
-    [blockHash],
-  );
-  methods['erigon_getBlockByTimestamp'] = await tryRequest(
-    client,
-    'erigon_getBlockByTimestamp',
+    ERIGON_BLOCK_BY_TIMESTAMP,
     ['0', false],
   );
-  methods['erigon_getLatestLogs'] = await tryRequest(
+  methods[ERIGON_LATEST_LOGS] = await tryRequest(client, ERIGON_LATEST_LOGS, [
+    {},
+    { logCount: 1 },
+  ]);
+  methods[ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH] = await tryRequest(
     client,
-    'erigon_getLatestLogs',
-    [{}, { logCount: 1 }],
-  );
-  methods['erigon_getBlockReceiptsByBlockHash'] = await tryRequest(
-    client,
-    'erigon_getBlockReceiptsByBlockHash',
+    ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
     [blockHash],
   );
   return methods;
