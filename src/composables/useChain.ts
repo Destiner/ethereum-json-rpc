@@ -12,12 +12,9 @@ import {
   getChainData,
 } from '@/utils/chains';
 import type { ReferenceChain } from '@/utils/chains';
+import { ALCHEMY, ANKR, INFURA } from '@/utils/providers';
 
 const STORAGE_KEY_PROVIDER = 'provider';
-
-const ALCHEMY = 'alchemy';
-const INFURA = 'infura';
-const ANKR = 'ankr';
 
 interface AutomaticProviderOptions {
   type: 'automatic';

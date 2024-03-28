@@ -35,56 +35,22 @@ import {
   zeroAddress,
   zeroHash,
 } from 'viem';
+
+import { CHAIN_IDS, ChainId } from '@/utils/chains';
 import {
-  arbitrum,
-  arbitrumGoerli,
-  arbitrumNova,
-  arbitrumSepolia,
-  avalanche,
-  avalancheFuji,
-  base,
-  baseGoerli,
-  baseSepolia,
-  blastSepolia,
-  bsc,
-  bscTestnet,
-  celo,
-  celoAlfajores,
-  fantom,
-  fantomTestnet,
-  flare,
-  gnosis,
-  gnosisChiado,
-  goerli,
-  holesky,
-  linea,
-  lineaTestnet,
-  mainnet,
-  mantle,
-  mantleTestnet,
-  mode,
-  modeTestnet,
-  moonbaseAlpha,
-  moonbeam,
-  moonriver,
-  optimism,
-  optimismGoerli,
-  optimismSepolia,
-  polygon,
-  polygonAmoy,
-  polygonMumbai,
-  polygonZkEvm,
-  polygonZkEvmTestnet,
-  scroll,
-  scrollSepolia,
-  scrollTestnet,
-  sepolia,
-  zkSync,
-  zkSyncSepoliaTestnet,
-  zkSyncTestnet,
-  zora,
-  zoraSepolia,
-} from 'viem/chains';
+  PROVIDERS,
+  ALCHEMY,
+  ANKR,
+  BLAST_API,
+  CLOUDFLARE,
+  DRPC,
+  INFURA,
+  LLAMA_NODES,
+  ONE_RPC,
+  PUBLIC_NODE,
+  TENDERLY,
+  Provider,
+} from '@/utils/providers';
 
 const alchemyApiKey = process.env.ALCHEMY_KEY as string;
 const infuraApiKey = process.env.INFURA_KEY as string;
@@ -109,209 +75,9 @@ interface Features {
   historicalEvents: Status;
 }
 
-const ETHEREUM = mainnet.id;
-const GOERLI = goerli.id;
-const SEPOLIA = sepolia.id;
-const HOLESKY = holesky.id;
-const ARBITRUM = arbitrum.id;
-const ARBITRUM_NOVA = arbitrumNova.id;
-const ARBITRUM_GOERLI = arbitrumGoerli.id;
-const ARBITRUM_SEPOLIA = arbitrumSepolia.id;
-const OPTIMISM = optimism.id;
-const OPTIMISM_GOERLI = optimismGoerli.id;
-const OPTIMISM_SEPOLIA = optimismSepolia.id;
-const BASE = base.id;
-const BASE_GOERLI = baseGoerli.id;
-const BASE_SEPOLIA = baseSepolia.id;
-const ZORA = zora.id;
-const ZORA_SEPOLIA = zoraSepolia.id;
-const POLYGON = polygon.id;
-const POLYGON_MUMBAI = polygonMumbai.id;
-const POLYGON_AMOY = polygonAmoy.id;
-const POLYGON_ZKEVM = polygonZkEvm.id;
-const POLYGON_ZKEVM_TESTNET = polygonZkEvmTestnet.id;
-const AVALANCHE_C = avalanche.id;
-const AVALANCHE_FUJI = avalancheFuji.id;
-const GNOSIS = gnosis.id;
-const GNOSIS_CHIADO = gnosisChiado.id;
-const SCROLL = scroll.id;
-const SCROLL_ALPHA = scrollTestnet.id;
-const SCROLL_SEPOLIA = scrollSepolia.id;
-const ZKSYNC_ERA = zkSync.id;
-const ZKSYNC_ERA_SEPOLIA = zkSyncSepoliaTestnet.id;
-const ZKSYNC_ERA_GOERLI = zkSyncTestnet.id;
-const CELO = celo.id;
-const CELO_ALFAJORES = celoAlfajores.id;
-const LINEA = linea.id;
-const LINEA_GOERLI = lineaTestnet.id;
-const BLAST = 81457;
-const BLAST_SEPOLIA = blastSepolia.id;
-const MANTLE = mantle.id;
-const MANTLE_GOERLI = mantleTestnet.id;
-const MANTLE_SEPOLIA = 5003;
-const MODE = mode.id;
-const MODE_SEPOLIA = modeTestnet.id;
-const BSC = bsc.id;
-const BSC_TESTNET = bscTestnet.id;
-const FANTOM = fantom.id;
-const FANTOM_TESTNET = fantomTestnet.id;
-const MOONBASE_ALPHA = moonbaseAlpha.id;
-const MOONBEAM = moonbeam.id;
-const MOONRIVER = moonriver.id;
-const FLARE = flare.id;
-
-type Chain =
-  | typeof ETHEREUM
-  | typeof GOERLI
-  | typeof SEPOLIA
-  | typeof HOLESKY
-  | typeof ARBITRUM
-  | typeof ARBITRUM_NOVA
-  | typeof ARBITRUM_GOERLI
-  | typeof ARBITRUM_SEPOLIA
-  | typeof OPTIMISM
-  | typeof OPTIMISM_GOERLI
-  | typeof OPTIMISM_SEPOLIA
-  | typeof BASE
-  | typeof BASE_GOERLI
-  | typeof BASE_SEPOLIA
-  | typeof ZORA
-  | typeof ZORA_SEPOLIA
-  | typeof POLYGON
-  | typeof POLYGON_MUMBAI
-  | typeof POLYGON_AMOY
-  | typeof POLYGON_ZKEVM
-  | typeof POLYGON_ZKEVM_TESTNET
-  | typeof AVALANCHE_C
-  | typeof AVALANCHE_FUJI
-  | typeof GNOSIS
-  | typeof GNOSIS_CHIADO
-  | typeof SCROLL
-  | typeof SCROLL_ALPHA
-  | typeof SCROLL_SEPOLIA
-  | typeof ZKSYNC_ERA
-  | typeof ZKSYNC_ERA_SEPOLIA
-  | typeof ZKSYNC_ERA_GOERLI
-  | typeof CELO
-  | typeof CELO_ALFAJORES
-  | typeof LINEA
-  | typeof LINEA_GOERLI
-  | typeof BLAST
-  | typeof BLAST_SEPOLIA
-  | typeof MANTLE
-  | typeof MANTLE_GOERLI
-  | typeof MANTLE_SEPOLIA
-  | typeof MODE
-  | typeof MODE_SEPOLIA
-  | typeof BSC
-  | typeof BSC_TESTNET
-  | typeof FANTOM
-  | typeof FANTOM_TESTNET
-  | typeof MOONBASE_ALPHA
-  | typeof MOONBEAM
-  | typeof MOONRIVER
-  | typeof FLARE;
-
-const CHAINS: Chain[] = [
-  ETHEREUM,
-  GOERLI,
-  SEPOLIA,
-  HOLESKY,
-  ARBITRUM,
-  ARBITRUM_NOVA,
-  ARBITRUM_GOERLI,
-  ARBITRUM_SEPOLIA,
-  OPTIMISM,
-  OPTIMISM_GOERLI,
-  OPTIMISM_SEPOLIA,
-  BASE,
-  BASE_GOERLI,
-  BASE_SEPOLIA,
-  ZORA,
-  ZORA_SEPOLIA,
-  POLYGON,
-  POLYGON_MUMBAI,
-  POLYGON_AMOY,
-  POLYGON_ZKEVM,
-  POLYGON_ZKEVM_TESTNET,
-  AVALANCHE_C,
-  AVALANCHE_FUJI,
-  GNOSIS,
-  GNOSIS_CHIADO,
-  SCROLL,
-  SCROLL_ALPHA,
-  SCROLL_SEPOLIA,
-  ZKSYNC_ERA,
-  ZKSYNC_ERA_SEPOLIA,
-  ZKSYNC_ERA_GOERLI,
-  CELO,
-  CELO_ALFAJORES,
-  LINEA,
-  LINEA_GOERLI,
-  BLAST,
-  BLAST_SEPOLIA,
-  MANTLE,
-  MANTLE_GOERLI,
-  MANTLE_SEPOLIA,
-  MODE,
-  MODE_SEPOLIA,
-  BSC,
-  BSC_TESTNET,
-  FANTOM,
-  FANTOM_TESTNET,
-  MOONBASE_ALPHA,
-  MOONBEAM,
-  MOONRIVER,
-  FLARE,
-];
-
-const ALCHEMY = 'alchemy';
-const ANKR = 'ankr';
-const BLAST_API = 'blast';
-const CHAINSTACK = 'chainstack';
-const CLOUDFLARE = 'cloudflare';
-const DRPC = 'drpc';
-const GATEWAY_FM = 'gatewayFm';
-const INFURA = 'infura';
-const LLAMA_NODES = 'llamaNodes';
-const ONE_RPC = 'oneRpc';
-const PUBLIC_NODE = 'publicNode';
-const QUICK_NODE = 'quicknode';
-const STACKUP = 'stackup';
-const TENDERLY = 'tenderly';
-
-type Provider =
-  | typeof ALCHEMY
-  | typeof ANKR
-  | typeof BLAST_API
-  | typeof CHAINSTACK
-  | typeof CLOUDFLARE
-  | typeof DRPC
-  | typeof GATEWAY_FM
-  | typeof INFURA
-  | typeof LLAMA_NODES
-  | typeof ONE_RPC
-  | typeof PUBLIC_NODE
-  | typeof QUICK_NODE
-  | typeof STACKUP
-  | typeof TENDERLY;
-
-const PROVIDERS: Provider[] = [
-  ALCHEMY,
-  ANKR,
-  BLAST_API,
-  CLOUDFLARE,
-  DRPC,
-  INFURA,
-  LLAMA_NODES,
-  ONE_RPC,
-  PUBLIC_NODE,
-  TENDERLY,
-];
-
 function getProviderRpcUrl(
   provider: Provider,
-  chain: Chain,
+  chain: ChainId,
 ): string | undefined {
   switch (provider) {
     case ALCHEMY:
@@ -666,7 +432,7 @@ async function run(): Promise<void> {
     Provider,
     Partial<
       Record<
-        Chain,
+        ChainId,
         {
           features: Features | null;
           methods: Record<string, Status> | null;
@@ -675,7 +441,7 @@ async function run(): Promise<void> {
       >
     >
   > = {};
-  for (const chain of CHAINS) {
+  for (const chain of CHAIN_IDS) {
     for (const provider of PROVIDERS) {
       if (!mapping[provider]) {
         mapping[provider] = {};
