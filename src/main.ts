@@ -3,6 +3,7 @@ import { createApp } from 'vue';
 import { createWebHistory, createRouter } from 'vue-router';
 
 import App from './App.vue';
+import Errors from './pages/Errors.vue';
 import ExecutionApi from './pages/ExecutionApi.vue';
 import ProviderChain from './pages/ProviderChain.vue';
 import Providers from './pages/Providers.vue';
@@ -18,6 +19,7 @@ const router = createRouter({
       name: 'provider-chain',
       component: ProviderChain,
     },
+    { path: '/errors', name: 'errors', component: Errors },
   ],
 });
 

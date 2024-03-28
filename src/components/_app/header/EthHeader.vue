@@ -18,6 +18,12 @@
         >
           Providers
         </RouterLink>
+        <RouterLink
+          class="page"
+          :to="{ name: 'errors' }"
+        >
+          Errors
+        </RouterLink>
       </div>
     </div>
     <div class="side right">
