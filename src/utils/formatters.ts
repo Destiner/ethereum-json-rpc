@@ -4,7 +4,7 @@ import { Feature } from './providers';
 function formatProviderFeature(feature: Feature): string {
   switch (feature) {
     case 'websockets':
-      return 'Websocket';
+      return 'Websockets';
     case 'latestState':
       return 'Latest State';
     case 'latestEvents':
