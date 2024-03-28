@@ -1,7 +1,7 @@
 {
   "name": "ethereum-json-rpc",
   "version": "1.0.0",
-  "description": "Starter Vue app",
+  "description": "An interactive reference of the Ethereum node API",
   "author": {
     "name": "Timur Badretdinov",
     "github": "https://github.com/Destiner"
