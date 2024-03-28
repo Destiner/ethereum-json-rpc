@@ -2,7 +2,10 @@
   "name": "ethereum-json-rpc",
   "version": "1.0.0",
   "description": "Starter Vue app",
-  "author": "Timur Badretdinov <destinerx@gmail.com>",
+  "author": {
+    "name": "Timur Badretdinov",
+    "github": "https://github.com/Destiner"
+  },
   "keywords": [
     "vue",
     "starter"
