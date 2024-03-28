@@ -321,6 +321,10 @@ export {
   ERIGON_LATEST_LOGS,
   ERIGON_BLOCK_RECEIPTS_BY_BLOCK_HASH,
   METHODS,
+  getArrayParamItem,
+  getSupportedMethodGroups,
+};
+export type {
   ArrayParam,
   Method,
   MethodId,
@@ -328,6 +332,4 @@ export {
   MethodGroup,
   Param,
   PrimitiveParam,
-  getArrayParamItem,
-  getSupportedMethodGroups,
 };

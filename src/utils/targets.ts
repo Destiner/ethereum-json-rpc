@@ -710,7 +710,6 @@ export {
   LIBRARY_AXIOS,
   LIBRARY_WEB3_PY,
   LIBRARY_REQUESTS,
-  Language,
-  Library,
   getRequest,
 };
+export type { Language, Library };

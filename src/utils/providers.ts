@@ -160,13 +160,15 @@ export {
   TENDERLY,
   FEATURES,
   PROVIDERS,
+  getProviderRegistry,
+  getProviderName,
+  getEndpoint,
+};
+export type {
   Feature,
   Features,
   Provider,
   ProviderChainData,
   Methods,
   SupportStatus,
-  getProviderRegistry,
-  getProviderName,
-  getEndpoint,
 };

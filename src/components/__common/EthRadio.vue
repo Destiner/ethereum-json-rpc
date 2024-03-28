@@ -66,7 +66,7 @@ interface Option {
 }
 
 // eslint-disable-next-line import/prefer-default-export
-export { Option };
+export type { Option };
 </script>
 
 <style scoped>

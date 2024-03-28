@@ -132,12 +132,5 @@ function getChain(chainId: number): ReferenceChain | null {
 }
 
 export default useChain;
-export {
-  ALCHEMY,
-  ANKR,
-  REFERENCE_CHAINS,
-  INFURA,
-  ReferenceChain,
-  Preset,
-  PresetProviderOptions,
-};
+export { ALCHEMY, ANKR, REFERENCE_CHAINS, INFURA, ReferenceChain };
+export type { Preset, PresetProviderOptions };
