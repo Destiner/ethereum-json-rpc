@@ -3,6 +3,7 @@ import {
   AnkrChain,
   BlastChain,
   CloudflareChain,
+  DrpcChain,
   InfuraChain,
   LlamaNodesChain,
   OneRpcChain,
@@ -133,7 +134,7 @@ function getEndpoint(provider: Provider, chain: ChainId): string | null {
     case CLOUDFLARE:
       return cloudflare(chain as CloudflareChain);
     case DRPC:
-      return drpc(chain);
+      return drpc(chain as DrpcChain);
     case INFURA:
       return infura(chain as InfuraChain, 'API_KEY');
     case LLAMA_NODES:

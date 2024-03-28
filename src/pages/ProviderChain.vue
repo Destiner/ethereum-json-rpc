@@ -216,7 +216,7 @@ h1 {
 }
 
 .select {
-  width: 140px;
+  width: 240px;
 }
 
 .last-update-label {
