@@ -68,14 +68,12 @@ import {
 import { validateParams } from '@/utils/validation';
 
 interface Error {
-  body: string;
-  error: {
-    code: number;
-  };
   requestBody: string;
   requestMethod: string;
   url: string;
-  code: string;
+  code: number;
+  message: string;
+  details: string;
   version: string;
 }
 
@@ -223,7 +221,15 @@ async function execute(): Promise<void> {
   } catch (e) {
     const error = e as Error;
     // Prettify
-    result.value = JSON.stringify(JSON.parse(error.body), null, 4);
+    result.value = JSON.stringify(
+      {
+        code: error.code,
+        details: error.details,
+        message: error.message,
+      },
+      null,
+      4,
+    );
     emit('update:is-error', true);
   }
   emit('update:is-shown', true);
