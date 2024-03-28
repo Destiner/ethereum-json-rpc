@@ -1,4 +1,19 @@
 <template>
+  <Head>
+    <title>Execution API Reference | Ethereum JSON-RPC API</title>
+    <meta
+      name="description"
+      content="Technical reference for execution API methods in the Ethereum JSON-RPC API spec."
+    />
+    <meta
+      property="og:image"
+      content="https://ethereum-json-rpc.com/reference.png"
+    />
+    <meta
+      property="twitter:image"
+      content="https://ethereum-json-rpc.com/reference.png"
+    />
+  </Head>
   <main>
     <nav class="methods">
       <EthModal
@@ -43,6 +58,7 @@
 </template>
 
 <script setup lang="ts">
+import { Head } from '@unhead/vue/components';
 import { useBreakpoints, useUrlSearchParams } from '@vueuse/core';
 import { onMounted, ref, watch } from 'vue';
 

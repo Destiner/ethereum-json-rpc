@@ -1,4 +1,19 @@
 <template>
+  <Head>
+    <title>Provider Specification | Ethereum JSON-RPC API</title>
+    <meta
+      name="description"
+      content="A list of supported features and methods for a JSON-RPC API provider."
+    />
+    <meta
+      property="og:image"
+      content="https://ethereum-json-rpc.com/providers.png"
+    />
+    <meta
+      property="twitter:image"
+      content="https://ethereum-json-rpc.com/providers.png"
+    />
+  </Head>
   <div class="page">
     <div class="content">
       <div class="header">
@@ -45,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+import { Head } from '@unhead/vue/components';
 import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 

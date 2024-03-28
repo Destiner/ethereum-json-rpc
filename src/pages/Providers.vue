@@ -1,4 +1,19 @@
 <template>
+  <Head>
+    <title>Providers | Ethereum JSON-RPC API</title>
+    <meta
+      name="description"
+      content="A list of JSON-RPC API providers"
+    />
+    <meta
+      property="og:image"
+      content="https://ethereum-json-rpc.com/providers.png"
+    />
+    <meta
+      property="twitter:image"
+      content="https://ethereum-json-rpc.com/providers.png"
+    />
+  </Head>
   <div class="page">
     <div class="content">
       <h1>Providers</h1>
@@ -33,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import { Head } from '@unhead/vue/components';
 import { computed, ref } from 'vue';
 
 import EthSelect, { Option } from '@/components/__common/EthSelect.vue';
