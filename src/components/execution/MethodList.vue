@@ -101,7 +101,7 @@ const inputTipLabel = computed(() => {
   display: none;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .filter {
     display: flex;
     position: relative;
@@ -130,11 +130,10 @@ const inputTipLabel = computed(() => {
   flex-direction: column;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .list {
     gap: var(--spacing-tiny);
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow: auto auto;
   }
 }
 
@@ -152,7 +151,7 @@ const inputTipLabel = computed(() => {
   user-select: none;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .item {
     overflow-x: initial;
     font-size: var(--font-size-normal);

@@ -79,20 +79,14 @@ function handleCrossClick(): void {
 
 .backdrop {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   background: #000000c0;
 }
 
 .body {
   display: flex;
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   flex-direction: column;
   align-items: end;
   justify-content: center;
@@ -129,7 +123,7 @@ function handleCrossClick(): void {
   opacity: 0.8;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .button-close {
     display: none;
   }
@@ -173,7 +167,7 @@ function handleCrossClick(): void {
   background: var(--color-bg-primary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .panel {
     width: 450px;
     height: 60vh;

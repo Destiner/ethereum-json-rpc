@@ -139,7 +139,7 @@ main {
   min-height: calc(100vh - 64px);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   main {
     flex-direction: row;
     gap: 0;
@@ -155,11 +155,10 @@ main {
   flex-direction: column;
   max-height: 220px;
   padding: 8px;
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow: auto auto;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .methods {
     min-width: 350px;
     max-height: calc(100vh - var(--header-height));
@@ -193,7 +192,7 @@ main {
   border-top: 1px solid var(--color-border-primary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .method {
     padding: 30px;
     border-top: none;
@@ -211,7 +210,7 @@ main {
   border-top: 1px solid var(--color-border-primary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .execution {
     padding: 15px 20px 10px;
     border-top: none;

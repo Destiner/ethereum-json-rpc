@@ -45,7 +45,7 @@ header {
   border-bottom: 1px solid var(--color-border-primary);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   header {
     padding: 0 24px;
   }
@@ -110,7 +110,7 @@ header {
   opacity: 1;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .label {
     display: initial;
   }
