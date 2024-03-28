@@ -30,6 +30,7 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.17",
     "@headlessui/vue": "^1.7.19",
+    "@unhead/vue": "^1.9.2",
     "@vueuse/core": "^10.9.0",
     "evm-providers": "^0.4.3",
     "viem": "^2.9.4",
