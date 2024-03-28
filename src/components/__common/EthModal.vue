@@ -1,69 +1,51 @@
 <template>
-  <TransitionRoot
-    appear
-    :show="isOpen"
-    as="template"
+  <Dialog.Root
+    :open="isOpen"
+    @update:open="handleOpenUpdate"
   >
-    <Dialog
-      class="dialog"
-      @close="close()"
-    >
-      <TransitionChild
-        as="template"
-        enter="backdrop-enter"
-        enter-from="backdrop-enter-from"
-        enter-to="backdrop-enter-to"
-        leave="backdrop-leave"
-        leave-from="backdrop-leave-from"
-        leave-to="backdrop-leave-to"
-      >
-        <div
-          class="backdrop"
-          aria-hidden="true"
-        />
-      </TransitionChild>
-      <div class="body">
-        <IconCross
-          class="button-close"
-          @click="handleCrossClick"
-        />
-        <TransitionChild
-          as="template"
-          enter="panel-enter"
-          enter-from="panel-enter-from"
-          enter-to="panel-enter-to"
-          leave="panel-leave"
-          leave-from="panel-leave-form"
-          leave-to="panel-leave-to"
-        >
-          <DialogPanel
-            as="div"
-            class="panel"
-          >
-            <slot />
-          </DialogPanel>
-        </TransitionChild>
+    <Dialog.Portal>
+      <Dialog.Overlay class="overlay" />
+      <div>
+        <Dialog.Content>
+          <Dialog.Title> {{ title }} </Dialog.Title>
+          <Dialog.Description>
+            {{ description }}
+          </Dialog.Description>
+          <div class="body">
+            <IconCross
+              class="button-close"
+              @click="handleCrossClick"
+            />
+            <div
+              as="div"
+              class="panel"
+            >
+              <slot />
+            </div>
+          </div>
+        </Dialog.Content>
       </div>
-    </Dialog>
-  </TransitionRoot>
+    </Dialog.Portal>
+  </Dialog.Root>
 </template>
 
 <script setup lang="ts">
-import {
-  Dialog,
-  DialogPanel,
-  TransitionChild,
-  TransitionRoot,
-} from '@headlessui/vue';
+import { Dialog } from 'radix-vue/namespaced';
 
 import IconCross from './icon/Cross.vue';
 
-defineProps<{ isOpen: boolean }>();
+defineProps<{
+  isOpen: boolean;
+  title?: string;
+  description?: string;
+}>();
 
 const emit = defineEmits<{ (e: 'close'): void }>();
 
-function close(): void {
-  emit('close');
+function handleOpenUpdate(open: boolean): void {
+  if (!open) {
+    emit('close');
+  }
 }
 
 function handleCrossClick(): void {
@@ -77,7 +59,7 @@ function handleCrossClick(): void {
   z-index: 1;
 }
 
-.backdrop {
+.overlay {
   position: fixed;
   inset: 0;
   background: #000000c0;
@@ -92,69 +74,22 @@ function handleCrossClick(): void {
   justify-content: center;
 }
 
-.backdrop-enter {
-  transition: all 200ms ease-out;
-}
-
-.backdrop-enter-from {
-  opacity: 0;
-}
-
-.backdrop-enter-to {
-  opacity: 1;
-}
-
-.backdrop-leave {
-  transition: all 150ms ease-in;
-}
-
-.backdrop-leave-from {
-  opacity: 1;
-}
-
-.backdrop-leave-to {
-  opacity: 0;
-}
-
 .button-close {
   width: 28px;
   height: 28px;
   margin: 16px;
   opacity: 0.8;
+  cursor: pointer;
+}
+
+.button-close:hover {
+  opacity: 1;
 }
 
 @media (width >= 768px) {
   .button-close {
     display: none;
   }
-}
-
-.panel-enter {
-  transition: all 200ms ease-out;
-}
-
-.panel-enter-from {
-  transform: scale(0.95);
-  opacity: 0;
-}
-
-.panel-enter-to {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.panel-leave {
-  transition: all 150ms ease-in;
-}
-
-.panel-leave-form {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.panel-leave-to {
-  transform: scale(0.95);
-  opacity: 0;
 }
 
 .panel {
@@ -172,5 +107,37 @@ function handleCrossClick(): void {
     width: 450px;
     height: 60vh;
   }
+}
+
+@keyframes fade-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+div[data-state='open'] .panel {
+  animation: fade-in 0.25s ease-out;
+}
+
+div[data-state='closed'] .panel {
+  animation: fade-out 0.25s ease-in;
 }
 </style>
