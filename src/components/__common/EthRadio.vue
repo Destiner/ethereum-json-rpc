@@ -6,39 +6,31 @@
       :target="id"
       :disabled="disabled"
     />
-    <RadioGroup
-      :model-value="selectedOption"
+    <RadioGroup.Root
+      :model-value="selectedOption.value"
       @update:model-value="handleUpdate"
     >
-      <RadioGroupLabel class="caption">Select an option</RadioGroupLabel>
       <div class="list">
-        <RadioGroupOption
+        <RadioGroup.Item
           v-for="option in options"
-          v-slot="{ active }"
           :key="option.value"
           as="template"
           :value="option.value"
         >
           <div
-            :class="{ active, checked: option.value === modelValue }"
+            :class="{ checked: option.value === modelValue }"
             class="option"
           >
-            <RadioGroupLabel
-              as="p"
-              :class="{ checked: option.value === modelValue }"
-              class="label"
-            >
-              {{ option.label }}
-            </RadioGroupLabel>
+            {{ option.label }}
           </div>
-        </RadioGroupOption>
+        </RadioGroup.Item>
       </div>
-    </RadioGroup>
+    </RadioGroup.Root>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
+import { RadioGroup } from 'radix-vue/namespaced';
 import { computed } from 'vue';
 
 import EthLabel from './EthLabel.vue';
@@ -109,10 +101,6 @@ export { Option };
   border-radius: var(--border-radius-big);
   outline: none;
   cursor: pointer;
-}
-
-.option.active {
-  border-color: var(--color-border-secondary);
 }
 
 .option.checked {
