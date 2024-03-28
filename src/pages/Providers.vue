@@ -33,7 +33,10 @@
           />
           <FeatureChips v-model="selectedFeatures" />
         </div>
-        <div class="cards">
+        <div
+          v-if="availableProviders.length > 0"
+          class="cards"
+        >
           <CardProvider
             v-for="provider in availableProviders"
             :key="provider"
@@ -41,6 +44,12 @@
             :provider-data="getProviderData(provider)"
             :chain="getChainById(chainId)"
           />
+        </div>
+        <div
+          v-else
+          class="cards-empty"
+        >
+          No providers matching the selected criteria.
         </div>
       </div>
     </div>
@@ -180,5 +189,14 @@ h1 {
   display: flex;
   gap: var(--spacing-big);
   flex-wrap: wrap;
+}
+
+.cards-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-normal);
 }
 </style>
