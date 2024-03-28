@@ -106,12 +106,14 @@ const UNKNOWN_CHAIN = 'unknown';
 type ReferenceChain =
   | typeof ETHEREUM
   | typeof OPTIMISM
+  | typeof BASE
   | typeof POLYGON
   | typeof ARBITRUM;
 
 const REFERENCE_CHAINS: ReferenceChain[] = [
   ETHEREUM,
   OPTIMISM,
+  BASE,
   POLYGON,
   ARBITRUM,
 ];
@@ -567,6 +569,7 @@ export {
   CHAIN_IDS,
   ETHEREUM,
   OPTIMISM,
+  BASE,
   POLYGON,
   ARBITRUM,
   UNKNOWN_CHAIN,

@@ -1,6 +1,6 @@
 import { Ref, computed } from 'vue';
 
-import { ARBITRUM, ETHEREUM, OPTIMISM, POLYGON } from '@/utils/chains';
+import { ARBITRUM, BASE, ETHEREUM, OPTIMISM, POLYGON } from '@/utils/chains';
 import {
   CHAIN_ID,
   BLOCK_NUMBER,
@@ -86,6 +86,8 @@ function getDefaults(chain: ReferenceChain | null): Defaults {
       '0x21c3ac17a523528af506a37601fcb1c81d029f8b68dc63cd094f72767acdfd13',
     [OPTIMISM]:
       '0xb4e8f3687f535016146f643980855510bf025454859480a931aa4a7d297c81cd',
+    [BASE]:
+      '0x2a45c95d4f6d22dba9f9ab0e869dd100c67a0478e07eac522ad3f1ef35ad9943',
     [POLYGON]:
       '0x4f22eb7c645467e5359eccbe5c61c5771eec30e1a47863c7b1ae337a2bef1a0c',
     [ARBITRUM]:
@@ -96,6 +98,8 @@ function getDefaults(chain: ReferenceChain | null): Defaults {
       '0x05f71e1b2cb4f03e547739db15d080fd30c989eda04d37ce6264c5686e0722c9',
     [OPTIMISM]:
       '0x6c79b3fe80aa3ecf3696ec9707c91cb84d52c1029d4a5fcb7736688d423a3de6',
+    [BASE]:
+      '0xb0146c90f7894e4f1d631d2256405fc44e1bd9b60fd6b194433dbd99096e0a9d',
     [POLYGON]:
       '0x732dc072893bce74eb43784cae8650ddce4c4ce11940ec6d7ea6e681a83a1005',
     [ARBITRUM]:
@@ -107,6 +111,7 @@ function getDefaults(chain: ReferenceChain | null): Defaults {
   const contractMap: Record<ReferenceChain, string> = {
     [ETHEREUM]: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     [OPTIMISM]: '0x4200000000000000000000000000000000000006',
+    [BASE]: '0x4200000000000000000000000000000000000006',
     [POLYGON]: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
     [ARBITRUM]: '0x82af49447d8a07e3bd95bd0d56f35241523fbab1',
   };

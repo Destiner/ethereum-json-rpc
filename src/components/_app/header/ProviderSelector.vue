@@ -116,6 +116,7 @@ import useChain, {
 import {
   ETHEREUM,
   OPTIMISM,
+  BASE,
   POLYGON,
   ARBITRUM,
   UNKNOWN_CHAIN,
@@ -123,7 +124,7 @@ import {
 } from '@/utils/chains';
 import { isValidUrl } from '@/utils/validation';
 
-type ChainTag = 'ethereum' | 'optimism' | 'polygon' | 'arbitrum';
+type ChainTag = 'ethereum' | 'optimism' | 'base' | 'polygon' | 'arbitrum';
 type ChainOrUnknown = ReferenceChain | typeof UNKNOWN_CHAIN;
 
 const PING_INTERVAL = 10000;
@@ -143,6 +144,8 @@ function getChainTagById(id: ChainOrUnknown): ChainTag | 'unknown' {
       return 'ethereum';
     case OPTIMISM:
       return 'optimism';
+    case BASE:
+      return 'base';
     case POLYGON:
       return 'polygon';
     case ARBITRUM:
@@ -158,6 +161,8 @@ function getChainIdByTag(tag: ChainTag): ReferenceChain {
       return ETHEREUM;
     case 'optimism':
       return OPTIMISM;
+    case 'base':
+      return BASE;
     case 'polygon':
       return POLYGON;
     case 'arbitrum':
