@@ -1,104 +1,106 @@
 <template>
   <div class="selector">
-    <Popover class="selector">
-      <PopoverButton
+    <Popover.Root>
+      <Popover.Trigger
         as="template"
         class="trigger"
       >
         <span>{{ label }}</span>
-      </PopoverButton>
-      <transition name="panel">
-        <PopoverPanel class="panel">
-          <div
-            ref="el"
-            class="provider"
-          >
-            <EthSelect
-              v-model="providerType"
-              :options="providerOptions"
-              :label="'Provider'"
-            />
-          </div>
-          <div
-            v-if="providerType === 'custom'"
-            class="url"
-          >
-            <EthInput
-              v-model="url"
-              :label="'URL'"
-              required
-              :has-error="hasError(isUrlValid, isUrlDirty)"
-              @input="handleUrlInput"
-            />
-          </div>
-          <div
-            v-if="providerType !== 'automatic' && providerType !== 'custom'"
-            class="key"
-          >
-            <EthInput
-              v-model="key"
-              :label="'Key'"
-              required
-              :has-error="hasError(isKeyValid, isKeyDirty)"
-              @input="handleKeyInput"
-            />
-          </div>
-          <div class="chain">
-            <EthSelect
-              v-if="providerType !== 'custom'"
-              :model-value="getChainTagById(chain)"
-              :options="chainOptions"
-              :label="'Chain'"
-              @update:model-value="handleChainUpdate"
-            />
-            <EthSelect
-              v-else
-              :model-value="
-                getChainTagById(
-                  providerChain || (UNKNOWN_CHAIN as ChainOrUnknown),
-                )
-              "
-              :options="readableChainOptions"
-              :label="'Chain'"
-              disabled
-            />
-          </div>
-          <div
-            v-if="providerType !== 'automatic' && providerType !== 'custom'"
-            class="url"
-          >
-            <EthInput
-              :model-value="providerUrl"
-              :label="'URL'"
-              disabled
-              class="input"
-            />
-          </div>
-          <div
-            v-if="latestBlock >= 0"
-            class="status"
-            :class="{ loading: isLoading }"
-          >
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content align="end">
+          <div class="panel">
             <div
-              class="status-indicator"
-              :class="{ success: !isError, error: isError }"
-            />
-            <div
-              class="status-label"
-              :class="{ success: !isError, error: isError }"
+              ref="el"
+              class="provider"
             >
-              {{ isError ? 'Unavailable' : latestBlock }}
+              <EthSelect
+                v-model="providerType"
+                :options="providerOptions"
+                :label="'Provider'"
+              />
+            </div>
+            <div
+              v-if="providerType === 'custom'"
+              class="url"
+            >
+              <EthInput
+                v-model="url"
+                :label="'URL'"
+                required
+                :has-error="hasError(isUrlValid, isUrlDirty)"
+                @input="handleUrlInput"
+              />
+            </div>
+            <div
+              v-if="providerType !== 'automatic' && providerType !== 'custom'"
+              class="key"
+            >
+              <EthInput
+                v-model="key"
+                :label="'Key'"
+                required
+                :has-error="hasError(isKeyValid, isKeyDirty)"
+                @input="handleKeyInput"
+              />
+            </div>
+            <div class="chain">
+              <EthSelect
+                v-if="providerType !== 'custom'"
+                :model-value="getChainTagById(chain)"
+                :options="chainOptions"
+                :label="'Chain'"
+                @update:model-value="handleChainUpdate"
+              />
+              <EthSelect
+                v-else
+                :model-value="
+                  getChainTagById(
+                    providerChain || (UNKNOWN_CHAIN as ChainOrUnknown),
+                  )
+                "
+                :options="readableChainOptions"
+                :label="'Chain'"
+                disabled
+              />
+            </div>
+            <div
+              v-if="providerType !== 'automatic' && providerType !== 'custom'"
+              class="url"
+            >
+              <EthInput
+                :model-value="providerUrl"
+                :label="'URL'"
+                disabled
+                class="input"
+              />
+            </div>
+            <div
+              v-if="latestBlock >= 0"
+              class="status"
+              :class="{ loading: isLoading }"
+            >
+              <div
+                class="status-indicator"
+                :class="{ success: !isError, error: isError }"
+              />
+              <div
+                class="status-label"
+                :class="{ success: !isError, error: isError }"
+              >
+                {{ isError ? 'Unavailable' : latestBlock }}
+              </div>
             </div>
           </div>
-        </PopoverPanel>
-      </transition>
-    </Popover>
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { useElementVisibility, useIntervalFn } from '@vueuse/core';
+import { Popover } from 'radix-vue/namespaced';
 import { computed, onMounted, ref, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
@@ -383,6 +385,10 @@ const latestBlock = ref<bigint>(-1n);
   box-shadow: var(--shadow-medium);
   font-size: var(--font-size-big);
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .trigger:hover {
@@ -405,28 +411,32 @@ const latestBlock = ref<bigint>(-1n);
   font-size: var(--font-size-normal);
 }
 
-.panel-enter-active {
-  transition: all 200ms ease-out;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-.panel-enter-from {
-  opacity: 0;
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
-.panel-enter-to {
-  opacity: 1;
+div[data-state='open'] .panel {
+  animation: fade-in 0.25s ease-out;
 }
 
-.panel-leave-active {
-  transition: all 150ms ease-in;
-}
-
-.panel-leave-form {
-  opacity: 1;
-}
-
-.panel-leave-to {
-  opacity: 0;
+div[data-state='closed'] .panel {
+  animation: fade-out 0.25s ease-in;
 }
 
 .input.error {
