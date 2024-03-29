@@ -1,6 +1,6 @@
 <template>
   <Dialog.Root
-    :open="isOpen"
+    :open
     @update:open="handleOpenUpdate"
   >
     <Dialog.Portal>
@@ -35,7 +35,7 @@ import { Dialog } from 'radix-vue/namespaced';
 import IconCross from './icon/Cross.vue';
 
 defineProps<{
-  isOpen: boolean;
+  open: boolean;
   title?: string;
   description?: string;
 }>();

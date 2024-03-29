@@ -18,7 +18,7 @@
     <nav class="methods">
       <EthModal
         v-if="isPhone"
-        :is-open="isModalOpen"
+        :open="isModalOpen"
         @close="handleModalClose"
       >
         <MethodList

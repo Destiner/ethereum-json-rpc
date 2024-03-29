@@ -33,7 +33,7 @@
     <div v-else-if="param.type === 'object'">
       <MethodFormParam
         v-for="(item, key) in param.items"
-        :key="key"
+        :key
         :param="item"
         :input="(input as Record<string, unknown>)[key]"
         @update:input="(value) => handleObjectUpdate(key, value)"

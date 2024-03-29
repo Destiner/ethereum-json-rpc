@@ -34,8 +34,8 @@
     <EthLabel :value="'Response'" />
     <CodeView
       :value="response"
-      :is-loading="isLoading"
-      :is-error="isError"
+      :is-loading
+      :is-error
     />
   </div>
 </template>

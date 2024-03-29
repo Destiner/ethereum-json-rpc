@@ -1,7 +1,7 @@
 <template>
   <div class="switch">
     <Switch.Root
-      :model-value="modelValue"
+      :model-value
       as="template"
       @update:model-value="handleUpdate"
     >

@@ -3,8 +3,8 @@
     :to="{
       name: 'provider-chain',
       params: {
-        provider: provider,
-        chain: chain,
+        provider,
+        chain,
       },
     }"
   >
@@ -12,7 +12,7 @@
       <div class="header">
         <IconProvider
           class="icon"
-          :provider="provider"
+          :provider
         />
         <div class="name">{{ getProviderName(provider) }}</div>
       </div>

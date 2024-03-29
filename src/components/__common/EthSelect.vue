@@ -4,7 +4,7 @@
       v-if="label"
       :value="label"
       :target="id"
-      :disabled="disabled"
+      :disabled
     />
     <div>
       <Select.Root
@@ -12,7 +12,7 @@
         @update:model-value="handleUpdate"
       >
         <Select.Trigger
-          :id="id"
+          :id
           class="trigger"
           :class="{ disabled }"
         >

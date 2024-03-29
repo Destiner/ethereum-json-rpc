@@ -3,7 +3,7 @@
     <MethodFormParam
       v-for="(param, index) in params"
       :key="index"
-      :param="param"
+      :param
       :input="inputs[index]"
       @update:input="(value) => handleUpdate(index, value)"
     />

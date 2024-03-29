@@ -19,7 +19,7 @@
       <div class="header">
         <IconProvider
           class="icon"
-          :provider="provider"
+          :provider
         />
         <h1>{{ getProviderName(provider) }}</h1>
       </div>
@@ -37,7 +37,7 @@
           />
           <EndpointUrl
             v-if="endpoint"
-            :endpoint="endpoint"
+            :endpoint
           />
         </div>
         <div class="chain-block">
@@ -49,11 +49,11 @@
       <BannerLimitedSupport />
       <FeatureList
         v-if="features"
-        :features="features"
+        :features
       />
       <MethodList
         v-if="methods"
-        :methods="methods"
+        :methods
       />
     </div>
   </div>

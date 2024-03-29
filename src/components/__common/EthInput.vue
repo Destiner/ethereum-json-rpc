@@ -3,18 +3,18 @@
     <EthLabel
       v-if="label"
       :value="label"
-      :required="required"
-      :disabled="disabled"
+      :required
+      :disabled
       :target="id"
     />
     <input
-      :id="id"
+      :id
       ref="el"
       type="text"
       :class="{ error: hasError }"
       :value="modelValue"
-      :disabled="disabled"
-      :placeholder="placeholder"
+      :disabled
+      :placeholder
       @input="handleInput"
       @blur="handleBlur"
     />

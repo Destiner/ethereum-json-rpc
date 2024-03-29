@@ -3,7 +3,7 @@
     <h2>Features</h2>
     <div class="list">
       <div
-        v-for="(supportStatus, feature) in supportedFeatures"
+        v-for="(_, feature) in supportedFeatures"
         :key="feature"
         class="item"
       >

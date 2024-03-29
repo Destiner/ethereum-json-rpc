@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <textarea
-      :value="value"
+      :value
       readonly
       spellcheck="false"
       :rows="compact ? 10 : 16"

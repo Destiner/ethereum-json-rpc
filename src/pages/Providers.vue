@@ -40,7 +40,7 @@
           <CardProvider
             v-for="provider in availableProviders"
             :key="provider"
-            :provider="provider"
+            :provider
             :provider-data="getProviderData(provider)"
             :chain="getChainById(chainId)"
           />

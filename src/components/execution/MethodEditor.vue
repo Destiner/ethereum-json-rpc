@@ -15,7 +15,7 @@
   />
   <MethodForm
     v-if="hasParams"
-    :inputs="inputs"
+    :inputs
     :params="method.params"
     @update:inputs="handleUpdate"
   />
