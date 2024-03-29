@@ -46,7 +46,11 @@
         <div class="code">
           <h2>-32603</h2>
           <div class="title">Internal error</div>
-          <div class="description">Internal JSON-RPC error</div>
+          <div class="description">
+            This might happen when the node reverts during the request
+            execution. This can also happen if the request is malformed or
+            invalid.
+          </div>
         </div>
         <div class="code">
           <h2>-32000</h2>
