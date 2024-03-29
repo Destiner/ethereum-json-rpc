@@ -72,7 +72,7 @@ header {
 }
 
 .brand {
-  display: flex;
+  display: none;
   gap: var(--spacing-normal);
   align-items: center;
 }
@@ -86,8 +86,13 @@ header {
 }
 
 .label {
-  display: none;
   font-weight: bold;
+}
+
+@media (width >= 768px) {
+  .brand {
+    display: flex;
+  }
 }
 
 .pages {
@@ -114,12 +119,6 @@ header {
 .page.router-link-active {
   border-bottom: 1px solid var(--color-accent-primary);
   opacity: 1;
-}
-
-@media (width >= 768px) {
-  .label {
-    display: initial;
-  }
 }
 
 .icon-github {
