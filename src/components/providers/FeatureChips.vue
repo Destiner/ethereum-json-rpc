@@ -60,12 +60,12 @@ function handleItemClick(feature: Feature): void {
   cursor: pointer;
 }
 
-.item:hover {
-  border-color: var(--color-border-secondary);
-}
-
 .item.active {
   border-color: var(--color-border-secondary);
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-tertiary);
+}
+
+.item:hover {
+  border-color: var(--color-accent-primary);
 }
 </style>
