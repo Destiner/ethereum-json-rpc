@@ -31,7 +31,7 @@
     "@fontsource-variable/inter": "^5.0.17",
     "@unhead/vue": "^1.9.2",
     "@vueuse/core": "^10.9.0",
-    "evm-providers": "^0.4.3",
+    "evm-providers": "^0.4.4",
     "radix-vue": "^1.5.3",
     "viem": "^2.9.4",
     "vue": "^3.4.21",
