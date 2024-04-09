@@ -8,6 +8,7 @@ import {
   LlamaNodesChain,
   OneRpcChain,
   PublicNodeChain,
+  QuickNodeChain,
   TenderlyChain,
   alchemy,
   ankr,
@@ -18,6 +19,7 @@ import {
   llamaNodes,
   oneRpc,
   publicNode,
+  quicknode,
   tenderly,
 } from 'evm-providers';
 
@@ -35,6 +37,7 @@ const INFURA = 'infura';
 const LLAMA_NODES = 'llamaNodes';
 const ONE_RPC = 'oneRpc';
 const PUBLIC_NODE = 'publicNode';
+const QUICK_NODE = 'quickNode';
 const TENDERLY = 'tenderly';
 
 type Provider =
@@ -47,6 +50,7 @@ type Provider =
   | typeof LLAMA_NODES
   | typeof ONE_RPC
   | typeof PUBLIC_NODE
+  | typeof QUICK_NODE
   | typeof TENDERLY;
 
 const PROVIDERS: Provider[] = [
@@ -59,6 +63,7 @@ const PROVIDERS: Provider[] = [
   LLAMA_NODES,
   ONE_RPC,
   PUBLIC_NODE,
+  QUICK_NODE,
   TENDERLY,
 ];
 
@@ -118,6 +123,8 @@ function getProviderName(provider: Provider): string {
       return '1RPC';
     case PUBLIC_NODE:
       return 'Public Node';
+    case QUICK_NODE:
+      return 'QuickNode';
     case TENDERLY:
       return 'Tenderly';
   }
@@ -143,6 +150,8 @@ function getEndpoint(provider: Provider, chain: ChainId): string | null {
       return oneRpc(chain as OneRpcChain);
     case PUBLIC_NODE:
       return publicNode(chain as PublicNodeChain);
+    case QUICK_NODE:
+      return quicknode(chain as QuickNodeChain, 'APP_NAME', 'APP_KEY');
     case TENDERLY:
       return tenderly(chain as TenderlyChain, 'ACCESS_KEY');
   }
@@ -158,6 +167,7 @@ export {
   LLAMA_NODES,
   ONE_RPC,
   PUBLIC_NODE,
+  QUICK_NODE,
   TENDERLY,
   FEATURES,
   PROVIDERS,

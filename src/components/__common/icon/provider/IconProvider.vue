@@ -10,6 +10,7 @@
     <IconOneRpc v-if="provider === ONE_RPC" />
     <IconPublicNode v-if="provider === PUBLIC_NODE" />
     <IconTenderly v-if="provider === TENDERLY" />
+    <IconQuicknode v-if="provider === QUICK_NODE" />
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import {
   ONE_RPC,
   PUBLIC_NODE,
   TENDERLY,
+  QUICK_NODE,
   Provider,
 } from '@/utils/providers';
 
@@ -37,6 +39,7 @@ import IconInfura from './Infura.vue';
 import IconLlamaNodes from './LlamaNodes.vue';
 import IconOneRpc from './OneRpc.vue';
 import IconPublicNode from './PublicNode.vue';
+import IconQuicknode from './Quicknode.vue';
 import IconTenderly from './Tenderly.vue';
 
 defineProps<{

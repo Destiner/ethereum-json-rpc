@@ -11,6 +11,7 @@ import {
   LlamaNodesChain,
   OneRpcChain,
   PublicNodeChain,
+  QuickNodeChain,
   TenderlyChain,
   alchemy,
   ankr,
@@ -23,7 +24,7 @@ import {
   llamaNodes,
   oneRpc,
   publicNode,
-  // quicknode,
+  quicknode,
   // stackup,
   tenderly,
 } from 'evm-providers';
@@ -101,6 +102,7 @@ import {
   LLAMA_NODES,
   ONE_RPC,
   PUBLIC_NODE,
+  QUICK_NODE,
   TENDERLY,
   Provider,
 } from '@/utils/providers';
@@ -110,6 +112,8 @@ const infuraApiKey = process.env.INFURA_KEY as string;
 const llamaNodesProjectId = process.env.LLAMA_NODES_PROJECT_ID as string;
 const blastProjectId = process.env.BLAST_PROJECT_ID as string;
 const tenderlyAccessKey = process.env.TENDERLY_ACCESS_KEY as string;
+const quicknodeAppName = process.env.QUICKNODE_APP_NAME as string;
+const quicknodeAppKey = process.env.QUICKNODE_APP_KEY as string;
 
 type Status = 'supported' | 'unsupported' | 'unknown';
 
@@ -155,8 +159,12 @@ function getProviderRpcUrl(
       return oneRpc(chain as OneRpcChain);
     case PUBLIC_NODE:
       return publicNode(chain as PublicNodeChain);
-    // case QUICK_NODE:
-    //   return quicknode(chain);
+    case QUICK_NODE:
+      return quicknode(
+        chain as QuickNodeChain,
+        quicknodeAppName,
+        quicknodeAppKey,
+      );
     // case STACKUP:
     //   return stackup();
     case TENDERLY:
