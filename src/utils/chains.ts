@@ -21,6 +21,7 @@ import {
   polygonAmoy,
   polygonZkEvm,
   polygonZkEvmTestnet,
+  polygonZkEvmCardona,
   avalanche,
   avalancheFuji,
   gnosis,
@@ -72,6 +73,7 @@ const POLYGON_MUMBAI = 'polygon-mumbai';
 const POLYGON_AMOY = 'polygon-amoy';
 const POLYGON_ZKEVM = 'polygon-zkevm';
 const POLYGON_ZKEVM_TESTNET = 'polygon-zkevm-testnet';
+const POLYGON_ZKEVM_CARDONA = 'polygon-zkevm-cardona';
 const AVALANCHE_C = 'avalanche-c';
 const AVALANCHE_FUJI = 'avalanche-fuji';
 const GNOSIS = 'gnosis';
@@ -140,6 +142,7 @@ type Chain =
   | typeof POLYGON_AMOY
   | typeof POLYGON_ZKEVM
   | typeof POLYGON_ZKEVM_TESTNET
+  | typeof POLYGON_ZKEVM_CARDONA
   | typeof AVALANCHE_C
   | typeof AVALANCHE_FUJI
   | typeof GNOSIS
@@ -192,6 +195,7 @@ type ChainId =
   | typeof polygonAmoy.id
   | typeof polygonZkEvm.id
   | typeof polygonZkEvmTestnet.id
+  | typeof polygonZkEvmCardona.id
   | typeof avalanche.id
   | typeof avalancheFuji.id
   | typeof gnosis.id
@@ -244,6 +248,7 @@ const CHAINS: Chain[] = [
   POLYGON_AMOY,
   POLYGON_ZKEVM,
   POLYGON_ZKEVM_TESTNET,
+  POLYGON_ZKEVM_CARDONA,
   AVALANCHE_C,
   AVALANCHE_FUJI,
   GNOSIS,
@@ -296,6 +301,7 @@ const CHAIN_IDS: ChainId[] = [
   polygonAmoy.id,
   polygonZkEvm.id,
   polygonZkEvmTestnet.id,
+  polygonZkEvmCardona.id,
   avalanche.id,
   avalancheFuji.id,
   gnosis.id,
@@ -379,6 +385,8 @@ function getChainById(chainId: ChainId): Chain {
       return POLYGON_ZKEVM;
     case polygonZkEvmTestnet.id:
       return POLYGON_ZKEVM_TESTNET;
+    case polygonZkEvmCardona.id:
+      return POLYGON_ZKEVM_CARDONA;
     case avalanche.id:
       return AVALANCHE_C;
     case avalancheFuji.id:
@@ -489,6 +497,8 @@ function getChainData(chain: Chain): ChainData {
       return polygonZkEvm;
     case POLYGON_ZKEVM_TESTNET:
       return polygonZkEvmTestnet;
+    case POLYGON_ZKEVM_CARDONA:
+      return polygonZkEvmCardona;
     case AVALANCHE_C:
       return avalanche;
     case AVALANCHE_FUJI:
