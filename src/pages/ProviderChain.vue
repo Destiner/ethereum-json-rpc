@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <BannerLimitedSupport />
+      <BannerLimitedSupport v-if="provider !== QUICK_NODE" />
       <FeatureList
         v-if="features"
         :features
@@ -82,6 +82,7 @@ import {
   Features,
   Provider,
   Methods,
+  QUICK_NODE,
   getProviderName,
   getProviderRegistry,
   getEndpoint,
