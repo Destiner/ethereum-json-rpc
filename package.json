@@ -19,6 +19,7 @@
     "url": "git://github.com/Destiner/ethereum-json-rpc.git"
   },
   "scripts": {
+    "generate:providers": "bun src/scripts/fetchProviders.ts",
     "build": "vite build",
     "dev": "vite",
     "lint": "bun run lint:prettier && bun run lint:eslint",
