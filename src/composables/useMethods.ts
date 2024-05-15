@@ -1,3 +1,4 @@
+import { zeroHash } from 'viem';
 import { Ref, computed } from 'vue';
 
 import { ARBITRUM, BASE, ETHEREUM, OPTIMISM, POLYGON } from '@/utils/chains';
@@ -261,10 +262,10 @@ function getMethodList(defaults: Defaults): Method[] {
           default: contract,
         },
         {
-          type: 'int',
+          type: 'bytes32',
           name: 'slot',
           isRequired: true,
-          default: '0',
+          default: zeroHash,
           description: 'Position (index) of the memory slot',
         },
         {
