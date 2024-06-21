@@ -202,7 +202,7 @@ function getMethodList(defaults: Defaults): Method[] {
         const newestBlock = params[1];
         const rewardPercentiles = params[2] as (string | null)[];
         const formattedRewardPercentiles = rewardPercentiles
-          .filter((percentile): percentile is string => percentile !== null)
+          .filter((percentile) => percentile !== null)
           .map((percentile) => parseInt(percentile));
         formattedRewardPercentiles.sort((a, b) => a - b);
         return [blockCount, newestBlock, formattedRewardPercentiles];
@@ -512,9 +512,7 @@ function getMethodList(defaults: Defaults): Method[] {
         const storageKeys = params[1] as (string | null)[];
         const block = params[2];
 
-        const formattedStorageKeys = storageKeys.filter(
-          (key): key is string => key !== null,
-        );
+        const formattedStorageKeys = storageKeys.filter((key) => key !== null);
         return [account, formattedStorageKeys, block];
       },
     },
