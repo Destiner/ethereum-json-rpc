@@ -284,7 +284,7 @@ async function getBlockHash(endpointUrl: string): Promise<string> {
       blockTag: 'latest',
     });
     return block.hash;
-  } catch (e) {
+  } catch {
     return zeroHash;
   }
 }

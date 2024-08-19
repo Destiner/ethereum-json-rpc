@@ -364,7 +364,7 @@ async function ping(): Promise<void> {
   try {
     latestBlock.value = await client.value.getBlockNumber();
     isError.value = false;
-  } catch (e) {
+  } catch {
     isError.value = true;
   }
   isLoading.value = false;
