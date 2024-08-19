@@ -27,11 +27,9 @@ import {
   gnosis,
   gnosisChiado,
   scroll,
-  scrollTestnet,
   scrollSepolia,
-  zkSync,
-  zkSyncSepoliaTestnet,
-  zkSyncTestnet,
+  zksync,
+  zksyncSepoliaTestnet,
   celo,
   celoAlfajores,
   linea,
@@ -40,6 +38,7 @@ import {
   blastSepolia,
   mantle,
   mantleTestnet,
+  mantleSepoliaTestnet,
   mode,
   modeTestnet,
   bsc,
@@ -79,11 +78,9 @@ const AVALANCHE_FUJI = 'avalanche-fuji';
 const GNOSIS = 'gnosis';
 const GNOSIS_CHIADO = 'gnosis-chiado';
 const SCROLL = 'scroll';
-const SCROLL_ALPHA = 'scroll-alpha';
 const SCROLL_SEPOLIA = 'scroll-sepolia';
 const ZKSYNC_ERA = 'zksync-era';
 const ZKSYNC_ERA_SEPOLIA = 'zksync-era-sepolia';
-const ZKSYNC_ERA_GOERLI = 'zksync-era-goerli';
 const CELO = 'celo';
 const CELO_ALFAJORES = 'celo-alfajores';
 const LINEA = 'linea';
@@ -148,11 +145,9 @@ type Chain =
   | typeof GNOSIS
   | typeof GNOSIS_CHIADO
   | typeof SCROLL
-  | typeof SCROLL_ALPHA
   | typeof SCROLL_SEPOLIA
   | typeof ZKSYNC_ERA
   | typeof ZKSYNC_ERA_SEPOLIA
-  | typeof ZKSYNC_ERA_GOERLI
   | typeof CELO
   | typeof CELO_ALFAJORES
   | typeof LINEA
@@ -201,11 +196,9 @@ type ChainId =
   | typeof gnosis.id
   | typeof gnosisChiado.id
   | typeof scroll.id
-  | typeof scrollTestnet.id
   | typeof scrollSepolia.id
-  | typeof zkSync.id
-  | typeof zkSyncSepoliaTestnet.id
-  | typeof zkSyncTestnet.id
+  | typeof zksync.id
+  | typeof zksyncSepoliaTestnet.id
   | typeof celo.id
   | typeof celoAlfajores.id
   | typeof linea.id
@@ -214,7 +207,7 @@ type ChainId =
   | typeof blastSepolia.id
   | typeof mantle.id
   | typeof mantleTestnet.id
-  | 5003
+  | typeof mantleSepoliaTestnet.id
   | typeof mode.id
   | typeof modeTestnet.id
   | typeof bsc.id
@@ -254,11 +247,9 @@ const CHAINS: Chain[] = [
   GNOSIS,
   GNOSIS_CHIADO,
   SCROLL,
-  SCROLL_ALPHA,
   SCROLL_SEPOLIA,
   ZKSYNC_ERA,
   ZKSYNC_ERA_SEPOLIA,
-  ZKSYNC_ERA_GOERLI,
   CELO,
   CELO_ALFAJORES,
   LINEA,
@@ -307,11 +298,9 @@ const CHAIN_IDS: ChainId[] = [
   gnosis.id,
   gnosisChiado.id,
   scroll.id,
-  scrollTestnet.id,
   scrollSepolia.id,
-  zkSync.id,
-  zkSyncSepoliaTestnet.id,
-  zkSyncTestnet.id,
+  zksync.id,
+  zksyncSepoliaTestnet.id,
   celo.id,
   celoAlfajores.id,
   linea.id,
@@ -397,16 +386,12 @@ function getChainById(chainId: ChainId): Chain {
       return GNOSIS_CHIADO;
     case scroll.id:
       return SCROLL;
-    case scrollTestnet.id:
-      return SCROLL_ALPHA;
     case scrollSepolia.id:
       return SCROLL_SEPOLIA;
-    case zkSync.id:
+    case zksync.id:
       return ZKSYNC_ERA;
-    case zkSyncSepoliaTestnet.id:
+    case zksyncSepoliaTestnet.id:
       return ZKSYNC_ERA_SEPOLIA;
-    case zkSyncTestnet.id:
-      return ZKSYNC_ERA_GOERLI;
     case celo.id:
       return CELO;
     case celoAlfajores.id:
@@ -509,16 +494,12 @@ function getChainData(chain: Chain): ChainData {
       return gnosisChiado;
     case SCROLL:
       return scroll;
-    case SCROLL_ALPHA:
-      return scrollTestnet;
     case SCROLL_SEPOLIA:
       return scrollSepolia;
     case ZKSYNC_ERA:
-      return zkSync;
+      return zksync;
     case ZKSYNC_ERA_SEPOLIA:
-      return zkSyncSepoliaTestnet;
-    case ZKSYNC_ERA_GOERLI:
-      return zkSyncTestnet;
+      return zksyncSepoliaTestnet;
     case CELO:
       return celo;
     case CELO_ALFAJORES:
@@ -536,20 +517,7 @@ function getChainData(chain: Chain): ChainData {
     case MANTLE_GOERLI:
       return mantleTestnet;
     case MANTLE_SEPOLIA:
-      return {
-        id: 5003,
-        name: 'Mantle Sepolia',
-        nativeCurrency: {
-          name: 'Mantle Sepolia Ether',
-          symbol: 'MSETH',
-          decimals: 18,
-        },
-        rpcUrls: {
-          default: {
-            http: ['https://rpc.mantle.sepolia.io'],
-          },
-        },
-      };
+      return mantleSepoliaTestnet;
     case MODE:
       return mode;
     case MODE_SEPOLIA:
