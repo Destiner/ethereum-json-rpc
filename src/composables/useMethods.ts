@@ -964,7 +964,7 @@ function getMethodList(defaults: Defaults): Method[] {
           itemType: 'trace',
           name: 'type',
           description:
-            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "stateDiff" to get information on altered Ethereum state due to execution of the given transaction.',
         },
         {
           type: 'block',
@@ -1040,7 +1040,7 @@ function getMethodList(defaults: Defaults): Method[] {
           itemType: 'trace',
           name: 'type',
           description:
-            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "stateDiff" to get information on altered Ethereum state due to execution of the given transaction.',
         },
       ],
     },
@@ -1061,7 +1061,7 @@ function getMethodList(defaults: Defaults): Method[] {
           itemType: 'trace',
           name: 'type',
           description:
-            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "stateDiff" to get information on altered Ethereum state due to execution of the given transaction.',
         },
       ],
     },
@@ -1082,7 +1082,7 @@ function getMethodList(defaults: Defaults): Method[] {
           itemType: 'trace',
           name: 'type',
           description:
-            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "statediff" to get information on altered Ethereum state due to execution of the given transaction.',
+            'Or or more trace types: "vmTrace" to get a full trace of virtual machine\'s state during the execution of the given of given transaction, including for any subcalls, "trace" to get the basic trace of the given transaction, "stateDiff" to get information on altered Ethereum state due to execution of the given transaction.',
         },
       ],
     },

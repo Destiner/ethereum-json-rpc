@@ -60,7 +60,7 @@ function validatePrimitiveParam(
       }
     }
     case 'trace':
-      return ['vmTrace', 'trace', 'statediff'].includes(input);
+      return ['vmTrace', 'trace', 'stateDiff'].includes(input);
   }
 }
 
