@@ -17,6 +17,7 @@
     "noImplicitThis": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedSideEffectImports": true,
     /* No transpiling */
     "moduleResolution": "Bundler",
     "module": "preserve",
