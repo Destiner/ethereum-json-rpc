@@ -37,9 +37,9 @@ const { label = '', placeholder = '' } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
-  (e: 'input', value: string): void;
-  (e: 'blur'): void;
+  'update:modelValue': [value: string];
+  input: [value: string];
+  blur: [];
 }>();
 
 const activeElement = useActiveElement();

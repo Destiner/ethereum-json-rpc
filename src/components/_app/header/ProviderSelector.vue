@@ -17,7 +17,7 @@
               <EthSelect
                 v-model="providerType"
                 :options="providerOptions"
-                :label="'Provider'"
+                label="Provider"
               />
             </div>
             <div
@@ -26,7 +26,7 @@
             >
               <EthInput
                 v-model="url"
-                :label="'URL'"
+                label="URL"
                 required
                 :has-error="hasError(isUrlValid, isUrlDirty)"
                 @input="handleUrlInput"
@@ -38,7 +38,7 @@
             >
               <EthInput
                 v-model="key"
-                :label="'Key'"
+                label="Key"
                 required
                 :has-error="hasError(isKeyValid, isKeyDirty)"
                 @input="handleKeyInput"
@@ -49,7 +49,7 @@
                 v-if="providerType !== 'custom'"
                 :model-value="getChainTagById(chain)"
                 :options="chainOptions"
-                :label="'Chain'"
+                label="Chain"
                 @update:model-value="handleChainUpdate"
               />
               <EthSelect
@@ -60,7 +60,7 @@
                   )
                 "
                 :options="readableChainOptions"
-                :label="'Chain'"
+                label="Chain"
                 disabled
               />
             </div>
@@ -70,7 +70,7 @@
             >
               <EthInput
                 :model-value="providerUrl"
-                :label="'URL'"
+                label="URL"
                 disabled
                 class="input"
               />

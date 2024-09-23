@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <EthLabel :value="'Endpoint URL'" />
+    <EthLabel value="Endpoint URL" />
     <div
       class="box"
       @click="copy"

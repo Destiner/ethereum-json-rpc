@@ -1,14 +1,16 @@
 <template>
   <EthHeader />
-  <router-view />
+  <RouterView />
 </template>
 
 <script setup lang="ts">
 import '@fontsource-variable/inter';
+import { RouterView } from 'vue-router';
 
 import EthHeader from '@/components/_app/header/EthHeader.vue';
 </script>
 
+<!-- eslint-disable-next-line vue/enforce-style-attribute -->
 <style>
 :root {
   --white: #fff;

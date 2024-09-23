@@ -3,19 +3,19 @@
     <EthRadio
       :model-value="targetLanguage"
       :options="targetLanguages"
-      :label="'Language'"
+      label="Language"
       @update:model-value="handleTargetLanguageUpdate"
     />
     <EthRadio
       v-if="targetLibraries.length > 1"
       :model-value="targetLibrary"
       :options="targetLibraries"
-      :label="'Library'"
+      label="Library"
       @update:model-value="handleTargetLibraryUpdate"
     />
   </div>
   <div class="request">
-    <EthLabel :value="'Request'" />
+    <EthLabel value="Request" />
     <div class="request-view">
       <CodeView
         :value="request"
@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="response">
-    <EthLabel :value="'Response'" />
+    <EthLabel value="Response" />
     <CodeView
       :value="response"
       :is-loading
@@ -85,8 +85,8 @@ const { inputs, method, isShown, isError } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:is-shown', value: boolean): void;
-  (e: 'update:is-error', value: boolean): void;
+  'update:is-shown': [value: boolean];
+  'update:is-error': [value: boolean];
 }>();
 
 const { cmd_enter } = useMagicKeys();

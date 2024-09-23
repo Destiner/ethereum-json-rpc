@@ -21,7 +21,7 @@ const { inputs } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:inputs', value: unknown[]): void;
+  'update:inputs': [value: unknown[]];
 }>();
 
 function handleUpdate(index: number, value: unknown): void {

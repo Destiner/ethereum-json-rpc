@@ -17,7 +17,7 @@
         :key="method.id"
         class="item"
         :class="{ selected: method.id === selected.id }"
-        @click="emit('select', method)"
+        @click="() => emit('select', method)"
       >
         {{ method.id }}
       </div>
@@ -38,7 +38,7 @@ const { selected } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'select', value: Method): void;
+  select: [value: Method];
 }>();
 
 const { cmd_slash } = useMagicKeys();

@@ -70,8 +70,8 @@ const { param, input } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:input', value: unknown): void;
-  (e: 'blur'): void;
+  'update:input': [value: unknown];
+  blur: [];
 }>();
 
 function isParamRequired(param: Param): boolean {

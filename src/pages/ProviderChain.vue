@@ -32,7 +32,7 @@
             :model-value="chain"
             class="select"
             :options="chainOptions"
-            :label="'Chain'"
+            label="Chain"
             @update:model-value="handleChainUpdate"
           />
           <EndpointUrl

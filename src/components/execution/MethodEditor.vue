@@ -35,7 +35,7 @@ const { method } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:inputs', value: unknown[]): void;
+  'update:inputs': [value: unknown[]];
 }>();
 
 const hasParams = computed(() => method.params.length > 0);

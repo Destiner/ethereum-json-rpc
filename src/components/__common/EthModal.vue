@@ -40,7 +40,9 @@ defineProps<{
   description?: string;
 }>();
 
-const emit = defineEmits<{ (e: 'close'): void }>();
+const emit = defineEmits<{
+  close: [];
+}>();
 
 function handleOpenUpdate(open: boolean): void {
   if (!open) {

@@ -2,6 +2,7 @@
   <a
     href="https://github.com/Destiner/ethereum-json-rpc"
     target="_blank"
+    rel="noopener noreferrer"
   >
     <svg
       width="100%"

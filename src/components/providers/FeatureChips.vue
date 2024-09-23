@@ -5,7 +5,7 @@
       :key="feature"
       class="item"
       :class="{ active: modelValue.includes(feature) }"
-      @click="handleItemClick(feature)"
+      @click="() => handleItemClick(feature)"
     >
       {{ formatProviderFeature(feature) }}
     </div>
