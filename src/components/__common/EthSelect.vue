@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { Select } from 'radix-vue/namespaced';
-import { computed } from 'vue';
+import { computed, useId } from 'vue';
 
 import IconChevronDown from '@/components/__common/icon/ChevronDown.vue';
 
@@ -67,7 +67,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
 }>();
 
-const id = computed(() => `select-${Math.random().toString().substring(2)}`);
+const id = useId();
 
 const selectedOption = computed<Option>(
   () => options.find((option) => option.value === modelValue) as Option,

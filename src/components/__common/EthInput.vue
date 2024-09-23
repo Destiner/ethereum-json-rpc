@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { useActiveElement } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { computed, ref, useId } from 'vue';
 
 import EthLabel from './EthLabel.vue';
 
@@ -46,7 +46,7 @@ const activeElement = useActiveElement();
 
 const el = ref<HTMLInputElement | null>(null);
 
-const id = computed(() => `input-${Math.random().toString().substring(2)}`);
+const id = useId();
 const isActive = computed(() => activeElement.value === el.value);
 
 function focus(): void {

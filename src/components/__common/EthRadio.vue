@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { RadioGroup } from 'radix-vue/namespaced';
-import { computed } from 'vue';
+import { computed, useId } from 'vue';
 
 import EthLabel from './EthLabel.vue';
 
@@ -46,7 +46,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
 }>();
 
-const id = computed(() => `select-${Math.random().toString().substring(2)}`);
+const id = useId();
 
 const selectedOption = computed<Option>(() => {
   return options.find((option) => option.value === modelValue) as Option;
