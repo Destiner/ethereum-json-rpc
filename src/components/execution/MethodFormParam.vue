@@ -92,7 +92,7 @@ function handleUpdate(newInput: unknown): void {
 
 function handleArrayUpdate(index: number, value: unknown): void {
   const arrayParam = param as ArrayParam;
-  const arrayInput = input as unknown[];
+  const arrayInput = input.value as unknown[];
   const inputValue = value as string | boolean;
   const newInput = [...arrayInput];
   if (index === arrayInput.length - 1) {
