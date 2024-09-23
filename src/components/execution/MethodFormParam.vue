@@ -64,13 +64,15 @@ import EthToggle from '@/components/__common/EthToggle.vue';
 import { ArrayParam, Param, getArrayParamItem } from '@/utils/methods';
 import { validateParam } from '@/utils/validation';
 
-const { param, input } = defineProps<{
+const input = defineModel<unknown>('input', {
+  required: true,
+});
+
+const { param } = defineProps<{
   param: Param;
-  input: unknown;
 }>();
 
 const emit = defineEmits<{
-  'update:input': [value: unknown];
   blur: [];
 }>();
 
@@ -84,8 +86,8 @@ function isParamRequired(param: Param): boolean {
   return param.isRequired;
 }
 
-function handleUpdate(input: unknown): void {
-  emit('update:input', input);
+function handleUpdate(newInput: unknown): void {
+  input.value = newInput;
 }
 
 function handleArrayUpdate(index: number, value: unknown): void {
@@ -104,12 +106,12 @@ function handleArrayUpdate(index: number, value: unknown): void {
     }
   }
   newInput[index] = value;
-  emit('update:input', newInput);
+  input.value = newInput;
 }
 
 function handleArrayBlur(index: number): void {
   const arrayParam = param as ArrayParam;
-  const arrayInput = input as (string | boolean)[];
+  const arrayInput = input.value as (string | boolean)[];
   const inputValue = arrayInput[index];
   // Always keep the first element
   if (index === 0) {
@@ -132,13 +134,13 @@ function handleArrayBlur(index: number): void {
   }
   // Remove the last element from the list
   const newInput = arrayInput.slice(0, arrayInput.length - 1);
-  emit('update:input', newInput);
+  input.value = newInput;
 }
 
 function handleObjectUpdate(key: string, value: unknown): void {
-  const newInput = { ...(input as Record<string, unknown>) };
+  const newInput = { ...(input.value as Record<string, unknown>) };
   newInput[key] = value;
-  emit('update:input', newInput);
+  input.value = newInput;
 }
 
 function handleBlur(): void {

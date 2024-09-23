@@ -16,24 +16,17 @@
 import { formatProviderFeature } from '@/utils/formatters';
 import { FEATURES, Feature } from '@/utils/providers';
 
-const { modelValue } = defineProps<{
-  modelValue: Feature[];
-}>();
-
-const emit = defineEmits<{
-  'update:modelValue': [features: Feature[]];
-}>();
+const modelValue = defineModel<Feature[]>('modelValue', {
+  required: true,
+});
 
 function handleItemClick(feature: Feature): void {
-  const selectedValues = modelValue;
+  const selectedValues = modelValue.value;
   if (selectedValues.includes(feature)) {
-    emit(
-      'update:modelValue',
-      selectedValues.filter((item) => item !== feature),
-    );
+    modelValue.value = selectedValues.filter((item) => item !== feature);
     return;
   }
-  emit('update:modelValue', [...selectedValues, feature]);
+  modelValue.value = [...selectedValues, feature];
 }
 </script>
 

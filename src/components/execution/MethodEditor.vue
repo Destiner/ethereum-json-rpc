@@ -29,19 +29,18 @@ import { Method } from '@/utils/methods';
 
 import MethodForm from './MethodForm.vue';
 
+const inputs = defineModel<unknown[]>('inputs', {
+  required: true,
+});
+
 const { method } = defineProps<{
   method: Method;
-  inputs: unknown[];
-}>();
-
-const emit = defineEmits<{
-  'update:inputs': [value: unknown[]];
 }>();
 
 const hasParams = computed(() => method.params.length > 0);
 
 function handleUpdate(value: unknown[]): void {
-  emit('update:inputs', value);
+  inputs.value = value;
 }
 </script>
 

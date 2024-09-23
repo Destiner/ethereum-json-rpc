@@ -77,16 +77,13 @@ interface Error {
   version: string;
 }
 
-const { inputs, method, isShown, isError } = defineProps<{
+const isShown = defineModel<boolean>('isShown');
+
+const isError = defineModel<boolean>('isError');
+
+const { inputs, method } = defineProps<{
   inputs: unknown[];
   method: Method;
-  isShown: boolean;
-  isError: boolean;
-}>();
-
-const emit = defineEmits<{
-  'update:is-shown': [value: boolean];
-  'update:is-error': [value: boolean];
 }>();
 
 const { cmd_enter } = useMagicKeys();
@@ -207,7 +204,7 @@ const request = computed(() =>
 );
 
 async function execute(): Promise<void> {
-  emit('update:is-error', false);
+  isError.value = false;
   isLoading.value = true;
   try {
     result.value = await client.value.request({
@@ -230,9 +227,9 @@ async function execute(): Promise<void> {
       null,
       4,
     );
-    emit('update:is-error', true);
+    isError.value = true;
   }
-  emit('update:is-shown', true);
+  isShown.value = true;
   isLoading.value = false;
 }
 
@@ -244,9 +241,9 @@ watch(cmd_enter, (pressed) => {
 
 const result = ref('');
 const response = computed(() => {
-  return isLoading.value || !isShown
+  return isLoading.value || !isShown.value
     ? ''
-    : isError
+    : isError.value
       ? result.value
       : JSON.stringify(
           {

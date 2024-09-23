@@ -15,16 +15,10 @@
 <script setup lang="ts">
 import { Switch } from 'radix-vue/namespaced';
 
-defineProps<{
-  modelValue: boolean;
-}>();
-
-const emit = defineEmits<{
-  'update:modelValue': [value: boolean];
-}>();
+const modelValue = defineModel<boolean>('modelValue');
 
 function handleUpdate(value: boolean): void {
-  emit('update:modelValue', value);
+  modelValue.value = value;
 }
 </script>
 

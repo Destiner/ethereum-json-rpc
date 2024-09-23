@@ -27,8 +27,9 @@ import { computed, useId, useTemplateRef } from 'vue';
 
 import EthLabel from './EthLabel.vue';
 
+const modelValue = defineModel<string>('modelValue');
+
 const { label = '', placeholder = '' } = defineProps<{
-  modelValue: string;
   hasError?: boolean;
   required?: boolean;
   disabled?: boolean;
@@ -37,7 +38,6 @@ const { label = '', placeholder = '' } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string];
   input: [value: string];
   blur: [];
 }>();
@@ -57,7 +57,7 @@ function focus(): void {
 
 function handleInput(event: Event): void {
   const value = (event.target as HTMLInputElement).value;
-  emit('update:modelValue', value);
+  modelValue.value = value;
   emit('input', value);
 }
 
