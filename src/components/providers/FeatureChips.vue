@@ -16,7 +16,7 @@
 import { formatProviderFeature } from '@/utils/formatters';
 import { FEATURES, Feature } from '@/utils/providers';
 
-const props = defineProps<{
+const { modelValue } = defineProps<{
   modelValue: Feature[];
 }>();
 
@@ -25,7 +25,7 @@ const emit = defineEmits<{
 }>();
 
 function handleItemClick(feature: Feature): void {
-  const selectedValues = props.modelValue;
+  const selectedValues = modelValue;
   if (selectedValues.includes(feature)) {
     emit(
       'update:modelValue',

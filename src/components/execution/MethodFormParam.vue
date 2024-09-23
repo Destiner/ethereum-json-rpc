@@ -64,7 +64,7 @@ import EthToggle from '@/components/__common/EthToggle.vue';
 import { ArrayParam, Param, getArrayParamItem } from '@/utils/methods';
 import { validateParam } from '@/utils/validation';
 
-const props = defineProps<{
+const { param, input } = defineProps<{
   param: Param;
   input: unknown;
 }>();
@@ -89,8 +89,8 @@ function handleUpdate(input: unknown): void {
 }
 
 function handleArrayUpdate(index: number, value: unknown): void {
-  const arrayParam = props.param as ArrayParam;
-  const arrayInput = props.input as unknown[];
+  const arrayParam = param as ArrayParam;
+  const arrayInput = input as unknown[];
   const inputValue = value as string | boolean;
   const newInput = [...arrayInput];
   if (index === arrayInput.length - 1) {
@@ -108,8 +108,8 @@ function handleArrayUpdate(index: number, value: unknown): void {
 }
 
 function handleArrayBlur(index: number): void {
-  const arrayParam = props.param as ArrayParam;
-  const arrayInput = props.input as (string | boolean)[];
+  const arrayParam = param as ArrayParam;
+  const arrayInput = input as (string | boolean)[];
   const inputValue = arrayInput[index];
   // Always keep the first element
   if (index === 0) {
@@ -136,7 +136,7 @@ function handleArrayBlur(index: number): void {
 }
 
 function handleObjectUpdate(key: string, value: unknown): void {
-  const newInput = { ...(props.input as Record<string, unknown>) };
+  const newInput = { ...(input as Record<string, unknown>) };
   newInput[key] = value;
   emit('update:input', newInput);
 }

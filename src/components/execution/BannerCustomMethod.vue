@@ -7,12 +7,12 @@ import { computed } from 'vue';
 
 import { MethodGroup } from '@/utils/methods';
 
-const props = defineProps<{
+const { type } = defineProps<{
   type: MethodGroup;
 }>();
 
 const text = computed(() => {
-  switch (props.type) {
+  switch (type) {
     case 'reading':
     case 'writing':
       return '';

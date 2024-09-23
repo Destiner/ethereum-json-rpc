@@ -33,7 +33,7 @@ import EthInput from '@/components/__common/EthInput.vue';
 import useMethods from '@/composables/useMethods';
 import { Method } from '@/utils/methods';
 
-const props = defineProps<{
+const { selected } = defineProps<{
   selected: Method;
 }>();
 
@@ -64,7 +64,7 @@ watch(cmd_slash, (pressed) => {
 
 function handleUp(): void {
   const methodIndex = availableMethods.value.findIndex(
-    (method) => method.id === props.selected.id,
+    (method) => method.id === selected.id,
   );
   const newMethodIndex = Math.max(methodIndex - 1, 0);
   emit('select', availableMethods.value[newMethodIndex]);
@@ -72,7 +72,7 @@ function handleUp(): void {
 
 function handleDown(): void {
   const methodIndex = availableMethods.value.findIndex(
-    (method) => method.id === props.selected.id,
+    (method) => method.id === selected.id,
   );
   const newMethodIndex = Math.min(
     methodIndex + 1,
@@ -133,7 +133,7 @@ const inputTipLabel = computed(() => {
 @media (width >= 768px) {
   .list {
     gap: var(--spacing-tiny);
-    overflow: auto auto;
+    overflow: auto;
   }
 }
 

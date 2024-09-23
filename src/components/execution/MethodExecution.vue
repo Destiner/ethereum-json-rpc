@@ -77,7 +77,7 @@ interface Error {
   version: string;
 }
 
-const props = defineProps<{
+const { inputs, method, isShown, isError } = defineProps<{
   inputs: unknown[];
   method: Method;
   isShown: boolean;
@@ -155,16 +155,16 @@ function handleTargetLibraryUpdate(library: string): void {
 const isLoading = ref(false);
 
 const isValid = computed(() => {
-  const isParamValid = validateParams(props.method.params, props.inputs);
+  const isParamValid = validateParams(method.params, inputs);
   return isParamValid.every((isValid) => isValid);
 });
 
 const formattedInputs = computed(() => {
-  const convertedInputs = props.inputs.map((input, index) =>
-    formatInput(props.method.params[index], input),
+  const convertedInputs = inputs.map((input, index) =>
+    formatInput(method.params[index], input),
   );
-  return props.method?.formatter
-    ? props.method?.formatter(convertedInputs)
+  return method?.formatter
+    ? method?.formatter(convertedInputs)
     : convertedInputs;
 });
 
@@ -201,7 +201,7 @@ const request = computed(() =>
   getRequest(
     targetLanguage.value,
     targetLibrary.value,
-    props.method.id,
+    method.id,
     formattedInputs.value,
   ),
 );
@@ -213,7 +213,7 @@ async function execute(): Promise<void> {
     result.value = await client.value.request({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      method: props.method.id,
+      method: method.id,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       params: formattedInputs.value,
@@ -244,9 +244,9 @@ watch(cmd_enter, (pressed) => {
 
 const result = ref('');
 const response = computed(() => {
-  return isLoading.value || !props.isShown
+  return isLoading.value || !isShown
     ? ''
-    : props.isError
+    : isError
       ? result.value
       : JSON.stringify(
           {

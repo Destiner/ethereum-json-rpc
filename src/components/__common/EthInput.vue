@@ -27,20 +27,14 @@ import { computed, ref } from 'vue';
 
 import EthLabel from './EthLabel.vue';
 
-withDefaults(
-  defineProps<{
-    modelValue: string;
-    hasError?: boolean;
-    required?: boolean;
-    disabled?: boolean;
-    label?: string;
-    placeholder?: string;
-  }>(),
-  {
-    label: '',
-    placeholder: '',
-  },
-);
+const { label = '', placeholder = '' } = defineProps<{
+  modelValue: string;
+  hasError?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  label?: string;
+  placeholder?: string;
+}>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;

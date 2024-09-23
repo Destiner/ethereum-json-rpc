@@ -55,14 +55,13 @@ import {
   getProviderName,
 } from '@/utils/providers';
 
-const props = defineProps<{
+const { providerData } = defineProps<{
   provider: Provider;
   providerData: ProviderChainData | null;
   chain: Chain;
 }>();
 
 const supportedFeatures = computed(() => {
-  const providerData = props.providerData;
   if (!providerData) {
     return [];
   }
@@ -78,7 +77,6 @@ const supportedFeatures = computed(() => {
 });
 
 const supportedMethodGroups = computed(() => {
-  const providerData = props.providerData;
   if (!providerData) {
     return [];
   }

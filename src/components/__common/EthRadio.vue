@@ -35,7 +35,7 @@ import { computed } from 'vue';
 
 import EthLabel from './EthLabel.vue';
 
-const props = defineProps<{
+const { modelValue, options } = defineProps<{
   modelValue: string;
   options: Option[];
   disabled?: boolean;
@@ -49,9 +49,7 @@ const emit = defineEmits<{
 const id = computed(() => `select-${Math.random().toString().substring(2)}`);
 
 const selectedOption = computed<Option>(() => {
-  return props.options.find(
-    (option) => option.value === props.modelValue,
-  ) as Option;
+  return options.find((option) => option.value === modelValue) as Option;
 });
 
 function handleUpdate(value: string): void {

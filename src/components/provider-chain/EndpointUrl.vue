@@ -26,7 +26,7 @@ import EthLabel from '@/components/__common/EthLabel.vue';
 import IconClipboard from '@/components/__common/icon/Clipboard.vue';
 import IconSuccess from '@/components/__common/icon/Success.vue';
 
-const props = defineProps<{
+const { endpoint } = defineProps<{
   endpoint: string;
 }>();
 
@@ -37,7 +37,7 @@ onMounted(() => {
 const { ready, start, stop } = useTimeout(2000, { controls: true });
 
 function copy(): void {
-  navigator.clipboard.writeText(props.endpoint);
+  navigator.clipboard.writeText(endpoint);
   start();
 }
 </script>

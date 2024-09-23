@@ -34,22 +34,22 @@ import IconSuccess from '@/components/__common/icon/Success.vue';
 import { formatProviderFeature } from '@/utils/formatters';
 import { Feature, Features } from '@/utils/providers';
 
-const props = defineProps<{
+const { features } = defineProps<{
   features: Features;
 }>();
 
 const supportedFeatures = computed<Partial<Features>>(() => {
   // Filter out non-supported features and sort by support type
   const supportedFeatures: Partial<Features> = {};
-  for (const featureKey in props.features) {
+  for (const featureKey in features) {
     const feature = featureKey as Feature;
-    if (props.features[feature] === 'supported') {
+    if (features[feature] === 'supported') {
       supportedFeatures[feature] = 'supported';
     }
   }
-  for (const featureKey in props.features) {
+  for (const featureKey in features) {
     const feature = featureKey as Feature;
-    if (props.features[feature] === 'unknown') {
+    if (features[feature] === 'unknown') {
       supportedFeatures[feature] = 'unknown';
     }
   }

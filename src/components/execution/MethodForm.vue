@@ -15,7 +15,7 @@ import { Param } from '@/utils/methods';
 
 import MethodFormParam from './MethodFormParam.vue';
 
-const props = defineProps<{
+const { inputs } = defineProps<{
   params: Param[];
   inputs: unknown[];
 }>();
@@ -25,7 +25,7 @@ const emit = defineEmits<{
 }>();
 
 function handleUpdate(index: number, value: unknown): void {
-  const newInputs = [...props.inputs];
+  const newInputs = [...inputs];
   newInputs[index] = value;
   emit('update:inputs', newInputs);
 }
