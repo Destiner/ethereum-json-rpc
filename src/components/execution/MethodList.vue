@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { useMagicKeys } from '@vueuse/core';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, useTemplateRef, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
 import useMethods from '@/composables/useMethods';
@@ -44,7 +44,7 @@ const emit = defineEmits<{
 const { cmd_slash } = useMagicKeys();
 const { methods } = useMethods();
 
-const inputEl = ref<InstanceType<typeof EthInput> | null>(null);
+const inputEl = useTemplateRef<InstanceType<typeof EthInput>>('inputEl');
 
 const methodQuery = ref('');
 

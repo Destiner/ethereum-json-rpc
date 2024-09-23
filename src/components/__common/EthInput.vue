@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { useActiveElement } from '@vueuse/core';
-import { computed, ref, useId } from 'vue';
+import { computed, useId, useTemplateRef } from 'vue';
 
 import EthLabel from './EthLabel.vue';
 
@@ -44,7 +44,7 @@ const emit = defineEmits<{
 
 const activeElement = useActiveElement();
 
-const el = ref<HTMLInputElement | null>(null);
+const el = useTemplateRef('el');
 
 const id = useId();
 const isActive = computed(() => activeElement.value === el.value);

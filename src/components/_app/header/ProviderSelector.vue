@@ -101,7 +101,7 @@
 <script setup lang="ts">
 import { useElementVisibility, useIntervalFn } from '@vueuse/core';
 import { Popover } from 'radix-vue/namespaced';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
 import EthSelect, { Option } from '@/components/__common/EthSelect.vue';
@@ -133,7 +133,7 @@ const label = computed(() =>
   getChainName(providerChain.value || UNKNOWN_CHAIN),
 );
 
-const el = ref<HTMLElement | null>(null);
+const el = useTemplateRef('el');
 const isVisible = useElementVisibility(el);
 
 const { options, client, chain: providerChain, url: providerUrl } = useChain();
