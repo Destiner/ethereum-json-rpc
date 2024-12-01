@@ -2,6 +2,6 @@ dist/
 node_modules/
 .env
 .DS_Store
-*package.json
-*bun.lockb
+package.json
+bun.lockb
 
