@@ -171,7 +171,7 @@ main {
   flex-direction: column;
   max-height: 220px;
   padding: 8px;
-  overflow: auto auto;
+  overflow: auto;
 }
 
 @media (width >= 768px) {
