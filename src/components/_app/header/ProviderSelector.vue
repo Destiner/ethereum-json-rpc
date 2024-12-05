@@ -104,14 +104,14 @@ import { Popover } from 'radix-vue/namespaced';
 import { computed, onMounted, ref, useTemplateRef, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';
-import EthSelect, { Option } from '@/components/__common/EthSelect.vue';
+import EthSelect, { type Option } from '@/components/__common/EthSelect.vue';
 import useChain, {
   ALCHEMY,
   ANKR,
   REFERENCE_CHAINS,
   INFURA,
-  Preset as PresetType,
-  ReferenceChain,
+  type Preset as PresetType,
+  type ReferenceChain,
 } from '@/composables/useChain';
 import {
   ETHEREUM,
@@ -134,6 +134,8 @@ const label = computed(() =>
 );
 
 const el = useTemplateRef('el');
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 const isVisible = useElementVisibility(el);
 
 const { options, client, chain: providerChain, url: providerUrl } = useChain();

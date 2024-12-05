@@ -1,9 +1,8 @@
-import { useStorage } from '@vueuse/core';
-import { Ref } from 'vue';
+import { type RemovableRef, useStorage } from '@vueuse/core';
 
 import {
-  Language,
-  Library,
+  type Language,
+  type Library,
   LANGUAGE_JSON,
   LIBRARY_VANILLA,
 } from '@/utils/targets';
@@ -14,7 +13,7 @@ interface Target {
 }
 
 interface UseTarget {
-  target: Ref<Target>;
+  target: RemovableRef<Target>;
 }
 
 const STORAGE_KEY_TARGET = 'target';

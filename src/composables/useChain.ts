@@ -1,6 +1,6 @@
-import { useStorage } from '@vueuse/core';
-import { PublicClient, createPublicClient, http } from 'viem';
-import { Ref, computed, onMounted, ref, watch } from 'vue';
+import { type RemovableRef, useStorage } from '@vueuse/core';
+import { type PublicClient, createPublicClient, http } from 'viem';
+import { type Ref, computed, onMounted, ref, watch } from 'vue';
 
 import {
   ARBITRUM,
@@ -47,7 +47,7 @@ const DEFAULT_OPTIONS: Options = {
 
 interface UseChain {
   client: Ref<PublicClient>;
-  options: Ref<Options>;
+  options: RemovableRef<Options>;
   url: Ref<string>;
   chain: Ref<ReferenceChain | null>;
 }
@@ -103,10 +103,10 @@ function getUrlByOptions(options: Options): string {
   const chainData = getChainData(options.chain);
   const key = options.key === '' ? undefined : options.key;
   if (options.preset === 'alchemy') {
-    return chainData.rpcUrls.alchemy.http[0] + `/${key}`;
+    return `${chainData.rpcUrls.alchemy.http[0]}/${key}`;
   }
   if (options.preset === 'infura') {
-    return chainData.rpcUrls.infura.http[0] + `/${key}`;
+    return `${chainData.rpcUrls.infura.http[0]}/${key}`;
   }
   if (options.preset === 'ankr') {
     switch (options.chain) {
@@ -129,5 +129,5 @@ function getChain(chainId: number): ReferenceChain | null {
 }
 
 export default useChain;
-export { ALCHEMY, ANKR, REFERENCE_CHAINS, INFURA, ReferenceChain };
-export type { Preset, PresetProviderOptions };
+export { ALCHEMY, ANKR, REFERENCE_CHAINS, INFURA };
+export type { Preset, PresetProviderOptions, ReferenceChain };

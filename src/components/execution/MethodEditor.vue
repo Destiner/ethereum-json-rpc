@@ -25,7 +25,7 @@
 import { computed } from 'vue';
 
 import BannerCustomMethod from '@/components/execution/BannerCustomMethod.vue';
-import { Method } from '@/utils/methods';
+import type { Method } from '@/utils/methods';
 
 import MethodForm from './MethodForm.vue';
 
