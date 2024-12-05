@@ -31,7 +31,7 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.20",
     "@unhead/vue": "^1.10.4",
-    "@vueuse/core": "^11.0.3",
+    "@vueuse/core": "^12.0.0",
     "evm-providers": "^0.4.6",
     "radix-vue": "^1.9.5",
     "viem": "^2.21.3",
