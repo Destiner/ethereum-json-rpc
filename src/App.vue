@@ -46,8 +46,8 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
   --font-size-normal: 14px;
   --font-size-big: 16px;
   --font-size-extra-large: 36px;
-  --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir,
-    segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
+  --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next,
+    avenir, segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
     sans-serif;
   --font-serif: 'Iowan Old Style', 'Apple Garamond', 'Baskerville',
     'Times New Roman', 'Droid Serif', 'Times', 'Source Serif Pro', serif,
