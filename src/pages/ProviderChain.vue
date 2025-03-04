@@ -109,7 +109,10 @@ const chainOptions = computed(() => {
 });
 
 const chainId = computed(() => getChainId(chain.value));
-function handleChainUpdate(value: string): void {
+function handleChainUpdate(value: string | undefined): void {
+  if (!value) {
+    return;
+  }
   router.push({
     name: 'provider-chain',
     params: {

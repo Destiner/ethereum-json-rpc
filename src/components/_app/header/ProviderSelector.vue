@@ -259,7 +259,10 @@ const readableChainOptions = getChainOptions([
   UNKNOWN_CHAIN,
 ]);
 
-function handleChainUpdate(chainName: string): void {
+function handleChainUpdate(chainName: string | undefined): void {
+  if (!chainName) {
+    return;
+  }
   chain.value = getChainIdByTag(chainName as ChainTag);
   updateOptions();
 }

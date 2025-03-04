@@ -106,7 +106,10 @@ const targetLanguages: Option[] = [
   },
 ];
 
-function handleTargetLanguageUpdate(language: string): void {
+function handleTargetLanguageUpdate(language: string | undefined): void {
+  if (!language) {
+    return;
+  }
   const targetLanguage = language as TargetLanguage;
   const library = getTargetLibraryOptions(targetLanguage)[0]
     .value as TargetLibrary;
@@ -142,7 +145,10 @@ function getTargetLibraryOptions(language: TargetLanguage): Option[] {
   }
 }
 
-function handleTargetLibraryUpdate(library: string): void {
+function handleTargetLibraryUpdate(library: string | undefined): void {
+  if (!library) {
+    return;
+  }
   target.value = {
     language: target.value.language,
     library: library as TargetLibrary,
