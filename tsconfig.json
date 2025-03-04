@@ -22,6 +22,8 @@
     "moduleResolution": "Bundler",
     "module": "preserve",
     "noEmit": true,
+    /* Erasable syntax */
+    "erasableSyntaxOnly": true,
     /* Browser-specific */
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     /* Imports */
