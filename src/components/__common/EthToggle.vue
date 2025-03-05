@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { Switch } from 'radix-vue/namespaced';
+import { Switch } from 'reka-ui/namespaced';
 
 const modelValue = defineModel<boolean>('modelValue');
 

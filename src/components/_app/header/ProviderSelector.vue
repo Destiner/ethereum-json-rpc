@@ -100,7 +100,7 @@
 
 <script setup lang="ts">
 import { useElementVisibility, useIntervalFn } from '@vueuse/core';
-import { Popover } from 'radix-vue/namespaced';
+import { Popover } from 'reka-ui/namespaced';
 import { computed, onMounted, ref, useTemplateRef, watch } from 'vue';
 
 import EthInput from '@/components/__common/EthInput.vue';

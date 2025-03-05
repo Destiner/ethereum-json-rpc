@@ -49,7 +49,8 @@
 </template>
 
 <script setup lang="ts">
-import { Select } from 'radix-vue/namespaced';
+import type { AcceptableValue } from 'reka-ui';
+import { Select } from 'reka-ui/namespaced';
 import { computed, useId } from 'vue';
 
 import IconChevronDown from '@/components/__common/icon/ChevronDown.vue';
@@ -70,8 +71,12 @@ const selectedOption = computed<Option>(
   () => options.find((option) => option.value === modelValue.value) as Option,
 );
 
-function handleUpdate(value: string): void {
-  modelValue.value = value;
+function handleUpdate(value: AcceptableValue): void {
+  if (typeof value === 'string') {
+    modelValue.value = value;
+  } else {
+    modelValue.value = undefined;
+  }
 }
 </script>
 

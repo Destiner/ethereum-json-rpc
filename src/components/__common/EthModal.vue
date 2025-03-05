@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { Dialog } from 'radix-vue/namespaced';
+import { Dialog } from 'reka-ui/namespaced';
 
 import IconCross from './icon/Cross.vue';
 

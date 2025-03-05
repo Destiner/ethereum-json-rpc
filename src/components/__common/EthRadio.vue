@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { RadioGroup } from 'radix-vue/namespaced';
+import { RadioGroup } from 'reka-ui/namespaced';
 import { computed, useId } from 'vue';
 
 import EthLabel from './EthLabel.vue';
