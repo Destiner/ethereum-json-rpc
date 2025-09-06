@@ -30,7 +30,7 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
   --color-error: #ff4d45;
   --color-success: #23cdb1;
   --shadow-small: rgb(0 0 0 / 10%) 0 1px 1px 0;
-  --shadow-small-inset: rgba(0 0 0 / 5%) 0 1px 1px 0 inset;
+  --shadow-small-inset: rgb(0 0 0 / 5%) 0 1px 1px 0 inset;
   --shadow-medium: rgb(0 0 0 / 20%) 0 2px 4px 0;
   --shadow-medium-inset: rgb(0 0 0 / 10%) 0 2px 2px 0 inset;
   --spacing-tiny: 2px;
@@ -46,14 +46,16 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
   --font-size-normal: 14px;
   --font-size-big: 16px;
   --font-size-extra-large: 36px;
-  --font-sans: 'Inter', -apple-system, 'BlinkMacSystemFont', avenir next,
-    avenir, segoe ui, helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial,
-    sans-serif;
-  --font-serif: 'Iowan Old Style', 'Apple Garamond', 'Baskerville',
-    'Times New Roman', 'Droid Serif', 'Times', 'Source Serif Pro', serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  --font-mono: 'Menlo', 'Consolas', 'Monaco', 'Liberation Mono',
-    'Lucida Console', monospace;
+  --font-sans:
+    'Inter', -apple-system, 'BlinkMacSystemFont', avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, 'Ubuntu', roboto, noto, arial, sans-serif;
+  --font-serif:
+    'Iowan Old Style', 'Apple Garamond', 'Baskerville', 'Times New Roman',
+    'Droid Serif', 'Times', 'Source Serif Pro', serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-mono:
+    'Menlo', 'Consolas', 'Monaco', 'Liberation Mono', 'Lucida Console',
+    monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -74,7 +76,7 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
     --color-error: #992e29;
     --color-success: #299986;
     --shadow-small: rgb(0 0 0 / 15%) 0 1px 1px 0;
-    --shadow-small-inset: rgba(0 0 0 / 10%) 0 1px 1px 0 inset;
+    --shadow-small-inset: rgb(0 0 0 / 10%) 0 1px 1px 0 inset;
     --shadow-medium: rgb(0 0 0 / 30%) 0 2px 4px 0;
     --shadow-medium-inset: rgb(0 0 0 / 20%) 0 2px 2px 0 inset;
   }
