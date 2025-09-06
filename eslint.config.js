@@ -15,6 +15,13 @@ export default [
       parser: tsParser,
       ecmaVersion: 2020,
       sourceType: 'module',
+      globals: {
+        navigator: 'readonly',
+        Navigator: 'readonly',
+        Event: 'readonly',
+        InputEvent: 'readonly',
+        HTMLInputElement: 'readonly',
+      },
     },
     rules: {
       'import-x/first': 'error',

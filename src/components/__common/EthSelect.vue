@@ -59,7 +59,7 @@ import EthLabel from './EthLabel.vue';
 
 const modelValue = defineModel<string>('modelValue');
 
-const { options } = defineProps<{
+const { options, label = '' } = defineProps<{
   options: Option[];
   disabled?: boolean;
   label?: string;
