@@ -16,7 +16,6 @@ import {
   alchemy,
   ankr,
   blast,
-  // chainstack,
   cloudflare,
   drpc,
   // gatewayFm,
@@ -96,6 +95,7 @@ import {
   ALCHEMY,
   ANKR,
   BLAST_API,
+  CHAINSTACK,
   CLOUDFLARE,
   DRPC,
   INFURA,
@@ -104,6 +104,7 @@ import {
   PUBLIC_NODE,
   QUICK_NODE,
   TENDERLY,
+  CHAINSTACK_ENDPOINT_SLUGS,
   Provider,
 } from '@/utils/providers';
 
@@ -114,6 +115,9 @@ const blastProjectId = process.env.BLAST_PROJECT_ID as string;
 const tenderlyAccessKey = process.env.TENDERLY_ACCESS_KEY as string;
 const quicknodeAppName = process.env.QUICKNODE_APP_NAME as string;
 const quicknodeAppKey = process.env.QUICKNODE_APP_KEY as string;
+const chainstackAccessKey = process.env.CHAINSTACK_ACCESS_KEY as
+  | string
+  | undefined;
 
 type Status = 'supported' | 'unsupported' | 'unknown';
 
@@ -143,8 +147,13 @@ function getProviderRpcUrl(
       return ankr(chain as AnkrChain);
     case BLAST_API:
       return blast(chain as BlastChain, blastProjectId);
-    // case CHAINSTACK:
-    //   return chainstack(chain);
+    case CHAINSTACK: {
+      const slug = CHAINSTACK_ENDPOINT_SLUGS[chain];
+      if (!slug || !chainstackAccessKey) {
+        return undefined;
+      }
+      return `https://${slug}.core.chainstack.com/${chainstackAccessKey}`;
+    }
     case CLOUDFLARE:
       return cloudflare(chain as CloudflareChain);
     case DRPC:
