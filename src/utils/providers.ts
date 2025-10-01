@@ -31,6 +31,7 @@ import { MethodId } from './methods';
 const ALCHEMY = 'alchemy';
 const ANKR = 'ankr';
 const BLAST_API = 'blast';
+const CHAINSTACK = 'chainstack';
 const CLOUDFLARE = 'cloudflare';
 const DRPC = 'drpc';
 const INFURA = 'infura';
@@ -44,6 +45,7 @@ type Provider =
   | typeof ALCHEMY
   | typeof ANKR
   | typeof BLAST_API
+  | typeof CHAINSTACK
   | typeof CLOUDFLARE
   | typeof DRPC
   | typeof INFURA
@@ -57,6 +59,7 @@ const PROVIDERS: Provider[] = [
   ALCHEMY,
   ANKR,
   BLAST_API,
+  CHAINSTACK,
   CLOUDFLARE,
   DRPC,
   INFURA,
@@ -66,6 +69,35 @@ const PROVIDERS: Provider[] = [
   QUICK_NODE,
   TENDERLY,
 ];
+
+const CHAINSTACK_ENDPOINT_SLUGS: Partial<Record<ChainId, string>> = {
+  1: 'ethereum-mainnet',
+  10: 'optimism-mainnet',
+  56: 'bsc-mainnet',
+  97: 'bsc-testnet',
+  100: 'gnosis-mainnet',
+  137: 'polygon-mainnet',
+  250: 'fantom-mainnet',
+  300: 'zksync-sepolia',
+  324: 'zksync-mainnet',
+  43113: 'avalanche-fuji',
+  43114: 'avalanche-mainnet',
+  80002: 'polygon-amoy',
+  8453: 'base-mainnet',
+  84532: 'base-sepolia',
+  10200: 'gnosis-chiado',
+  1101: 'polygon-zkevm-mainnet',
+  11155111: 'ethereum-sepolia',
+  11155420: 'optimism-sepolia',
+  17000: 'ethereum-holesky',
+  42161: 'arbitrum-mainnet',
+  421614: 'arbitrum-sepolia',
+  534351: 'scroll-sepolia',
+  534352: 'scroll-mainnet',
+  59144: 'linea-mainnet',
+  7777777: 'zora-mainnet',
+  4002: 'fantom-testnet',
+};
 
 type SupportStatus = 'supported' | 'unsupported' | 'unknown';
 
@@ -111,6 +143,8 @@ function getProviderName(provider: Provider): string {
       return 'Ankr';
     case BLAST_API:
       return 'Blast';
+    case CHAINSTACK:
+      return 'Chainstack';
     case CLOUDFLARE:
       return 'Cloudflare';
     case DRPC:
@@ -138,6 +172,13 @@ function getEndpoint(provider: Provider, chain: ChainId): string | null {
       return ankr(chain as AnkrChain);
     case BLAST_API:
       return blast(chain as BlastChain, 'PROJECT_ID');
+    case CHAINSTACK: {
+      const slug = CHAINSTACK_ENDPOINT_SLUGS[chain];
+      if (!slug) {
+        return 'https://ideas.chainstack.com/';
+      }
+      return `https://${slug}.core.chainstack.com/ACCESS_KEY`;
+    }
     case CLOUDFLARE:
       return cloudflare(chain as CloudflareChain);
     case DRPC:
@@ -161,6 +202,7 @@ export {
   ALCHEMY,
   ANKR,
   BLAST_API,
+  CHAINSTACK,
   CLOUDFLARE,
   DRPC,
   INFURA,
@@ -171,6 +213,7 @@ export {
   TENDERLY,
   FEATURES,
   PROVIDERS,
+  CHAINSTACK_ENDPOINT_SLUGS,
   getProviderRegistry,
   getProviderName,
   getEndpoint,
