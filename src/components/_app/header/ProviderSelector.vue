@@ -395,9 +395,6 @@ const latestBlock = ref<bigint>(-1n);
   box-shadow: var(--shadow-medium);
   font-size: var(--font-size-big);
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
