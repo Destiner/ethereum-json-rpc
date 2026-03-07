@@ -145,9 +145,6 @@ const inputTipLabel = computed(() => {
   font-size: var(--font-size-big);
   text-overflow: ellipsis;
   white-space: nowrap;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 

@@ -1,7 +1,6 @@
 import {
   AlchemyChain,
   AnkrChain,
-  BlastChain,
   CloudflareChain,
   DrpcChain,
   InfuraChain,
@@ -12,7 +11,6 @@ import {
   TenderlyChain,
   alchemy,
   ankr,
-  blast,
   cloudflare,
   drpc,
   infura,
@@ -30,7 +28,6 @@ import { MethodId } from './methods';
 
 const ALCHEMY = 'alchemy';
 const ANKR = 'ankr';
-const BLAST_API = 'blast';
 const CHAINSTACK = 'chainstack';
 const CLOUDFLARE = 'cloudflare';
 const DRPC = 'drpc';
@@ -44,7 +41,6 @@ const TENDERLY = 'tenderly';
 type Provider =
   | typeof ALCHEMY
   | typeof ANKR
-  | typeof BLAST_API
   | typeof CHAINSTACK
   | typeof CLOUDFLARE
   | typeof DRPC
@@ -58,7 +54,6 @@ type Provider =
 const PROVIDERS: Provider[] = [
   ALCHEMY,
   ANKR,
-  BLAST_API,
   CHAINSTACK,
   CLOUDFLARE,
   DRPC,
@@ -141,8 +136,6 @@ function getProviderName(provider: Provider): string {
       return 'Alchemy';
     case ANKR:
       return 'Ankr';
-    case BLAST_API:
-      return 'Blast';
     case CHAINSTACK:
       return 'Chainstack';
     case CLOUDFLARE:
@@ -170,8 +163,6 @@ function getEndpoint(provider: Provider, chain: ChainId): string | null {
       return alchemy(chain as AlchemyChain, 'API_KEY');
     case ANKR:
       return ankr(chain as AnkrChain);
-    case BLAST_API:
-      return blast(chain as BlastChain, 'PROJECT_ID');
     case CHAINSTACK: {
       const slug = CHAINSTACK_ENDPOINT_SLUGS[chain];
       if (!slug) {
@@ -201,7 +192,6 @@ function getEndpoint(provider: Provider, chain: ChainId): string | null {
 export {
   ALCHEMY,
   ANKR,
-  BLAST_API,
   CHAINSTACK,
   CLOUDFLARE,
   DRPC,

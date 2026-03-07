@@ -4,7 +4,6 @@ import 'dotenv/config';
 import {
   AlchemyChain,
   AnkrChain,
-  BlastChain,
   CloudflareChain,
   DrpcChain,
   InfuraChain,
@@ -15,7 +14,7 @@ import {
   TenderlyChain,
   alchemy,
   ankr,
-  blast,
+  // chainstack,
   cloudflare,
   drpc,
   // gatewayFm,
@@ -94,7 +93,6 @@ import {
   PROVIDERS,
   ALCHEMY,
   ANKR,
-  BLAST_API,
   CHAINSTACK,
   CLOUDFLARE,
   DRPC,
@@ -111,7 +109,6 @@ import {
 const alchemyApiKey = process.env.ALCHEMY_KEY as string;
 const infuraApiKey = process.env.INFURA_KEY as string;
 const llamaNodesProjectId = process.env.LLAMA_NODES_PROJECT_ID as string;
-const blastProjectId = process.env.BLAST_PROJECT_ID as string;
 const tenderlyAccessKey = process.env.TENDERLY_ACCESS_KEY as string;
 const quicknodeAppName = process.env.QUICKNODE_APP_NAME as string;
 const quicknodeAppKey = process.env.QUICKNODE_APP_KEY as string;
@@ -145,8 +142,6 @@ function getProviderRpcUrl(
       return alchemy(chain as AlchemyChain, alchemyApiKey);
     case ANKR:
       return ankr(chain as AnkrChain);
-    case BLAST_API:
-      return blast(chain as BlastChain, blastProjectId);
     case CHAINSTACK: {
       const slug = CHAINSTACK_ENDPOINT_SLUGS[chain];
       if (!slug || !chainstackAccessKey) {
@@ -321,8 +316,9 @@ async function getFeatures(endpointUrl: string): Promise<Features> {
   } catch (e) {
     if (e instanceof TimeoutError) {
       websockets = 'unknown';
+    } else {
+      websockets = 'unsupported';
     }
-    websockets = 'unsupported';
   }
   try {
     await client.getBlockNumber();

@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import type { AcceptableValue } from 'reka-ui';
 import { RadioGroup } from 'reka-ui/namespaced';
 import { computed, useId } from 'vue';
 
@@ -49,8 +50,8 @@ const selectedOption = computed<Option>(() => {
   return options.find((option) => option.value === modelValue.value) as Option;
 });
 
-function handleUpdate(value: string): void {
-  modelValue.value = value;
+function handleUpdate(value: AcceptableValue): void {
+  modelValue.value = value as string;
 }
 </script>
 
@@ -83,7 +84,7 @@ export type { Option };
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   border-width: 0;
   white-space: nowrap;
 }

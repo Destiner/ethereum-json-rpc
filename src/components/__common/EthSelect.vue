@@ -186,9 +186,6 @@ div[data-state='closed'] .pane {
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
