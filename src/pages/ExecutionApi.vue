@@ -152,7 +152,7 @@ main {
   display: flex;
   gap: var(--spacing-normal);
   flex-direction: column;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px - var(--footer-height));
 }
 
 @media (width >= 768px) {

@@ -37,3 +37,7 @@ Make your updates, then:
 6. Serve the contents of the /dist folder with `bun run serve dist`
 	> Navigate to the localhost URL detailed in your terminal
 
+---
+
+Made by [Destiner](https://destiner.io).
+

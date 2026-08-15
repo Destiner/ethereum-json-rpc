@@ -1,12 +1,14 @@
 <template>
   <EthHeader />
   <RouterView />
+  <EthFooter />
 </template>
 
 <script setup lang="ts">
 import '@fontsource-variable/inter';
 import { RouterView } from 'vue-router';
 
+import EthFooter from '@/components/_app/footer/EthFooter.vue';
 import EthHeader from '@/components/_app/header/EthHeader.vue';
 </script>
 
@@ -84,6 +86,7 @@ import EthHeader from '@/components/_app/header/EthHeader.vue';
 
 body {
   --header-height: 58px;
+  --footer-height: 40px;
 
   margin: 0;
   background: var(--color-bg-primary);
