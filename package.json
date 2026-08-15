@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Destiner/ethereum-json-rpc.git"
+    "url": "git+https://github.com/Destiner/ethereum-json-rpc.git"
   },
   "scripts": {
     "generate:providers": "bun src/scripts/fetchProviders.ts",
