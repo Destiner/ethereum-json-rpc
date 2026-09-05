@@ -175,9 +175,7 @@ function getChainIdByTag(tag: ChainTag): ReferenceChain {
 const AUTOMATIC_PROVIDER = 'automatic';
 const CUSTOM_PROVIDER = 'custom';
 type ProviderType =
-  | typeof AUTOMATIC_PROVIDER
-  | typeof CUSTOM_PROVIDER
-  | PresetType;
+  typeof AUTOMATIC_PROVIDER | typeof CUSTOM_PROVIDER | PresetType;
 
 const providerOptions: {
   value: ProviderType;

@@ -113,8 +113,7 @@ const tenderlyAccessKey = process.env.TENDERLY_ACCESS_KEY as string;
 const quicknodeAppName = process.env.QUICKNODE_APP_NAME as string;
 const quicknodeAppKey = process.env.QUICKNODE_APP_KEY as string;
 const chainstackAccessKey = process.env.CHAINSTACK_ACCESS_KEY as
-  | string
-  | undefined;
+  string | undefined;
 
 type Status = 'supported' | 'unsupported' | 'unknown';
 

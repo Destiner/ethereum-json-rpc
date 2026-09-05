@@ -36,9 +36,7 @@ interface PresetProviderOptions {
 }
 
 type Options =
-  | AutomaticProviderOptions
-  | CustomProviderOptions
-  | PresetProviderOptions;
+  AutomaticProviderOptions | CustomProviderOptions | PresetProviderOptions;
 
 const DEFAULT_OPTIONS: Options = {
   type: 'automatic',

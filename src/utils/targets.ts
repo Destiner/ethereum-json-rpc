@@ -57,9 +57,7 @@ const LANGUAGE_JSON = 'json';
 const LANGUAGE_JAVASCRIPT = 'javascript';
 const LANGUAGE_PYTHON = 'python';
 type Language =
-  | typeof LANGUAGE_JSON
-  | typeof LANGUAGE_JAVASCRIPT
-  | typeof LANGUAGE_PYTHON;
+  typeof LANGUAGE_JSON | typeof LANGUAGE_JAVASCRIPT | typeof LANGUAGE_PYTHON;
 
 const LIBRARY_VANILLA = 'vanilla';
 const LIBRARY_ETHERS = 'ethers';
