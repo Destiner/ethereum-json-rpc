@@ -5,6 +5,9 @@
   "compatibility_date": "2026-11-24",
   "workers_dev": true,
   "preview_urls": false,
+  "routes": [
+    { "pattern": "ethereum-json-rpc.com/*", "zone_name": "ethereum-json-rpc.com" }
+  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application"
