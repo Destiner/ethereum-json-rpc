@@ -58,6 +58,17 @@ Make your updates, then:
 6. Serve the contents of the /dist folder with `bun run serve dist`
 	> Navigate to the localhost URL detailed in your terminal
 
+## Deployment
+
+Pushes to `main` build with the frozen Bun lockfile and deploy the contents of
+`dist` to Cloudflare Workers Static Assets. Wrangler serves `index.html` for
+SPA deep links. The build uses the checked-in `src/data/providers.json`;
+`generate:providers` is a separate maintenance script and is not run on deploy.
+
+GitHub Actions uses the `CLOUDFLARE_API_TOKEN` repository secret to upload and
+activate versions. Apply route changes separately with authenticated Wrangler;
+the deployment token does not need zone permissions.
+
 ---
 
 Made by [Destiner](https://destiner.io).
